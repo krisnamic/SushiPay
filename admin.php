@@ -2,9 +2,12 @@
 
 session_start();
 
-    if(isset($_POST["logout"])){
+    if(!isset($_SESSION["admin"])){
+        header("Location: login.php");
+        exit;
+    }
 
-        echo "sadas";
+    if(isset($_POST["logout"])){
         $_SESSION = [];
         session_unset();
         session_destroy();
@@ -23,6 +26,7 @@ session_start();
     <title>Document</title>
 </head>
 <body>
+    <h1>INI HALAMAN USER</h1>
     <form action="" method="POST">
         <button class="button logout" type="submit" name="logout">Log out!</button>
     </form>
