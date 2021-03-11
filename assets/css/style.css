@@ -27,6 +27,13 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Kanit";
 }
 
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid white;
+}
+
 /*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/
@@ -1091,7 +1098,7 @@ section {
 .checkout .checkout-img {
   width: 150px;
   margin-right: 30px;
-  border-radius: 50%;
+  /*border-radius: 50%;*/
   float: left;
   border: 5px solid rgba(255, 255, 255, 0.2);
 }
@@ -1148,6 +1155,10 @@ section {
   color: rgba(255, 255, 255, 0.5);
 }
 
+.btn-checkout {
+  margin-top: 20px;
+}
+
 .btn-checkout a {
   border: 2px solid #cda45e;
   color: #fff;
@@ -1163,6 +1174,15 @@ section {
 .btn-checkout a:hover {
   background: #cda45e;
   color: #fff;
+}
+
+#order-summary {
+  background-color: #11110d;
+  padding: 20px 30px;
+}
+
+.order-summary-title {
+  margin-bottom: 20px;
 }
 
 /*--------------------------------------------------------------
