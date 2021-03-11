@@ -17,36 +17,37 @@ if (isset($_POST["register"])) {
 }
 
 //for signing in
-if (isset($_POST["login"])) {
+if(isset($_POST["login"])){
 
     //fetch username & password from user's input
-    $username = $_POST["username"];
-    $password = $_POST["password"];
+    $username = mysqli_real_escape_string($db,$_POST["username"]);
+    $password = mysqli_real_escape_string($db,$_POST["password"]);
+
 
     //for checking password and username is empty or not
-    if (empty($username) || empty($password)) {
+    if(empty($username) || empty($password)){
         echo "Username/Password harus diisi";
     }
 
     $result = mysqli_query($db, "SELECT * 
-                           FROM users 
-                           WHERE username = '$username'");
+                        FROM account 
+                        WHERE username = '$username'");
 
     //checking user's username in db === user's username input  
-    if (mysqli_num_rows($result) === 1) {
-
+    if(mysqli_num_rows($result) === 1){
+        
         //fetch password from user's input
         $row = mysqli_fetch_assoc($result);
 
         //checking user's password in db === user's password input
-        if (password_verify($password, $row["password"])) {
+        if(password_verify ($password, $row["password"])){
             //set session
             $_SESSION["login"] = true;
             header("Location: index.php");
             exit;
         }
 
-        $error1 = true;
+    $error1 = true;
     }
     $error2 = true;
 }
@@ -67,7 +68,7 @@ if (isset($_POST["login"])) {
         <?php if (isset($error1) || isset($error2)) { ?>
             <p id="err-login">Username/Password is wrong!</p>
         <?php } ?>
-        <form action="" method="post">
+        <form action="" method="post" autocomplete="off">
             <div class="container-items-login">
                 <?php
                 if (isset($flag1)) {
