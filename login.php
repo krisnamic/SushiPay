@@ -17,49 +17,48 @@ if (isset($_POST["register"])) {
 }
 
 //for signing in
-if(isset($_POST["login"])){
+if (isset($_POST["login"])) {
 
     //fetch username & password from user's input
-    $username = mysqli_real_escape_string($db,$_POST["username"]);
-    $password = mysqli_real_escape_string($db,$_POST["password"]);
+    $username = mysqli_real_escape_string($db, $_POST["username"]);
+    $password = mysqli_real_escape_string($db, $_POST["password"]);
 
 
     //for checking password and username is empty or not
-    if(empty($username) || empty($password)){
+    if (empty($username) || empty($password)) {
         echo "Username/Password harus diisi";
     }
 
     $result = mysqli_query($db, "SELECT * 
                         FROM account 
-                        WHERE username = '$username'");
+                        WHERE username = '$username' OR email = '$username'");
 
     //checking user's username in db === user's username input  
-    if(mysqli_num_rows($result) === 1){
-        
+    if (mysqli_num_rows($result) === 1) {
+
         //fetch password from user's input
         $row = mysqli_fetch_assoc($result);
 
         //checking user's password in db === user's password input
-        if(password_verify ($password, $row["password"])){
+        if (password_verify($password, $row["password"])) {
 
             //checking if admin or user
-            if($row['role']=="admin"){
+            if ($row['role'] == "admin") {
                 // create admin session
                 $_SESSION['admin'] = true;
                 header("location:admin.php");
                 exit;
             }
 
-            if($row['role']=="user"){
+            if ($row['role'] == "user") {
                 // create user session
                 $_SESSION['user'] = true;
                 header("location:user.php");
                 exit;
             }
-
         }
 
-    $error1 = true;
+        $error1 = true;
     }
     $error2 = true;
 }
