@@ -46,5 +46,4 @@ function register($data)
     mysqli_query($db, "INSERT INTO account VALUE('','$username','$email','$password','$firstname','$lastname','$birthdate','$gender','user')");
 
     return mysqli_affected_rows($db);
-    // -------------------------------------------------------------------------------------
 }
