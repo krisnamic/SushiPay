@@ -41,10 +41,22 @@ if(isset($_POST["login"])){
 
         //checking user's password in db === user's password input
         if(password_verify ($password, $row["password"])){
-            //set session
-            $_SESSION["login"] = true;
-            header("Location: index.php");
-            exit;
+
+            //checking if admin or user
+            if($row['role']=="admin"){
+                // create admin session
+                $_SESSION['admin'] = true;
+                header("location:admin.php");
+                exit;
+            }
+
+            if($row['role']=="user"){
+                // create user session
+                $_SESSION['user'] = true;
+                header("location:user.php");
+                exit;
+            }
+
         }
 
     $error1 = true;
