@@ -3,7 +3,6 @@
 require 'functions.php';
 
 if (isset($_POST["register"])) {
-
     if (register($_POST) > 0) {
         echo "<script>
                     alert('Registered!');
@@ -13,7 +12,7 @@ if (isset($_POST["register"])) {
     }
 };
 
-if (isset($_POST["backToLogin"])) {
+if (isset($_GET["backToLogin"])) {
     header("Location: login.php");
     exit;
 }
@@ -33,11 +32,11 @@ if (isset($_POST["backToLogin"])) {
 
 <body>
     <div class="container-regist">
-        <form action="" method="post">
+        <form action="" method="post" autocomplete="off">
             <div class="container-items">
                 <div class="box box1">
                     <label for="email">Email :</label>
-                    <input type="text" name="email" id="email" placeholder="Please input email here!" required>
+                    <input type="email" name="email" id="email" placeholder="Please input email here!" required>
                 </div>
                 <div class="box box1">
                     <label for="username">Username :</label>
@@ -52,14 +51,14 @@ if (isset($_POST["backToLogin"])) {
                     <input type="text" name="lastname" id="lastname" placeholder="Please input lastname here!" required>
                 </div>
                 <div class="box box1">
-                    <label for="lastname">Birth Date :</label>
-                    <input type="date" name="lastname" id="lastname" required>
+                    <label for="birthdate">Birth Date :</label>
+                    <input type="date" name="birthdate" id="birthdate" required>
                 </div>
                 <div class="box box1">
                     <label for="gender">Female</label>
-                    <input type="radio" name="gender" id="female" required>
+                    <input type="radio" name="gender" id="female" value="f" required>
                     <label for="gender">Male</label>
-                    <input type="radio" name="gender" id="male" required>
+                    <input type="radio" name="gender" id="male" value="m" required>
                 </div>
                 <div class=" box box2">
                     <label for="password">Password :</label>
@@ -70,10 +69,12 @@ if (isset($_POST["backToLogin"])) {
                     <input type="password" name="password2" id="password2" placeholder="**" required>
                 </div>
                 <div class="box box4">
-                    <button class="button back-register" type="submit" name="backToLogin">Back to login</button>
                     <button class="button signup-register" type="submit" name="register">Sign up!</button>
                 </div>
             </div>
+        </form>
+        <form action="" method="GET">
+            <button class="button back-register" type="submit" name="backToLogin">Back to login</button>
         </form>
     </div>
 </body>
