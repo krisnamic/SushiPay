@@ -175,7 +175,7 @@ if (isset($_POST["login"])) {
               }*/
               if(isset($_POST['login'])) {
                 if (empty($username)) {
-                  echo '<div class="alert alert-danger" role="alert">';
+                  echo '<div class="alert" role="alert">';
                   echo "Username/Email harus diisi";
                   echo '</div>';
                 }
@@ -184,7 +184,7 @@ if (isset($_POST["login"])) {
 
             <div class="box">
               <label for="password">Password : </label>
-              <input type="password" name="password" class="form-control" id="password" placeholder="********">
+              <input type="password" name="password" class="form-control<?php if (empty($password)) { echo ' has-error'} ?>" id="password" placeholder="********">
               <?php
                   /*if (isset($flag2)) {
                       echo "Password harus diisi";
