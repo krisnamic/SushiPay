@@ -1,5 +1,5 @@
 <style>
-  <?php include 'assets/css/styles.css';
+  <?php include 'style.css';
   ?>
 </style>
 <?php
@@ -26,9 +26,9 @@ if (isset($_POST["login"])) {
 
 
     //for checking password and username is empty or not
-    if (empty($username) || empty($password)) {
+    /*if (empty($username) || empty($password)) {
         echo "Username/Password harus diisi";
-    }
+    }*/
 
     $result = mysqli_query($db, "SELECT *
                         FROM account
@@ -134,40 +134,62 @@ if (isset($_POST["login"])) {
 
   <main id="main">
 
-    <div class="container">
-      <?php if (isset($error1) || isset($error2)) { ?>
-      <p id="err-login">Username/Password is wrong!</p>
-      <?php } ?>
-      <form action="" method="post" autocomplete="off">
-        <div class="container-items-login">
-          <?php
-                  if (isset($flag1)) {
-                      echo "Username harus diisi";
-                  }
-                  ?>
+    <section id="login" class="login section-bg">
 
-          <div class="box1">
-            <label for="username">Username/Email :</label>
-            <input type="text" name="username" id="username" placeholder="Please input username here!">
-          </div>
+      <div class="container">
 
-          <div class="box2">
-            <?php
-                if (isset($flag2)) {
-                    echo "Password harus diisi";
-                }
-            ?>
-            <label for="password">Password : </label>
-            <input type="password" name="password" id="password" placeholder="********">
-          </div>
-
-          <div class="box3-login">
-            <button class="button login" type="submit" name="login">Sign in!</button>
-            <button class="button register" type="submit" name="register">Sign up!</button>
-          </div>
+        <div class="section-title-checkout">
+          <h2>Login</h2>
+          <p>Sign In to SushiPay</p>
         </div>
-      </form>
-    </div>
+
+        <?php if (isset($error1) || isset($error2)) { ?>
+        <?php echo '<p id="err-login">Username/Password is wrong!</p>'; ?>
+        <?php } ?>
+
+        <?php
+          if(isset($_POST['login'])) {
+            if (empty($username) || empty($password)) {
+              echo "Username/Password harus diisi";
+            }
+          }
+
+        ?>
+
+        <form action="" method="post" autocomplete="off">
+          <div class="container-items-login">
+            <?php
+                    if (isset($flag1)) {
+                        echo "Username harus diisi";
+                    }
+                    ?>
+
+            <div class="box1">
+              <label for="username">Username/Email :</label>
+              <input type="text" name="username" id="username" placeholder="Please input username here!">
+            </div>
+
+            <div class="box2">
+              <?php
+                  if (isset($flag2)) {
+                      echo "Password harus diisi";
+                  }
+              ?>
+              <label for="password">Password : </label>
+              <input type="password" name="password" id="password" placeholder="********">
+            </div>
+
+            <div class="box3-login">
+              <button class="button login" type="submit" name="login">Sign in!</button>
+              <button class="button register" type="submit" name="register">Sign up!</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </section>
+
+
   </main>
 
   <!-- ======= Footer ======= -->
