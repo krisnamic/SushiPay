@@ -29,11 +29,11 @@ if (isset($_POST["login"])) {
         echo "Username/Password harus diisi";
     }
 
-    $result = mysqli_query($db, "SELECT * 
-                        FROM account 
+    $result = mysqli_query($db, "SELECT *
+                        FROM account
                         WHERE username = '$username' OR email = '$username'");
 
-    //checking user's username in db === user's username input  
+    //checking user's username in db === user's username input
     if (mysqli_num_rows($result) === 1) {
 
         //fetch password from user's input
@@ -106,7 +106,7 @@ if (isset($_POST["login"])) {
                     <button class="button login" type="submit" name="login">Sign in!</button>
                     <button class="button register" type="submit" name="register">Sign up!</button>
                 </div>
-                <div>
+              </div>
         </form>
     </div>
 </body>
