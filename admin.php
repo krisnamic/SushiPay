@@ -17,6 +17,20 @@ if (isset($_POST["logout"])) {
 require "functions.php";
 $query = "SELECT * FROM menu";
 $result = mysqli_query($db, $query);
+
+if (isset($_POST["change"])) {
+    if (edit($_POST) > 0) {
+        echo "<script>
+        alert('task edited successfuly!');
+        document.location.href = 'admin.php';
+    </script>";
+    } else {
+        echo "<script>
+        alert('failed to edit task!');
+        document.location.href = 'admin.php';
+    </script>";
+    }
+}
 // print_r($result["namaMenu"]);
 ?>
 
@@ -42,6 +56,9 @@ $result = mysqli_query($db, $query);
         <button class="button logout" type="submit" name="logout">Log out!</button>
     </form>
     <div class="container">
+        <div class="text-right">
+            <a href="tambahmenu.php" class="btn btn-primary" style="margin-bottom:20px;"><i class="fas fa-plus-circle">&emsp;</i>Tambah Menu</a>
+        </div>
         <table id="example" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <th>Nomor</th>
@@ -53,19 +70,72 @@ $result = mysqli_query($db, $query);
             </thead>
             <tbody>
                 <?php $i = 1;
-                foreach ($result as $res) {
-                    echo "<tr>";
+                foreach ($result as $res) : ?>
+                    <!-- echo "<tr>";
                     echo "<td>" . $i . "</td>";
                     echo "<td>" . $res["namaMenu"] . "</td>";
                     echo "<td>" . $res["hargaMenu"] . "</td>";
                     echo "<td>" . $res["deskripsiMenu"] . "</td>";
-                    // echo "<td>" . $res["gambarMenu"] . "</td>";
                     echo "<td>" . "<img src='./menu_img/" . $res["gambarMenu"] . "' width='150px;'>" . "</td>";
-                    echo "<td style='font-size:15px;'><div><a href='delete.php?id=" . $res["namaMenu"] . "'" . "><span class='glyphicon glyphicon-remove-sign'></span></a></div><a href='edit.php?id=" . $res["namaMenu"] . "'" . "><div class='glyphicon glyphicon-wrench'></div></a></td>";
+                    // echo "<td style='font-size:15px;'><div><a href='delete.php?id=" . $res["namaMenu"] . "'" . "><span class='glyphicon glyphicon-remove-sign'></span></a></div><a href='edit.php?id=" . $res["namaMenu"] . "'" . "><div class='glyphicon glyphicon-wrench'></div></a></td>";
+                    echo "<td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#edit'>" . "<td>";
                     echo "</tr>";
-                    $i++;
-                }
-                ?>
+                    $i++; -->
+                    <tr>
+                        <td><?= $i ?></td>
+                        <td><?= $res["namaMenu"]; ?></td>
+                        <td><?= $res["hargaMenu"]; ?></td>
+                        <td><?= $res["deskripsiMenu"]; ?></td>
+                        <td><img src="./menu_img/<?= $res["gambarMenu"] ?>" width="150px"></td>
+                        <td>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit<?php echo $res['ID_Menu']; ?>">
+                                Edit
+                            </button>
+                            <a href="delete.php?idnote=<?= $res['ID_Menu'] ?>"" onclick=" return confirm('Are you sure?')">Delete</a>
+                        </td>
+                        <!-- blm bner -->
+                        <div class="modal fade" id="edit<?php echo $res['ID_Menu']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true" data-backdrop="false">
+                            <!-- data-backdrop=false biar ilangin screen gelap & g bisa diklik  -->
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel2">Edit Menu</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="" method="post" enctype="multipart/form-data">
+                                            <?php echo $res['ID_Menu']; ?>
+                                            <ul>
+                                                <li>
+                                                    <label for="namaMenu">Nama Menu :</label>
+                                                    <input type="text" name="namaMenu" id="namaMenu" value="<?= $res['namaMenu'] ?>">
+                                                </li>
+                                                <li>
+                                                    <label for="hargaMenu">Harga Menu :</label>
+                                                    <input type="number" name="hargaMenu" id="hargaMenu" value="<?= $res['hargaMenu'] ?>">
+                                                </li>
+                                                <li>
+                                                    <label for="deskripsiMenu">Deskripsi Menu :</label>
+                                                    <textarea name="deskripsiMenu" id="deskripsiMenu" cols="40" rows="5"><?= $res['deskripsiMenu'] ?></textarea>
+                                                </li>
+                                                <li>
+                                                    <label for="gambarMenu">Gambar Menu</label>
+                                                    <input type="file" name="picture" id="picture">
+                                                </li>
+                                                <input type=" hidden" name="ID_Menu" id="ID_Menu" value="<?= $res['ID_Menu'] ?>">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                <button type="submit" class="btn btn-primary" name="change">Confirm Edit</button>
+                                            </ul>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </tr>
+                    <?php $i++; ?>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>
