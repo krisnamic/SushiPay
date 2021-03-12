@@ -31,6 +31,19 @@ if (isset($_POST["change"])) {
     </script>";
     }
 }
+if (isset($_POST['delete'])) {
+    if (delete($_POST) > 0) {
+        echo "<script>
+        alert('menu deleted successfuly!');
+        document.location.href = 'admin.php';
+    </script>";
+    } else {
+        echo "<script>
+        alert('failed to delete task!');
+        document.location.href = 'admin.php';
+    </script>";
+    }
+}
 // print_r($result["namaMenu"]);
 ?>
 
@@ -71,16 +84,6 @@ if (isset($_POST["change"])) {
             <tbody>
                 <?php $i = 1;
                 foreach ($result as $res) : ?>
-                    <!-- echo "<tr>";
-                    echo "<td>" . $i . "</td>";
-                    echo "<td>" . $res["namaMenu"] . "</td>";
-                    echo "<td>" . $res["hargaMenu"] . "</td>";
-                    echo "<td>" . $res["deskripsiMenu"] . "</td>";
-                    echo "<td>" . "<img src='./menu_img/" . $res["gambarMenu"] . "' width='150px;'>" . "</td>";
-                    // echo "<td style='font-size:15px;'><div><a href='delete.php?id=" . $res["namaMenu"] . "'" . "><span class='glyphicon glyphicon-remove-sign'></span></a></div><a href='edit.php?id=" . $res["namaMenu"] . "'" . "><div class='glyphicon glyphicon-wrench'></div></a></td>";
-                    echo "<td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#edit'>" . "<td>";
-                    echo "</tr>";
-                    $i++; -->
                     <tr>
                         <td><?= $i ?></td>
                         <td><?= $res["namaMenu"]; ?></td>
@@ -91,7 +94,9 @@ if (isset($_POST["change"])) {
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit<?php echo $res['ID_Menu']; ?>">
                                 Edit
                             </button>
-                            <a href="delete.php?idnote=<?= $res['ID_Menu'] ?>"" onclick=" return confirm('Are you sure?')">Delete</a>
+                            <form action="" method="post">
+                                <button type="submit" name="delete" id="delete" value="<?= $res['ID_Menu'] ?>">delete</button>
+                            </form>
                         </td>
                         <!-- blm bner -->
                         <div class="modal fade" id="edit<?php echo $res['ID_Menu']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true" data-backdrop="false">

@@ -139,3 +139,12 @@ function edit($data)
     mysqli_query($db, $query);
     return mysqli_affected_rows($db);
 }
+
+function delete($data)
+{
+    global $db;
+    $idMenu = $data["delete"];
+    mysqli_query($db, "DELETE FROM menu WHERE ID_Menu = $idMenu");
+    echo "<script>alert($idMenu);</script>";
+    return mysqli_affected_rows($db);
+}
