@@ -136,50 +136,70 @@ if (isset($_POST["login"])) {
 
     <section id="login" class="login section-bg">
 
-      <div class="container">
+      <div class="container" data-aos="fade-up">
 
         <div class="section-title-checkout">
           <h2>Login</h2>
           <p>Sign In to SushiPay</p>
         </div>
 
-        <?php if (isset($error1) || isset($error2)) { ?>
-        <?php echo '<p id="err-login">Username/Password is wrong!</p>'; ?>
-        <?php } ?>
+        <?php
+          if (isset($error1) || isset($error2)) {
+            echo '<div class="alert alert-danger" role="alert">';
+            echo '<!--<p id="err-login">-->Username/Password is wrong!<!--</p>-->';
+            echo '</div>';
+          }
+        ?>
 
         <?php
-          if(isset($_POST['login'])) {
+          /*if(isset($_POST['login'])) {
             if (empty($username) || empty($password)) {
+              echo '<div class="alert alert-danger" role="alert">';
               echo "Username/Password harus diisi";
+              echo '</div>';
             }
-          }
+          }*/
 
         ?>
 
         <form action="" method="post" autocomplete="off">
           <div class="container-items-login">
-            <?php
-                    if (isset($flag1)) {
-                        echo "Username harus diisi";
-                    }
-                    ?>
-
-            <div class="box1">
+            <div class="box">
               <label for="username">Username/Email :</label>
-              <input type="text" name="username" id="username" placeholder="Please input username here!">
+              <input type="text" name="username" id="username" class="form-control" placeholder="Please input username here!">
             </div>
 
-            <div class="box2">
+            <?php
+              /*if (isset($flag1)) {
+                  echo "Username harus diisi";
+              }*/
+              if(isset($_POST['login'])) {
+                if (empty($username)) {
+                  echo '<div class="alert alert-danger" role="alert">';
+                  echo "Username/Email harus diisi";
+                  echo '</div>';
+                }
+              }
+            ?>
+
+            <div class="box">
+              <label for="password">Password : </label>
+              <input type="password" name="password" class="form-control" id="password" placeholder="********">
               <?php
-                  if (isset($flag2)) {
+                  /*if (isset($flag2)) {
                       echo "Password harus diisi";
+                  }*/
+                  if(isset($_POST['login'])) {
+                    if (empty($password)) {
+                      echo '<div class="alert alert-danger" role="alert">';
+                      echo "Password harus diisi";
+                      echo '</div>';
+                    }
                   }
               ?>
-              <label for="password">Password : </label>
-              <input type="password" name="password" id="password" placeholder="********">
             </div>
 
-            <div class="box3-login">
+            <div class="box-login">
               <button class="button login" type="submit" name="login">Sign in!</button>
               <button class="button register" type="submit" name="register">Sign up!</button>
             </div>
@@ -265,6 +285,22 @@ if (isset($_POST["login"])) {
       </div>
     </div>
   </footer><!-- End Footer -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/venobox/venobox.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
 
 
 </body>
