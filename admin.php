@@ -125,6 +125,7 @@ if (isset($_POST["change"])) {
                                                     <input type="file" name="picture" id="picture">
                                                 </li>
                                                 <input type=" hidden" name="ID_Menu" id="ID_Menu" value="<?= $res['ID_Menu'] ?>">
+                                                <input type="hidden" name="gambarlama" value="<?= $res["gambarMenu"]; ?>">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                                 <button type="submit" class="btn btn-primary" name="change">Confirm Edit</button>
                                             </ul>

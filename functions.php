@@ -123,17 +123,17 @@ function edit($data)
     $name = htmlspecialchars($data["namaMenu"]);
     $description = htmlspecialchars($data["deskripsiMenu"]);
     $price = htmlspecialchars($data["hargaMenu"]);
-    $oldpicture = $data["picture"];
-    if ($_FILES["oldpicture"]['error'] === 4) {
+    $oldpicture = $data["gambarlama"];
+    if ($_FILES["picture"]['error'] === 4) {
         $picture = $oldpicture;
     } else {
         $picture = upload();
     }
-
+    echo "<script>alert('$idMenu $name $description $price $oldpicture $picture');</script>";
     $query = "UPDATE menu SET
                 namaMenu = '$name',
                 deskripsiMenu = '$description',
-                hargaMenu = '$price',
+                hargaMenu = $price,
                 gambarMenu = '$picture',
                 WHERE ID_Menu = $idMenu
                 ";
