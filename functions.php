@@ -134,9 +134,8 @@ function edit($data)
                 namaMenu = '$name',
                 deskripsiMenu = '$description',
                 hargaMenu = $price,
-                gambarMenu = '$picture',
-                WHERE ID_Menu = $idMenu
-                ";
+                gambarMenu = '$picture'
+                WHERE ID_Menu = $idMenu";
     mysqli_query($db, $query);
     return mysqli_affected_rows($db);
 }
