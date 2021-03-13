@@ -57,6 +57,8 @@ if (isset($_POST["login"])) {
                 $_SESSION['user'] = true;
                 foreach ($result_id as $r) {
                     $_SESSION['user_id'] = $r['ID'];
+                    // $tes = $_SESSION['user_id'];
+                    // echo "<script>alert('$tes');</script>";
                 }
                 header("location:user.php");
                 exit;

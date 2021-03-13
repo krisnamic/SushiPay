@@ -3,7 +3,18 @@
 require "functions.php";
 $query = "SELECT * FROM menu";
 $result = mysqli_query($db, $query);
+
+$querykategori = "SELECT * FROM kategori";
+$resultkategori = mysqli_query($db, $querykategori);
 session_start();
+
+
+
+if (isset($_SESSION["user"])) {
+    $loggedin = true;
+} else {
+    $loggedin = false;
+}
 
 if (isset($_POST["logout"])) {
     $_SESSION = [];
@@ -59,15 +70,36 @@ if (isset($_POST['pesan'])) {
     <h1>INI HALAMAN USER</h1>
     <form action="" method="POST">
         <button class="button logout" type="submit" name="logout">Log out!</button>
-        <button class="button login" type="submit" name="login">login</button>
+        <?php
+        if ($loggedin) {
+
+            echo "<button class='button login' hidden type='submit' name='login'>login</button> ";
+        } else {
+            echo "<button class='button login' type='submit' name='login'>login</button> ";
+        }
+        ?>
         <?php date_default_timezone_set("Asia/Bangkok"); ?>
         <?= date("Y-m-d H:i:s"); ?>
+        <br>
+        <a href="shoppingcart.php">Go to Shopping Cart</a>
     </form>
+    <div class="row">
+        <div class="col-lg-12">
+            <ul class="portofolio-filters">
+                <button data-filter="*" class="btn btn-primary filter-button">All</button>
+                <?php foreach ($resultkategori as $resk) :  ?>
+                    <button>
+                        <li class="btn btn-default filter-button" data-filter="<?= $resk["ID_Kategori"]; ?>"><?= $resk["namaKategori"]; ?></li>
+                    </button>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
     <?php foreach ($result as $res) : ?>
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <div class="card <?= $res["ID_Kategori"] ?>" style="width: 18rem;">
+                    <div class="card filter <?= $res["ID_Kategori"] ?>" style="width: 18rem;">
                         <a class="btn" data-toggle="modal" data-target="#myModal<?php echo $res['ID_Menu']; ?>"><img class="card-img-top" src="./menu_img/<?= $res["gambarMenu"] ?>" width="150px"></a>
                         <div class="card-body">
                             <a class="btn" data-toggle="modal" data-target="#myModal<?php echo $res['ID_Menu']; ?>">
@@ -128,6 +160,19 @@ if (isset($_POST['pesan'])) {
     <?php endforeach; ?>
 
     </div>
+    <script>
+        $(document).ready(function() {
+            $(".filter-button").click(function() {
+                var value = $(this).attr('data-filter');
+                if (value == "*") {
+                    $('.filter').show('1000');
+                } else {
+                    $('.filter').not('.' + value).hide('3000');
+                    $('.filter').filter('.' + value).show('3000');
+                }
+            });
+        });
+    </script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
