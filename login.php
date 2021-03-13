@@ -144,47 +144,49 @@ if (isset($_POST["login"])) {
         </div>
 
         <?php
-          if (isset($error1) || isset($error2)) {
+          /*if (isset($error1) || isset($error2)) {
             echo '<div class="alert alert-danger" role="alert">';
             echo '<!--<p id="err-login">-->Username/Password is wrong!<!--</p>-->';
             echo '</div>';
-          }
+          }*/
         ?>
 
         <?php
-          /*if(isset($_POST['login'])) {
-            if (empty($username) || empty($password)) {
-              echo '<div class="alert alert-danger" role="alert">';
-              echo "Username/Password harus diisi";
-              echo '</div>';
+          if(isset($_POST['login'])) {
+            if ((empty($username) == false) && (empty($password) == false)) {
+              if ((isset($error1) || isset($error2))) {
+                echo '<div class="alert alert-danger" role="alert">';
+                echo "Username/Password is wrong";
+                echo '</div>';
+              }
             }
-          }*/
+          }
 
         ?>
 
-        <form action="" method="post" autocomplete="off">
+        <form action="" method="post" autocomplete="off" class="">
           <div class="container-items-login">
-            <div class="box">
+
+            <div class="form-group">
               <label for="username">Username/Email :</label>
               <input type="text" name="username" id="username" class="form-control" placeholder="Please input username here!">
+              <?php
+                /*if (isset($flag1)) {
+                    echo "Username harus diisi";
+                }*/
+                if(isset($_POST['login'])) {
+                  if (empty($username)) {
+                    echo '<div class="alert alert-danger" role="alert">';
+                    echo "Username/Email harus diisi";
+                    echo '</div>';
+                  }
+                }
+              ?>
             </div>
 
-            <?php
-              /*if (isset($flag1)) {
-                  echo "Username harus diisi";
-              }*/
-              if(isset($_POST['login'])) {
-                if (empty($username)) {
-                  echo '<div class="alert" role="alert">';
-                  echo "Username/Email harus diisi";
-                  echo '</div>';
-                }
-              }
-            ?>
-
-            <div class="box">
+            <div class="form-group">
               <label for="password">Password : </label>
-              <input type="password" name="password" class="form-control<?php if (empty($password)) { echo ' has-error'} ?>" id="password" placeholder="********">
+              <input type="password" name="password" class="form-control" id="password" placeholder="********">
               <?php
                   /*if (isset($flag2)) {
                       echo "Password harus diisi";
@@ -199,7 +201,7 @@ if (isset($_POST["login"])) {
               ?>
             </div>
 
-            <div class="box-login">
+            <div class="form-group">
               <button class="button login" type="submit" name="login">Sign in!</button>
               <button class="button register" type="submit" name="register">Sign up!</button>
             </div>
