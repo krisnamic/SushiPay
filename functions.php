@@ -22,16 +22,17 @@ function register($data)
                 </script>";
         return false;
     }
-    echo "tes1";
-    //checking password 
+    // echo "tes1";
+    //checking password
     $pass_len = strlen($password);
     if ($pass_len < 8) {
-        echo "tes2";
+        // echo "tes2";
         return false;
     }
     if ($password !== $password2) { ?>
-        <p id="err">Password doesnt match confirmation!</p>
-<?php echo "tes2";
+        <!-- <p id="err">Password doesnt match confirmation!</p> -->
+<?php
+// echo "tes2";
         return false;
     }
     //encrypt password

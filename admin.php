@@ -31,6 +31,7 @@ if (isset($_POST["change"])) {
     </script>";
     }
 }
+
 if (isset($_POST['delete'])) {
     if (delete($_POST) > 0) {
         echo "<script>
@@ -44,11 +45,13 @@ if (isset($_POST['delete'])) {
     </script>";
     }
 }
+
 // print_r($result["namaMenu"]);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">

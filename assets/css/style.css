@@ -736,6 +736,7 @@ section {
 --------------------------------------------------------------*/
 .section-title-checkout {
   padding-top: 80px;
+  padding-bottom: 20px;
 }
 
 .section-title-checkout h2 {
@@ -760,6 +761,43 @@ section {
 }
 
 .section-title-checkout p {
+  margin: 0;
+  margin: 0;
+  font-size: 36px;
+  font-weight: 700;
+  font-family: "Kanit";
+  color: #cda45e;
+}
+
+/*--------------------------------------------------------------
+# Sections General - Login
+--------------------------------------------------------------*/
+.section-title-login {
+  padding-top: 80px;
+}
+
+.section-title-login h2 {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0;
+  line-height: 1px;
+  margin: 0 0 5px 0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #aaaaaa;
+  font-family: "Arial";
+}
+
+.section-title-login h2::after {
+  content: "";
+  width: 120px;
+  height: 1px;
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 4px 10px;
+}
+
+.section-title-login p {
   margin: 0;
   margin: 0;
   font-size: 36px;
@@ -1495,6 +1533,123 @@ section {
 .chefs .member:hover .social {
   bottom: 0;
   transition: bottom ease-in-out 0.4s;
+}
+
+/*--------------------------------------------------------------
+# Login
+--------------------------------------------------------------*/
+
+.login .login-form {
+  width: 100%;
+}
+
+.login .login-form .form-group {
+  padding-bottom: 8px;
+  background-color: red;
+}
+
+.login .login-form .validate {
+  display: none;
+  color: red;
+  margin: 0 0 15px 0;
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.login .login-form .error-message {
+  display: none;
+  color: #fff;
+  background: #ed3c0d;
+  text-align: left;
+  padding: 15px;
+  font-weight: 600;
+}
+
+.login .login-form .error-message br + br {
+  margin-top: 25px;
+}
+
+.login .login-form .sent-message {
+  display: none;
+  color: #fff;
+  background: #18d26e;
+  text-align: center;
+  padding: 15px;
+  font-weight: 600;
+}
+
+.login .login-form .loading {
+  display: none;
+  text-align: center;
+  padding: 15px;
+}
+
+.login .login-form .loading:before {
+  content: "";
+  display: inline-block;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  margin: 0 10px -6px 0;
+  border: 3px solid #cda45e;
+  border-top-color: #1a1814;
+  -webkit-animation: animate-loading 1s linear infinite;
+  animation: animate-loading 1s linear infinite;
+}
+
+.login .login-form input, .login .login-form textarea {
+  border-radius: 20px;
+  box-shadow: none;
+  font-size: 14px;
+  background: #0c0b09;
+  border-color: #625b4b;
+  color: white;
+}
+
+.login .login-form input::-webkit-input-placeholder, .login .login-form textarea::-webkit-input-placeholder {
+  color: #a49b89;
+}
+
+.login .login-form input::-moz-placeholder, .login .login-form textarea::-moz-placeholder {
+  color: #a49b89;
+}
+
+.login .login-form input:-ms-input-placeholder, .login .login-form textarea:-ms-input-placeholder {
+  color: #a49b89;
+}
+
+.login .login-form input::-ms-input-placeholder, .login .login-form textarea::-ms-input-placeholder {
+  color: #a49b89;
+}
+
+.login .login-form input::placeholder, .login .login-form textarea::placeholder {
+  color: #a49b89;
+}
+
+.login .login-form input:focus, .login .login-form textarea:focus {
+  border-color: #cda45e;
+}
+
+.login .login-form input {
+  height: 44px;
+  margin-bottom: 20px;
+}
+
+.login .login-form textarea {
+  padding: 10px 12px;
+}
+
+.login .login-form button[type="submit"] {
+  background: #cda45e;
+  border: 0;
+  padding: 10px 35px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 50px;
+}
+
+.login .login-form button[type="submit"]:hover {
+  background: #d3af71;
 }
 
 /*--------------------------------------------------------------
