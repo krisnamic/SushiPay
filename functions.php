@@ -148,3 +148,38 @@ function delete($data)
     echo "<script>alert($idMenu);</script>";
     return mysqli_affected_rows($db);
 }
+
+function addShoppingCart($data)
+{
+    global $db;
+    $idmenu = $data["idmenu"];
+    $jumlah = $data["jumlah"];
+    $gambar = $data["gambar"];
+    $deskripsi = $data["desc"];
+    $harga = $data["harga"];
+    $nama = $data["nama"];
+    echo "<script>alert($gambar $deskripsi $harga $nama);</script>";
+    $date = date('Y-m-d');
+    $time = date('H:i:s');
+    $iduser = $_SESSION["id_user"];
+
+    $query = "INSERT INTO pesanan(ID_Pesanan, ID_User, tanggalPemesanan, waktuPemesanan) VALUES('',$iduser,$date,$time);";
+
+    mysqli_query($db, $query);
+    $tes = mysqli_affected_rows($db);
+    echo mysqli_error($db);
+    echo "<script>alert($tes);</script>";
+    return mysqli_affected_rows($db);
+    // $affected = mysqli_affected_rows($db);
+
+    // $query_ID_Pesanan = "SELECT ID_Pesanan FROM pesanan WHERE ID_User = $iduser AND tanggalPemesanan = $date 
+    // AND waktuPemesanan = $time";
+
+    // $querydetail = "INSERT INTO detailpesanan(ID_Pesanan, hargaMenu, jumlah, ID_Menu,)
+    // VALUES
+    // ($query_ID_Pesanan, $harga, $jumlah, $idmenu)";
+
+    // mysqli_query($db, $querydetail);
+    // $affected += mysqli_affected_rows($db);
+    // return $affected;
+}

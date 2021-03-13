@@ -23,7 +23,8 @@ if (isset($_POST["login"])) {
     $username = mysqli_real_escape_string($db, $_POST["username"]);
     $password = mysqli_real_escape_string($db, $_POST["password"]);
 
-
+    $query_id = "SELECT ID FROM account WHERE username = $username";
+    $result_id = mysqli_query($db, $query_id);
     //for checking password and username is empty or not
     if (empty($username) || empty($password)) {
         echo "Username/Password harus diisi";
@@ -53,6 +54,7 @@ if (isset($_POST["login"])) {
             if ($row['role'] == "user") {
                 // create user session
                 $_SESSION['user'] = true;
+                $_SESSION['id_user'] = $result_id;
                 header("location:user.php");
                 exit;
             }
