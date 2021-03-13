@@ -228,6 +228,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .nav-menu .book-a-table a {
   border: 2px solid #fa3d16;
+  background-color: #fa3d16;
   color: #fff;
   border-radius: 50px;
   padding: 8px 25px;
