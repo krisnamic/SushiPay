@@ -54,6 +54,7 @@ if (isset($_POST["login"])) {
             if ($row['role'] == "user") {
                 // create user session
                 $_SESSION['user'] = true;
+                $_SESSION['id_user'] = $result_id;
                 header("location:user.php");
                 exit;
             }
