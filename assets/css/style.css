@@ -20,6 +20,13 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Kanit";
 }
 
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid white;
+}
+
 /*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/
@@ -718,6 +725,43 @@ section {
 }
 
 /*--------------------------------------------------------------
+# Sections General - Checkout
+--------------------------------------------------------------*/
+.section-title-checkout {
+  padding-top: 80px;
+}
+
+.section-title-checkout h2 {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0;
+  line-height: 1px;
+  margin: 0 0 5px 0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #aaaaaa;
+  font-family: "Arial";
+}
+
+.section-title-checkout h2::after {
+  content: "";
+  width: 120px;
+  height: 1px;
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 4px 10px;
+}
+
+.section-title-checkout p {
+  margin: 0;
+  margin: 0;
+  font-size: 36px;
+  font-weight: 700;
+  font-family: "Kanit";
+  color: #cda45e;
+}
+
+/*--------------------------------------------------------------
 # About
 --------------------------------------------------------------*/
 .breadcrumbs {
@@ -964,6 +1008,196 @@ section {
   font-size: 14px;
   font-family: "Arial";
   color: rgba(255, 255, 255, 0.5);
+}
+
+/*--------------------------------------------------------------
+# Checkout Section
+--------------------------------------------------------------*/
+.checkout #checkout-flters {
+  padding: 0;
+  margin: 0 auto 0 auto;
+  list-style: none;
+  text-align: center;
+  border-radius: 50px;
+}
+
+.checkout #checkout-flters li {
+  cursor: pointer;
+  display: inline-block;
+  padding: 8px 12px 10px 12px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1;
+  color: #fff;
+  margin-bottom: 10px;
+  transition: all ease-in-out 0.3s;
+  border-radius: 50px;
+  font-family: "Kanit";
+}
+
+.checkout #checkout-flters li:hover, .checkout #checkout-flters li.filter-active {
+  color: #cda45e;
+}
+
+.checkout #checkout-flters li:last-child {
+  margin-right: 0;
+}
+
+.checkout .checkout-item {
+  margin-top: 50px;
+}
+
+.checkout .checkout-img {
+  width: 150px;
+  margin-right: 30px;
+  /*border-radius: 50%;*/
+  float: left;
+  border: 5px solid rgba(255, 255, 255, 0.2);
+}
+
+.checkout .checkout-content {
+  margin-left: 85px;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.checkout .checkout-content::after {
+  content: "......................................................................"
+ "...................................................................."
+ "....................................................................";
+  position: absolute;
+  left: 20px;
+  right: 0;
+  top: -4px;
+  z-index: 1;
+  color: #bab3a6;
+  font-family: "Arial";
+}
+
+.checkout .checkout-content a {
+  padding-right: 10px;
+  background: #1a1814;
+  position: relative;
+  z-index: 3;
+  font-weight: 700;
+  color: white;
+  transition: 0.3s;
+}
+
+.checkout .checkout-content a:hover {
+  color: #cda45e;
+}
+
+.checkout .checkout-content span {
+  background: #1a1814;
+  position: relative;
+  z-index: 3;
+  padding: 0 10px;
+  font-weight: 600;
+  color: #cda45e;
+}
+
+.checkout .checkout-desc {
+  margin-left: 85px;
+  font-style: italic;
+  font-size: 24px;
+  font-family: "Arial";
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-checkout {
+  margin-top: 20px;
+}
+
+.btn-checkout a {
+  border: 2px solid #cda45e;
+  color: #fff;
+  border-radius: 50px;
+  padding: 8px 25px;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  transition: 0.3s;
+}
+
+.btn-checkout a:hover {
+  background: #cda45e;
+  color: #fff;
+}
+
+#order-summary {
+  background-color: #11110d;
+  padding: 20px 30px;
+}
+
+.order-summary-title {
+  margin-bottom: 20px;
+}
+
+/*--------------------------------------------------------------
+# Specials
+--------------------------------------------------------------*/
+.specials {
+  overflow: hidden;
+}
+
+.specials .nav-tabs {
+  border: 0;
+}
+
+.specials .nav-link {
+  border: 0;
+  padding: 12px 15px;
+  transition: 0.3s;
+  color: #fff;
+  border-radius: 0;
+  border-right: 2px solid #cda45e;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.specials .nav-link:hover {
+  color: #cda45e;
+}
+
+.specials .nav-link.active {
+  color: #1a1814;
+  background: #cda45e;
+  border-color: #cda45e;
+}
+
+.specials .nav-link:hover {
+  border-color: #cda45e;
+}
+
+.specials .tab-pane.active {
+  -webkit-animation: fadeIn 0.5s ease-out;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.specials .details h3 {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.specials .details p {
+  color: #aaaaaa;
+}
+
+.specials .details p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 992px) {
+  .specials .nav-link {
+    border: 0;
+    padding: 15px;
+  }
 }
 
 /*--------------------------------------------------------------
