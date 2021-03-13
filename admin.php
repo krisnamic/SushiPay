@@ -98,7 +98,6 @@ if (isset($_POST['delete'])) {
                                 <button type="submit" name="delete" id="delete" value="<?= $res['ID_Menu'] ?>">delete</button>
                             </form>
                         </td>
-                        <!-- blm bner -->
                         <div class="modal fade" id="edit<?php echo $res['ID_Menu']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true" data-backdrop="false">
                             <!-- data-backdrop=false biar ilangin screen gelap & g bisa diklik  -->
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">

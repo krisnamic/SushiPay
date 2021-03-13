@@ -159,11 +159,12 @@ function addShoppingCart($data)
     $harga = $data["harga"];
     $nama = $data["nama"];
     echo "<script>alert($gambar $deskripsi $harga $nama);</script>";
+    date_default_timezone_set("Asia/Bangkok");
     $date = date('Y-m-d');
     $time = date('H:i:s');
-    $iduser = $_SESSION["id_user"];
+    $iduser = $_SESSION["user_id"];
 
-    $query = "INSERT INTO pesanan(ID_Pesanan, ID_User, tanggalPemesanan, waktuPemesanan) VALUES('',$iduser,$date,$time);";
+    $query = "INSERT INTO pesanan(ID_Pesanan, ID_User, tanggalPemesanan, waktuPemesanan) VALUES('',$iduser,'$date','$time');";
 
     mysqli_query($db, $query);
     $tes = mysqli_affected_rows($db);

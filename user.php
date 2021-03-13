@@ -60,9 +60,8 @@ if (isset($_POST['pesan'])) {
     <form action="" method="POST">
         <button class="button logout" type="submit" name="logout">Log out!</button>
         <button class="button login" type="submit" name="login">login</button>
+        <?php date_default_timezone_set("Asia/Bangkok"); ?>
         <?= date("Y-m-d H:i:s"); ?>
-        <?= "<script>alert($_SESSION[id_user]);
-        </script>"; ?>
     </form>
     <?php foreach ($result as $res) : ?>
         <div class="container">
