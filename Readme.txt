@@ -1,6 +1,10 @@
-Thanks for downloading this template!
+Website Restoran UTS IF430
 
-Template Name: Restaurantly
-Template URL: https://bootstrapmade.com/restaurantly-restaurant-template/
-Author: BootstrapMade.com
-License: https://bootstrapmade.com/license/
+Ketua: Steven Lie - 33747
+
+Anggota:
+1. Jerry Arianto - 33745
+2. Michael Krisna Cahyadi - 33738
+3. Jonathan Franzeli - 34071
+
+Website Restoran bertemakan Makanan Jepang (Sushi, Ramen, Japanese Salad, dll)
