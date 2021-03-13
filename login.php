@@ -136,7 +136,7 @@ if (isset($_POST["login"])) {
 
     <section id="login" class="login section-bg">
 
-      <div class="container" data-aos="fade-up">
+      <div class="container" data-aos="fade-up" class="login">
 
         <div class="section-title-checkout">
           <h2>Login</h2>
@@ -164,7 +164,7 @@ if (isset($_POST["login"])) {
 
         ?>
 
-        <form action="" method="post" autocomplete="off" class="">
+        <form action="" method="post" autocomplete="off" class="login-form">
           <div class="container-items-login">
 
             <div class="form-group">
@@ -295,7 +295,6 @@ if (isset($_POST["login"])) {
   <script src="assets/vendor/jquery/jquery.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/venobox/venobox.min.js"></script>
