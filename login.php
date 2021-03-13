@@ -12,8 +12,12 @@ if (isset($_SESSION["login"])) {
     exit;
 }
 
-if (isset($_POST["register"])) {
+if (isset($_GET["register"])) {
+  if (empty($username) || empty($password)) {
     header("location: register.php");
+  } else {
+    header("location: register.php");
+  }
     exit;
 }
 
@@ -54,7 +58,6 @@ if (isset($_POST["login"])) {
             if ($row['role'] == "user") {
                 // create user session
                 $_SESSION['user'] = true;
-                $_SESSION['id_user'] = $result_id;
                 header("location:user.php");
                 exit;
             }
@@ -206,8 +209,13 @@ if (isset($_POST["login"])) {
 
             <div class="form-group">
               <button class="button login" type="submit" name="login">Sign in!</button>
-              <button class="button register" type="submit" name="register">Sign up!</button>
             </div>
+          </div>
+        </form>
+
+        <form action="" method="GET" class="php-email-form">
+          <div class="form-group">
+            <button class="button register" type="submit" name="register">Sign up!</button>
           </div>
         </form>
       </div>
