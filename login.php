@@ -138,7 +138,7 @@ if (isset($_POST["login"])) {
 
   <main id="main">
 
-    <section id="login" class="login section-bg">
+    <section id="login" class="login">
 
       <div class="container" data-aos="fade-up" class="login">
 

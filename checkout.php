@@ -68,7 +68,7 @@
           <li><a href="#events">Events</a></li>
           <li><a href="#gallery">Gallery</a></li>
           <li><a href="#chefs">Chefs</a></li>-->
-          <li><a href="checkout.html"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li> 
+          <li><a href="checkout.html"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li>
           <li class="book-a-table text-center"><a href="">Login</a></li>
         </ul>
       </nav><!-- .nav-menu -->
@@ -79,7 +79,7 @@
   <main id="main">
 
     <!-- ======= Book A Table Section ======= -->
-    <section id="checkout" class="checkout section-bg">
+    <section id="checkout" class="checkout">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title-checkout">
@@ -88,7 +88,7 @@
         </div>
 
         <div class="d-inline-flex align-items-start bd-highlight mb-3">
-          <div class="row checkout-container d-flex align-items-center" data-aos="fade-up" data-aos-delay="200">
+          <div class="col-lg-8 row checkout-container d-flex align-items-center" data-aos="fade-up" data-aos-delay="200">
 
             <div class="col-lg-12 checkout-item filter-starters">
               <img src="assets/img/menu/lobster-bisque.jpg" class="checkout-img" alt="">
@@ -122,30 +122,39 @@
 
           </div>
 
-          <div id="order-summary" class="row checkout-container d-flex align-items-center" data-aos="fade-up" data-aos-delay="200" style="margin-top: 40px; margin-left: 40px;">
+          <div id="order-summary" class="col-lg-4 row checkout-container align-items-center" data-aos="fade-up" data-aos-delay="200" style="width: 200px; margin-top: 40px; margin-left: 40px;">
 
             <div class="order-summary-title col-lg-12">
               <h2>Order Summary</h2>
               <hr/>
             </div>
 
-            <div class="col-lg-12">
-              <div class="float-left">
-                <p>Total Cost:</p>
-              </div>
-
-              <div class="float-right">
-                <p>$9.99</p>
-              </div>
+            <div class="col-lg-12 d-flex justify-content-between">
+              <p>Total Cost:</p>
+              <p>$9.99</p>
             </div>
 
-            <div class="clearfix"></div>
+            <div class="col-lg-12 d-flex justify-content-between">
+              <p>Total Cost:</p>
+              <p>$9.99</p>
+            </div>
 
-            <ul class="list-unstyled text-center">
-              <li class="btn-checkout text-center"><a href="#book-a-table" >Checkout</a></li>
-            </ul>
-            <button type="button" class="btn-menu animated fadeInUp scrollto" data-toggle="modal" data-target="#myModal" style="color: #1a1814;">
-              Check Our Menu
+            <!-- tambahin php looping -->
+
+            <div class="col-lg-12">
+              <hr/>
+            </div>
+
+            <div class="col-lg-12 d-flex justify-content-between">
+              <p>Total Cost:</p>
+              <p>$9.99</p>
+            </div>
+
+            <!-- <ul class="list-unstyled text-center">
+              <li class="btn-checkout text-center"></li>
+            </ul> -->
+            <button type="button" class="btn-checkout animated fadeInUp scrollto" data-toggle="modal" data-target="#myModal" style="background-color: #11110d; border: 0px;">
+              <a>Checkout</a>
             </button>
           </div>
         </div>
@@ -161,17 +170,17 @@
     <div class="modal fade" id="myModal">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" style="text-align: center; border-radius: 10px;">
-        
+
           <!-- Modal Header -->
           <div class="modal-header" style="text-align: center; display: block; align-items: center;">
             <h4 class="modal-title">Terima kasih!</h4>
           </div>
-          
+
           <!-- Modal body -->
           <div class="modal-body" style="margin-top: 30px; margin-bottom: 30px;">
             <h5>Pesanan berhasil dilakukan</h5>
           </div>
-          
+
           <!-- Modal footer -->
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color:  #fa3d16;">Close</button>
