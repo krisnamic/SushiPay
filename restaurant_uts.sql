@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 13 Mar 2021 pada 10.54
+-- Waktu pembuatan: 13 Mar 2021 pada 11.54
 -- Versi server: 10.4.16-MariaDB
 -- Versi PHP: 7.4.12
 
@@ -146,7 +146,9 @@ INSERT INTO `menu` (`ID_Menu`, `namaMenu`, `deskripsiMenu`, `hargaMenu`, `gambar
 (37, 'Cold Ocha', 'It is traditionally made using bancha tea leaves and unpolished brown rice grains. This gives the tea a distinctive roasted aroma that might remind you of popcorn, and a nutty taste with ice', 8000, 'Cold Ocha.jpg', 8),
 (38, 'Lychee Tea', 'Lychee Tea is a fruit tea that consists of lychee fruit, juice, flower petals, or extracts mixed with traditional black tea. ', 8000, 'Lychee Tea.jpg', 8),
 (39, 'Lemonade', 'Lemonade is a sweetened lemon-flavored beverage.', 8000, 'Lemonade.jpg', 8),
-(40, 'Lemon Tea', 'Lemon Tea is a refreshing tea where lemon juice is added in black or green tea. It soothes the throat, prevents cough and congestion, and helps in weight loss. ', 9000, 'Lemon Tea.jpg', 8);
+(40, 'Lemon Tea', 'Lemon Tea is a refreshing tea where lemon juice is added in black or green tea. It soothes the throat, prevents cough and congestion, and helps in weight loss. ', 9000, 'Lemon Tea.jpg', 8),
+(41, 'dfaaaaa', 'we', 213111, '604b75f47c6fd.jpg', 4),
+(43, 'chicken soup', 'enak', 20000, '604c5775a8999.jpeg', 5);
 
 -- --------------------------------------------------------
 
@@ -168,7 +170,11 @@ CREATE TABLE `pesanan` (
 INSERT INTO `pesanan` (`ID_Pesanan`, `ID_User`, `tanggalPemesanan`, `waktuPemesanan`) VALUES
 (1, 2, '2021-03-13', '00:00:00'),
 (2, 2, '2021-03-13', '22:22:22'),
-(4, 2, '2021-03-13', '10:10:12');
+(4, 2, '2021-03-13', '10:10:12'),
+(6, 2, '2021-03-13', '11:45:06'),
+(7, 2, '2021-03-13', '11:45:30'),
+(8, 2, '2021-03-13', '11:52:36'),
+(9, 2, '2021-03-13', '17:53:06');
 
 --
 -- Indexes for dumped tables
@@ -233,7 +239,7 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT untuk tabel `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `ID_Pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID_Pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

@@ -261,7 +261,7 @@ if (isset($_POST['delete'])) {
     <script>
         $(document).ready(function() {
             $('#example').DataTable({
-                responsive: true;
+                responsive: true
             });
         });
     </script>
