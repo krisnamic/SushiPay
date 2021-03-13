@@ -186,7 +186,7 @@ if (isset($_GET["backToLogin"])) {
   </main>
 
 
-  <!-- ======= Footer ======= -->
+  <!-- ======= Footer ======== -->
   <footer id="footer">
     <div class="footer-top">
       <div class="container">
