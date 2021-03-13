@@ -24,7 +24,7 @@ if (isset($_POST['pesan'])) {
         </script>";
         exit;
     } else {
-        if (addShoppingCart($_POST) > 0) {
+        if (addShoppingCart($_POST) > 1) {
             echo "<script>
         alert('successfuly added to shopping cart!');
         document.location.href = 'user.php';

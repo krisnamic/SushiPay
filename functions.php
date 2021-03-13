@@ -167,20 +167,19 @@ function addShoppingCart($data)
     $query = "INSERT INTO pesanan(ID_Pesanan, ID_User, tanggalPemesanan, waktuPemesanan) VALUES('',$iduser,'$date','$time');";
 
     mysqli_query($db, $query);
-    $tes = mysqli_affected_rows($db);
-    echo mysqli_error($db);
-    echo "<script>alert($tes);</script>";
-    return mysqli_affected_rows($db);
-    // $affected = mysqli_affected_rows($db);
+    $affected = mysqli_affected_rows($db);
+    // -------------------------------------------------------------------------------------
 
-    // $query_ID_Pesanan = "SELECT ID_Pesanan FROM pesanan WHERE ID_User = $iduser AND tanggalPemesanan = $date 
-    // AND waktuPemesanan = $time";
+    $query_ID_Pesanan = "SELECT ID_Pesanan FROM pesanan WHERE ID_User = $iduser AND tanggalPemesanan = '$date' 
+    AND waktuPemesanan = '$time'";
 
-    // $querydetail = "INSERT INTO detailpesanan(ID_Pesanan, hargaMenu, jumlah, ID_Menu,)
-    // VALUES
-    // ($query_ID_Pesanan, $harga, $jumlah, $idmenu)";
+    echo "<script>alert($query_ID_Pesanan $harga $jumlah $idmenu);</script>";
 
-    // mysqli_query($db, $querydetail);
-    // $affected += mysqli_affected_rows($db);
-    // return $affected;
+    $querydetail = "INSERT INTO detailpesanan(ID_Pesanan, hargaMenu, jumlah, ID_Menu)
+    VALUES
+    ($query_ID_Pesanan, $harga, $jumlah, $idmenu);";
+    mysqli_query($db, $querydetail);
+    $affected += mysqli_affected_rows($db);
+    echo "<script>alert($affected);</script>";
+    return $affected;
 }
