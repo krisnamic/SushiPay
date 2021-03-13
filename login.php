@@ -164,7 +164,7 @@ if (isset($_POST["login"])) {
 
         ?>
 
-        <form action="" method="post" autocomplete="off" class="login-form">
+        <form action="" method="post" autocomplete="off" class="php-email-form">
           <div class="container-items-login">
 
             <div class="form-group">
