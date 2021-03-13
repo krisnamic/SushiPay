@@ -140,15 +140,13 @@ INSERT INTO `menu` (`ID_Menu`, `namaMenu`, `deskripsiMenu`, `hargaMenu`, `gambar
 (31, 'Donburi Seafood', 'Donburi Seafood is a Japanese \"rice-bowl dish\" consisting of seafood and served over rice.', 23000, 'Donburi Seafood.jpg', 6),
 (32, 'Donburi Chicken Teriyaki', 'Donburi Chicken Teriyaki is a Japanese \"rice-bowl dish\" consisting of chicken terriyaki and served over rice.', 14000, 'Donburi Chicken Teriyaki.jpg', 6),
 (33, 'Pudding Tiramisu', 'Tiramisu puddings are a class of dessert with tiramisu flavors.', 20000, 'Pudding Tiramisu.jpg', 7),
-(34, 'Pudding Choco Cheese', 'Choco cheese puddings are a class of dessert with choco cheese flavors.', 19000, 'Pudding Choco Cheese', 7),
+(34, 'Pudding Choco Cheese', 'Choco cheese puddings are a class of dessert with choco cheese flavors.', 19000, 'Pudding Choco Cheese.jpg', 7),
 (35, 'Pudding Chocolate Deluxe', 'Chocolate puddings are a class of desserts with chocolate flavors.', 19000, 'Puding Chocolate Deluxe.jpg', 7),
 (36, 'Pudding Cream Cheese', 'Smooth and delicate triple layered Cream Cheese Pudding with cheese grates.', 20000, 'Pudding Cream Cheese.jpg', 7),
 (37, 'Cold Ocha', 'It is traditionally made using bancha tea leaves and unpolished brown rice grains. This gives the tea a distinctive roasted aroma that might remind you of popcorn, and a nutty taste with ice', 8000, 'Cold Ocha.jpg', 8),
 (38, 'Lychee Tea', 'Lychee Tea is a fruit tea that consists of lychee fruit, juice, flower petals, or extracts mixed with traditional black tea. ', 8000, 'Lychee Tea.jpg', 8),
 (39, 'Lemonade', 'Lemonade is a sweetened lemon-flavored beverage.', 8000, 'Lemonade.jpg', 8),
-(40, 'Lemon Tea', 'Lemon Tea is a refreshing tea where lemon juice is added in black or green tea. It soothes the throat, prevents cough and congestion, and helps in weight loss. ', 9000, 'Lemon Tea.jpg', 8),
-(41, 'dfaaaaa', 'we', 213111, '604b75f47c6fd.jpg', 4),
-(43, 'chicken soup', 'enak', 20000, '604c5775a8999.jpeg', 5);
+(40, 'Lemon Tea', 'Lemon Tea is a refreshing tea where lemon juice is added in black or green tea. It soothes the throat, prevents cough and congestion, and helps in weight loss. ', 9000, 'Lemon Tea.jpg', 8);
 
 -- --------------------------------------------------------
 
