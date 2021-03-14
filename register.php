@@ -167,14 +167,23 @@ if (isset($_GET["backToLogin"])) {
               }
             ?>
 
+            <div class="section-title-checkout" style="padding-top: 10px;">
+              <h2>Captcha</h2>
+            </div>
+
             <div class="form-group">
+               <?php include 'captcha.php' ?>
+               <div class="invalid-feedback">Nama belakang harus diisi</div>
+            </div>
+
+            <div class="form-group" style="padding-top: 15px;">
               <button class="button signup-register" type="submit" name="register">Sign up!</button>
             </div>
 
           </div>
         </form>
 
-        <form action="" method="GET" class="php-email-form">
+        <form action="" method="GET" class="php-email-form pull-right">
           <button class="button back-register" type="submit" name="backToLogin">Back to login</button>
         </form>
 

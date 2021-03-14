@@ -8,7 +8,7 @@ session_start();
 
 //for kicking uninvited guest
 if (isset($_SESSION["login"])) {
-    header("Location: index.php");
+    header("location: index.php");
     exit;
 }
 
