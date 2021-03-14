@@ -58,7 +58,7 @@ if (isset($_POST["login"])) {
             if ($row['role'] == "user") {
                 // create user session
                 $_SESSION['user'] = true;
-                header("location:user.php");
+                header("location:index.php");
                 exit;
             }
         }

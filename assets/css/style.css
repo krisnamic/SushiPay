@@ -1664,6 +1664,45 @@ section {
   background: #d3af71;
 }
 
+.btn-primary {
+  color: #fff;
+  background-color: #fa3d16;
+  border-color: #fa3d16;
+  transition: 0.4s;
+  border-radius: 20px;
+}
+
+.btn-primary:hover {
+  color: #fa3d16;
+  background-color: #fff;
+  border-color: #fa3d16;
+}
+
+.btn-primary:focus, .btn-primary.focus {
+  color: #fff;
+  background-color: #fa3d16;
+  border-color: #fa3d16;
+  box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.5);
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  color: #fa3d16;
+  background-color: #fff;
+  border-color: #fa3d16;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+}
+
 /*--------------------------------------------------------------
 # Contact
 --------------------------------------------------------------*/

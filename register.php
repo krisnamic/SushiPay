@@ -173,7 +173,6 @@ if (isset($_GET["backToLogin"])) {
 
             <div class="form-group">
                <?php include 'captcha.php' ?>
-               <div class="invalid-feedback">Nama belakang harus diisi</div>
             </div>
 
             <div class="form-group" style="padding-top: 15px;">
