@@ -80,21 +80,6 @@ if (isset($_POST['pesan'])) {
 </head>
 
 <body>
-  <!-- <div id="topbar" class="d-flex align-items-center fixed-top">
-    <div class="container d-flex">
-      <div class="contact-info mr-auto">
-        <i class="icofont-phone"></i> +1 5589 55488 55
-        <span class="d-none d-lg-inline-block"><i class="icofont-clock-time icofont-rotate-180"></i> Mon-Sat: 11:00 AM - 23:00 PM</span>
-      </div>
-      <div class="languages">
-        <ul>
-          <li>En</li>
-          <li><a href="#">De</a></li>
-        </ul>
-      </div>
-    </div>
-  </div> -->
-
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
@@ -104,31 +89,25 @@ if (isset($_POST['pesan'])) {
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <!-- <li class="active"><a href="index.html">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#menu">Menu</a></li>
-          <li><a href="#specials">Specials</a></li>
-          <li><a href="#events">Events</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          <li><a href="#chefs">Chefs</a></li>-->
           <li><a href="checkout.php"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li> 
-          <form action="" method="POST">
-            <?php
-              if ($loggedin) {
-                  echo "<button class='button logout' type='submit' name='logout'>Log out!</button>";
-              } else {
-                  echo "<button class='button login' type='submit' name='login'>login</button> ";
-              }
-            ?>
-            <?php date_default_timezone_set("Asia/Bangkok"); ?>
-            <?= date("Y-m-d H:i:s"); ?>
-            <br>
-            <a href="shoppingcart.php">Go to Shopping Cart</a>
-          </form>
-          <li class="book-a-table text-center"><a href="login.php">Login</a></li>
+          <li class="book-a-table text-center">
+            <form action="" method="POST">
+                <?php
+                if ($loggedin) {
+                    echo "<button class='button logout btn btn-primary' type='submit' name='logout'>Log out!</button>";
+                } else {
+                    echo "<button class='button login btn btn-primary' type='submit' name='login'>Login</button> ";
+                }
+                ?>
+                <!-- <?php date_default_timezone_set("Asia/Bangkok"); ?>
+                <?= date("Y-m-d H:i:s"); ?>
+                <br>
+                <a href="shoppingcart.php">Go to Shopping Cart</a> -->
+            </form>
+          </li>
+          <!-- <li class="book-a-table text-center"><a href="login.php">Login</a></li> -->
         </ul>
       </nav><!-- .nav-menu -->
-
     </div>
   </header><!-- End Header -->
 
@@ -164,113 +143,84 @@ if (isset($_POST['pesan'])) {
           <p>Check Our Tasty Menu</p>
         </div>
 
-        <div class="row" ata-aos="fade-up" data-aos-delay="100">
-        <div class="col-lg-12 d-flex justify-content-center">
-                <ul class="menu-filters portofolio-filters">
-                    <li data-filter="*" class="btn btn-primary filter-button filter-active">All</>
-                    <?php foreach ($resultkategori as $resk) :  ?>
-                        <button>
-                            <li class="btn btn-default filter-button" data-filter="<?= $resk["ID_Kategori"]; ?>"><?= $resk["namaKategori"]; ?></li>
-                        </button>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        </div>
-
         <div class="row" data-aos="fade-up" data-aos-delay="100">
           <div class="col-lg-12 d-flex justify-content-center">
-            <ul id="menu-flters">
-              <li data-filter="*" class="filter-active">All</li>
-              <li data-filter=".filter-starters">Starters</li>
-              <li data-filter=".filter-salads">Salads</li>
-              <li data-filter=".filter-specialty">Specialty</li>
-            </ul>
+            <ul class="menu-flters portofolio-filters">
+                <li data-filter="*" class="btn btn-primary filter-button filter-active">All</li>
+                <?php foreach ($resultkategori as $resk) :  ?>
+                  <li class="btn btn-default filter-button" data-filter="<?= $resk["ID_Kategori"]; ?>"><?= $resk["namaKategori"]; ?></li>
+                <?php endforeach; ?>
+              </ul>
           </div>
         </div>
 
         <div class="row menu-container" data-aos="fade-up" data-aos-delay="200">
-
-          <div class="col-lg-6 menu-item filter-starters">
-            <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Lobster Bisque</a><span>$5.95</span>
-            </div>
-            <div class="menu-ingredients">
-              Lorem, deren, trataro, filede, nerada
-            </div>
+          
+        <?php foreach ($result as $res) : ?>
+          <div class="container">
+              <div class="row">
+                  <div class="col">
+                      <div class="card filter <?= $res["ID_Kategori"] ?>" style="width: 18rem;">
+                          <a class="btn" data-toggle="modal" data-target="#myModal<?php echo $res['ID_Menu']; ?>"><img class="card-img-top" src="./menu_img/<?= $res["gambarMenu"] ?>" width="150px"></a>
+                          <div class="card-body">
+                              <a class="btn" data-toggle="modal" data-target="#myModal<?php echo $res['ID_Menu']; ?>">
+                                  <h5 class="card-title"><?= $res["namaMenu"] ?></h5>
+                              </a>
+                              <p class="card-text"><?= $res["deskripsiMenu"] ?></p>
+                          </div>
+                          <ul class="list-group list-group-flush">
+                              <li class="list-group-item">Price : Rp.<?= $res["hargaMenu"] ?></li>
+                              <li class="list-group-item" hidden><?= $res["ID_Kategori"] ?></li>
+                          </ul>
+                          <div class="card-body">
+                              <a href="#" class="card-link">Card link</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
           </div>
-
-          <div class="col-lg-6 menu-item filter-specialty">
-            <img src="assets/img/menu/bread-barrel.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Bread Barrel</a><span>$6.95</span>
-            </div>
-            <div class="menu-ingredients">
-              Lorem, deren, trataro, filede, nerada
-            </div>
+          <div class="modal fade" id="myModal<?php echo $res['ID_Menu']; ?>" role="dialog">
+              <div class="modal-dialog">
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h4 class="modal-title">Modal Header</h4>
+                          <?php echo $res['ID_Menu']; ?>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+                      <div class="modal-body">
+                          <form action="" method="POST">
+                              <?php var_dump($result);
+                              ?>
+                              <div class="row-container">
+                                  <div class="col-container"><img name="gambarMenu" src="./menu_img/<?= $res["gambarMenu"] ?>" alt="<?= $res["gambarMenu"] ?>" width="100%;"></div>
+                                  <div class="col-container">
+                                      <label for="namaMenu">Namamenu</label>
+                                      <h1 name="namaMenu"><?= $res['namaMenu']; ?></h1>
+                                  </div>
+                                  <div class="col-container">
+                                      <p id="deskripsiMenu" name="deskripsiMenu"><?= $res['deskripsiMenu']; ?></p>
+                                      <p id="hargaMenu" name="hargaMenu">Rp. <?= $res['hargaMenu']; ?></p>
+                                  </div>
+                                  <input type="number" min="1" name="jumlah" id="jumlah">
+                                  <input type="text" hidden name="gambar" value="<?= $res["gambarMenu"] ?>">
+                                  <input type="text" hidden name="nama" value="<?= $res["namaMenu"] ?>">
+                                  <input type="text" hidden name="desc" value="<?= $res["deskripsiMenu"] ?>">
+                                  <input type="text" hidden name="harga" value="<?= $res["hargaMenu"] ?>">
+                                  <input type="text" hidden value="<?= $res['ID_Menu']; ?>" name="idmenu">
+                                  <button type="submit" name="pesan" id="pesan">Pesan</button>
+                              </div>
+                          </form>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
           </div>
-
-          <div class="col-lg-6 menu-item filter-starters">
-            <img src="assets/img/menu/cake.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Crab Cake</a><span>$7.95</span>
-            </div>
-            <div class="menu-ingredients">
-              A delicate crab cake served on a toasted roll with lettuce and tartar sauce
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-salads">
-            <img src="assets/img/menu/caesar.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Caesar Selections</a><span>$8.95</span>
-            </div>
-            <div class="menu-ingredients">
-              Lorem, deren, trataro, filede, nerada
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-specialty">
-            <img src="assets/img/menu/tuscan-grilled.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Tuscan Grilled</a><span>$9.95</span>
-            </div>
-            <div class="menu-ingredients">
-              Grilled chicken with provolone, artichoke hearts, and roasted red pesto
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-starters">
-            <img src="assets/img/menu/mozzarella.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Mozzarella Stick</a><span>$4.95</span>
-            </div>
-            <div class="menu-ingredients">
-              Lorem, deren, trataro, filede, nerada
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-salads">
-            <img src="assets/img/menu/greek-salad.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Greek Salad</a><span>$9.95</span>
-            </div>
-            <div class="menu-ingredients">
-              Fresh spinach, crisp romaine, tomatoes, and Greek olives
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-salads">
-            <img src="assets/img/menu/spinach-salad.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Spinach Salad</a><span>$9.95</span>
-            </div>
-            <div class="menu-ingredients">
-              Fresh spinach with mushrooms, hard boiled egg, and warm bacon vinaigrette
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-specialty">
+        <?php endforeach; ?>
+          
+        <div class="col-lg-6 menu-item filter-specialty">
             <img src="assets/img/menu/lobster-roll.jpg" class="menu-img" alt="">
             <div class="menu-content">
               <a href="#">Lobster Roll</a><span>$12.95</span>
@@ -278,9 +228,9 @@ if (isset($_POST['pesan'])) {
             <div class="menu-ingredients">
               Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
             </div>
-          </div>
-
         </div>
+        
+      </div>
 
       </div>
     </section><!-- End Menu Section -->
