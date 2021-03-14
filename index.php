@@ -59,7 +59,7 @@
           <li><a href="#events">Events</a></li>
           <li><a href="#gallery">Gallery</a></li>
           <li><a href="#chefs">Chefs</a></li>-->
-          <li><a href="checkout.php"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li> 
+          <li><a href="checkout.php"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li>
           <li class="book-a-table text-center"><a href="login.php">Login</a></li>
         </ul>
       </nav><!-- .nav-menu -->
@@ -95,7 +95,7 @@
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-          <h2>Menu</h2>
+          <h2>メニュー</h2>
           <p>Check Our Tasty Menu</p>
         </div>
 
@@ -212,7 +212,7 @@
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-          <h2>Owner's Choice</h2>
+          <h2>オーナーズチョイス</h2>
           <p>Our Bestseller Menu</p>
         </div>
 
@@ -459,7 +459,7 @@
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-          <h2>Owners</h2>
+          <h2>オーナーズ</h2>
           <p>The Creators of Restaurantly</p>
         </div>
 
@@ -542,18 +542,18 @@
       </div>
     </section><!-- End Chefs Section -->
 
-    
+
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-          <h2>Location</h2>
+          <h2>ロケーション</h2>
           <p>Our Location</p>
         </div>
       </div>
 
-      
+
 
       <div class="container" data-aos="fade-up">
         <div class="row">
