@@ -83,7 +83,7 @@
       <div class="container" data-aos="fade-up">
 
         <div class="section-title-checkout">
-          <h2>Checkout</h2>
+          <h2>チェックアウト</h2>
           <p>Shopping Cart</p>
         </div>
 
