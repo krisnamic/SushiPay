@@ -1,3 +1,55 @@
+<?php
+
+require "functions.php";
+$query = "SELECT * FROM menu";
+$result = mysqli_query($db, $query);
+
+$querykategori = "SELECT * FROM kategori";
+$resultkategori = mysqli_query($db, $querykategori);
+session_start();
+
+
+
+if (isset($_SESSION["user"])) {
+    $loggedin = true;
+} else {
+    $loggedin = false;
+}
+
+if (isset($_POST["logout"])) {
+    $_SESSION = [];
+    session_unset();
+    session_destroy();
+    header("Location: login.php");
+    exit;
+}
+if (isset($_POST['login'])) {
+    header("Location: login.php");
+    exit;
+}
+if (isset($_POST['pesan'])) {
+    if (!isset($_SESSION["user"])) {
+        echo "<script>
+        alert('anda harus login terlebih dahulu sebelum memesan!');
+        document.location.href = 'login.php';
+        </script>";
+        exit;
+    } else {
+        if (addShoppingCart($_POST) > 1) {
+            echo "<script>
+        alert('successfuly added to shopping cart!');
+        document.location.href = 'user.php';
+        </script>";
+        } else {
+            echo "<script>
+        alert('failed to add shopping cart !');
+        document.location.href = 'user.php';
+        </script>";
+        }
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,6 +112,19 @@
           <li><a href="#gallery">Gallery</a></li>
           <li><a href="#chefs">Chefs</a></li>-->
           <li><a href="checkout.php"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li> 
+          <form action="" method="POST">
+            <?php
+              if ($loggedin) {
+                  echo "<button class='button logout' type='submit' name='logout'>Log out!</button>";
+              } else {
+                  echo "<button class='button login' type='submit' name='login'>login</button> ";
+              }
+            ?>
+            <?php date_default_timezone_set("Asia/Bangkok"); ?>
+            <?= date("Y-m-d H:i:s"); ?>
+            <br>
+            <a href="shoppingcart.php">Go to Shopping Cart</a>
+          </form>
           <li class="book-a-table text-center"><a href="login.php">Login</a></li>
         </ul>
       </nav><!-- .nav-menu -->
@@ -97,6 +162,19 @@
         <div class="section-title">
           <h2>Menu</h2>
           <p>Check Our Tasty Menu</p>
+        </div>
+
+        <div class="row" ata-aos="fade-up" data-aos-delay="100">
+        <div class="col-lg-12 d-flex justify-content-center">
+                <ul class="menu-filters portofolio-filters">
+                    <li data-filter="*" class="btn btn-primary filter-button filter-active">All</>
+                    <?php foreach ($resultkategori as $resk) :  ?>
+                        <button>
+                            <li class="btn btn-default filter-button" data-filter="<?= $resk["ID_Kategori"]; ?>"><?= $resk["namaKategori"]; ?></li>
+                        </button>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
         </div>
 
         <div class="row" data-aos="fade-up" data-aos-delay="100">
