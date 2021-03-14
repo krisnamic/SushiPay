@@ -709,7 +709,7 @@ section {
   margin: 0 0 5px 0;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: black;
+  color: #8d8d8d;
   font-family: "Arial";
 }
 
@@ -718,7 +718,7 @@ section {
   width: 120px;
   height: 1px;
   display: inline-block;
-  background: black;
+  background: #8d8d8d;
   margin: 4px 10px;
 }
 

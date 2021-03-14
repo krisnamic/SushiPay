@@ -3,6 +3,7 @@
 require 'functions.php';
 
 if (isset($_POST["register"])) {
+   
   $password = mysqli_real_escape_string($db, $_POST["password"]);
   $password2 = mysqli_real_escape_string($db, $_POST["password2"]);
     if (register($_POST) > 0) {
