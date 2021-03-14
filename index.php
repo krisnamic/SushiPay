@@ -77,7 +77,7 @@ if (isset($_POST['pesan'])) {
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 </head>
 
 <body>
@@ -144,11 +144,11 @@ if (isset($_POST['pesan'])) {
 
         <div class="row" data-aos="fade-up" data-aos-delay="100">
         <div class="col-lg-12 d-flex justify-content-center">
-            <ul id="portofolio-flters">
+            <ul id="menu-flters">
                 <li data-filter="*" class="btn btn-primary filter-button filter-active">All</li>
                 <?php foreach ($resultkategori as $resk) :  ?>
                     <!-- <button> -->
-                        <li class="btn btn-default filter-button" data-filter="<?= $resk["ID_Kategori"]; ?>"><?= $resk["namaKategori"]; ?></li>
+                        <li class="btn btn-default filter-button" data-filter=".<?= $resk["ID_Kategori"]; ?>"><?= $resk["namaKategori"]; ?></li>
                     <!-- </button> -->
                 <?php endforeach; ?>
             </ul>
@@ -166,33 +166,39 @@ if (isset($_POST['pesan'])) {
           </div>
         </div> -->
 
-        <div class="row" style="display:flex;">
+        <div class="row menu-container" data-aos="fade-up" data-aos-delay="200">
           
         <?php foreach ($result as $res) : ?>
-          <div class="col-lg-4">
-              <div class="card filter <?= $res["ID_Kategori"] ?>" style="width: 18rem;">
-                  <a class="btn" data-toggle="modal" data-target="#myModal<?php echo $res['ID_Menu']; ?>"><img class="card-img-top" src="./menu_img/<?= $res["gambarMenu"] ?>" width="150px"></a>
-                  <ul class="list-group list-group-flush">
-                      <!-- <li class="list-group-item">Price : Rp.</li> -->
-                      <li class="list-group-item" hidden><?= $res["ID_Kategori"] ?></li>
-                  </ul>
-                  <div class="card-body">
-                  <a class="btn" data-toggle="modal" data-target="#myModal<?php echo $res['ID_Menu']; ?>">
-                          <h5 class="card-title"><?= $res["namaMenu"] ?></h5>
-                      </a>
-                  </div>
-              </div>
-          </div>
-          
-        <!-- <div class="col-lg-6 menu-item filter-specialty">
-            <img src="assets/img/menu/lobster-roll.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Lobster Roll</a><span>$12.95</span>
-            </div>
-            <div class="menu-ingredients">
-              Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
+        <!-- <div class="col-lg-4">
+            <div class="card filter <= $res["ID_Kategori"] ?>" style="width: 18rem;">
+                <a class="btn" data-toggle="modal" data-target="#myModal<php echo $res['ID_Menu']; ?>"><img class="card-img-top" src="./menu_img/<= $res["gambarMenu"] ?>" width="150px"></a>
+                <div class="card-body">
+                    <a class="btn" data-toggle="modal" data-target="#myModal<php echo $res['ID_Menu']; ?>">
+                        <h5 class="card-title"><= $res["namaMenu"] ?></h5>
+                    </a>
+                    <p class="card-text"><= $res["deskripsiMenu"] ?></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Price : Rp.<= $res["hargaMenu"] ?></li>
+                    <li class="list-group-item" hidden><= $res["ID_Kategori"] ?></li>
+                </ul>
+                <div class="card-body">
+                    <a href="#" class="card-link">Card link</a>
+                </div>
             </div>
         </div> -->
+          
+        <div class="col-lg-3 menu-item <?= $res["ID_Kategori"] ?>">
+            <a class="btn" data-toggle="modal" data-target="#myModal<?php echo $res['ID_Menu']; ?>" style="padding: 0;">
+                <img class="card-img-top" src="./menu_img/<?= $res["gambarMenu"] ?>" width="150px">
+            </a>
+            <div class="menu-content" style="width: 100%;">
+              <a class="btn" data-toggle="modal" data-target="#myModal<?php echo $res['ID_Menu']; ?>" style="padding: 0;"><?= $res["namaMenu"] ?></a><span style="padding-right: 0px;">Rp. <?= $res["hargaMenu"] ?></span>
+            </div>
+            <div class="menu-ingredients" style="padding-right: 0px;text-align: justify;text-justify: inter-word;">
+            <?= $res["deskripsiMenu"] ?>
+            </div>
+        </div>
 
           <div class="modal fade" id="myModal<?php echo $res['ID_Menu']; ?>" role="dialog">
               <div class="modal-dialog">
@@ -745,7 +751,7 @@ if (isset($_POST['pesan'])) {
   <div id="preloader"></div>
   <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
 
-  <script>
+  <!-- <script>
       $(document).ready(function() {
           $(".filter-button").click(function() {
               var value = $(this).attr('data-filter');
@@ -757,7 +763,7 @@ if (isset($_POST['pesan'])) {
               }
           });
       });
-  </script>
+  </script> -->
   <!-- Vendor JS Files -->
   <script src="assets/vendor/jquery/jquery.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
