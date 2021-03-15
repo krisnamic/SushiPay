@@ -172,14 +172,22 @@ function addShoppingCart($data)
 
     $query_ID_Pesanan = "SELECT ID_Pesanan FROM pesanan WHERE ID_User = $iduser AND tanggalPemesanan = '$date' 
     AND waktuPemesanan = '$time'";
-
-    echo "<script>alert($query_ID_Pesanan $harga $jumlah $idmenu);</script>";
-
+    echo "<script>alert($query_ID_Pesanan);</script>";
+    // var_dump($query_ID_Pesanan);
+    // echo "<script>alert($query_ID_Pesanan $harga $jumlah $idmenu);</script>";
+    $coba = mysqli_query($db, $query_ID_Pesanan);
+    $gatau = mysqli_fetch_assoc($coba);
+    $x = $gatau["ID_Pesanan"];
+    // var_dump($gatau);
     $querydetail = "INSERT INTO detailpesanan(ID_Pesanan, hargaMenu, jumlah, ID_Menu)
     VALUES
-    ($query_ID_Pesanan, $harga, $jumlah, $idmenu);";
+    ($x, $harga, $jumlah, $idmenu);";
+    // var_dump($querydetail);
     mysqli_query($db, $querydetail);
+    // $tes = mysqli_errno($db);
+    $tes = mysqli_error($db);
     $affected += mysqli_affected_rows($db);
-    echo "<script>alert($affected);</script>";
+    echo "<script>alert($tes);</script>";
     return $affected;
+    //tes
 }
