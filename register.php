@@ -8,6 +8,11 @@ if (isset($_SESSION["user"])) {
     $loggedin = false;
 }
 
+if (isset($_POST['login'])) {
+    header("Location: login.php");
+    exit;
+}
+
 if (isset($_POST["register"])) {
 
   $password = mysqli_real_escape_string($db, $_POST["password"]);
