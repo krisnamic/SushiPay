@@ -150,7 +150,7 @@ if (isset($_POST['pesan'])) {
                 <li data-filter="*" class="filter-active">All</li>
                 <?php foreach ($resultkategori as $resk) :  ?>
                     <!-- <button> -->
-                        <li data-filter=".<?= $resk["ID_Kategori"]; ?>"><?= $resk["namaKategori"]; ?></li>
+                        <li class="filter-button" data-filter=".<?= $resk["ID_Kategori"]; ?>"><?= $resk["namaKategori"]; ?></li>
                     <!-- </button> -->
                 <?php endforeach; ?>
             </ul>
@@ -180,7 +180,7 @@ if (isset($_POST['pesan'])) {
         </div> -->
           
         <div class="col-lg-3 menu-item <?= $res["ID_Kategori"] ?>">
-            <a class="btn" data-toggle="modal" data-target="#myModal" style="padding: 0;">
+            <a class="btn" data-toggle="modal" data-target="#myModal<?php echo $res['ID_Menu']; ?>" style="padding: 0;">
                 <img class="card-img-top" src="./menu_img/<?= $res["gambarMenu"] ?>" width="150px">
             </a>
             <div class="menu-content" style="width: 100%;">
@@ -191,30 +191,35 @@ if (isset($_POST['pesan'])) {
             </div>
         </div>
 
-        <div class="container" style="color: #1a1814;">
-    <!-- The Modal -->
-    <div class="modal fade" id="myModal">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content" style="text-align: center; border-radius: 10px;">
-
-          <!-- Modal Header -->
-          <div class="modal-header" style="text-align: center; display: block; align-items: center;">
-            <h4 class="modal-title">Terima kasih!</h4>
-          </div>
-
-          <!-- Modal body -->
-          <div class="modal-body" style="margin-top: 30px; margin-bottom: 30px;">
-            <h5>Pesanan berhasil dilakukan</h5>
-          </div>
-
-          <!-- Modal footer -->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color:  #fa3d16;">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+           <div class="modal fade" id="myModal<?php echo $res['ID_Menu']; ?>" role="dialog">
+              <div class="modal-dialog">
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h4 class="modal-title"><?= $res['namaMenu']; ?></h4>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+                      <div class="modal-body">
+                          <form action="" method="POST">
+                              <div class="row-container">
+                                  <div class="col-container"><img name="gambarMenu" src="./menu_img/<?= $res["gambarMenu"] ?>" alt="<?= $res["gambarMenu"] ?>" width="50%;"></div>
+                                  <div class="col-container">
+                                      <p id="deskripsiMenu" name="deskripsiMenu" style=" text-align: justify; text-justify: inter-word;"><?= $res['deskripsiMenu']; ?></p>
+                                      <p id="hargaMenu" name="hargaMenu" class="d-flex flex-row-reverse" style="color: #fa3d16;">Rp. <?= $res['hargaMenu']; ?></p>
+                                  </div>
+                                  <input type="number" min="1" name="jumlah" id="jumlah">
+                                  <input type="text" hidden name="gambar" value="<?= $res["gambarMenu"] ?>">
+                                  <input type="text" hidden name="nama" value="<?= $res["namaMenu"] ?>">
+                                  <input type="text" hidden name="desc" value="<?= $res["deskripsiMenu"] ?>">
+                                  <input type="text" hidden name="harga" value="<?= $res["hargaMenu"] ?>">
+                                  <input type="text" hidden value="<?= $res['ID_Menu']; ?>" name="idmenu">
+                                  <button type="submit" name="pesan" id="pesan">Pesan</button>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+           </div>
         <?php endforeach; ?>
           
         
@@ -559,19 +564,6 @@ if (isset($_POST['pesan'])) {
   <div id="preloader"></div>
   <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
 
-  <!-- <script>
-      $(document).ready(function() {
-          $(".filter-button").click(function() {
-              var value = $(this).attr('data-filter');
-              if (value == "*") {
-                  $('.filter').show('1000');
-              } else {
-                  $('.filter').not('.' + value).hide('3000');
-                  $('.filter').filter('.' + value).show('3000');
-              }
-          });
-      });
-  </script> -->
   <!-- Vendor JS Files -->
   <script src="assets/vendor/jquery/jquery.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
