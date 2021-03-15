@@ -191,35 +191,7 @@ if (isset($_POST['pesan'])) {
             </div>
         </div>
 
-           <div class="modal fade" id="myModal<?php echo $res['ID_Menu']; ?>" role="dialog">
-              <div class="modal-dialog">
-                  <!-- Modal content-->
-                  <div class="modal-content">
-                      <div class="modal-header">
-                          <h4 class="modal-title"><?= $res['namaMenu']; ?></h4>
-                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      </div>
-                      <div class="modal-body">
-                          <form action="" method="POST">
-                              <div class="row-container">
-                                  <div class="col-container"><img name="gambarMenu" src="./menu_img/<?= $res["gambarMenu"] ?>" alt="<?= $res["gambarMenu"] ?>" width="50%;"></div>
-                                  <div class="col-container">
-                                      <p id="deskripsiMenu" name="deskripsiMenu" style=" text-align: justify; text-justify: inter-word;"><?= $res['deskripsiMenu']; ?></p>
-                                      <p id="hargaMenu" name="hargaMenu" class="d-flex flex-row-reverse" style="color: #fa3d16;">Rp. <?= number_format($res['hargaMenu'],0,',','.'); ?></p>
-                                  </div>
-                                  <input type="number" min="1" name="jumlah" id="jumlah">
-                                  <input type="text" hidden name="gambar" value="<?= $res["gambarMenu"] ?>">
-                                  <input type="text" hidden name="nama" value="<?= $res["namaMenu"] ?>">
-                                  <input type="text" hidden name="desc" value="<?= $res["deskripsiMenu"] ?>">
-                                  <input type="text" hidden name="harga" value="<?= $res["hargaMenu"] ?>">
-                                  <input type="text" hidden value="<?= $res['ID_Menu']; ?>" name="idmenu">
-                                  <button type="submit" name="pesan" id="pesan">Pesan</button>
-                              </div>
-                          </form>
-                      </div>
-                  </div>
-              </div>
-           </div>
+
         <?php endforeach; ?>
 
 
@@ -563,6 +535,38 @@ if (isset($_POST['pesan'])) {
 
   <div id="preloader"></div>
   <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
+
+  <?php foreach ($result as $res) : ?>
+    <div class="modal fade" id="myModal<?php echo $res['ID_Menu']; ?>" role="dialog">
+       <div class="modal-dialog">
+           <!-- Modal content-->
+           <div class="modal-content">
+               <div class="modal-header">
+                   <h4 class="modal-title"><?= $res['namaMenu']; ?></h4>
+                   <button type="button" class="close" data-dismiss="modal">&times;</button>
+               </div>
+               <div class="modal-body">
+                   <form action="" method="POST">
+                       <div class="row-container">
+                           <div class="col-container"><img name="gambarMenu" src="./menu_img/<?= $res["gambarMenu"] ?>" alt="<?= $res["gambarMenu"] ?>" width="50%;"></div>
+                           <div class="col-container">
+                               <p id="deskripsiMenu" name="deskripsiMenu" style=" text-align: justify; text-justify: inter-word;"><?= $res['deskripsiMenu']; ?></p>
+                               <p id="hargaMenu" name="hargaMenu" class="d-flex flex-row-reverse" style="color: #fa3d16;">Rp. <?= number_format($res['hargaMenu'],0,',','.'); ?></p>
+                           </div>
+                           <input type="number" min="1" name="jumlah" id="jumlah">
+                           <input type="text" hidden name="gambar" value="<?= $res["gambarMenu"] ?>">
+                           <input type="text" hidden name="nama" value="<?= $res["namaMenu"] ?>">
+                           <input type="text" hidden name="desc" value="<?= $res["deskripsiMenu"] ?>">
+                           <input type="text" hidden name="harga" value="<?= $res["hargaMenu"] ?>">
+                           <input type="text" hidden value="<?= $res['ID_Menu']; ?>" name="idmenu">
+                           <button type="submit" name="pesan" id="pesan">Pesan</button>
+                       </div>
+                   </form>
+               </div>
+           </div>
+       </div>
+    </div>
+  <?php endforeach; ?>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/jquery/jquery.min.js"></script>
