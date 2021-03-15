@@ -6,20 +6,20 @@ $result = mysqli_query($db, $query);
 
 if (isset($_POST["submitdata"])) {
     //cek isi dari post dan enctype
-    // var_dump($_POST); 
+    // var_dump($_POST);
     // var_dump($_FILES); die;
 
     //cek apakah data berhasil ditambahkan atau tidak
     if (addMenu($_POST) > 0) {
         echo "
         <script>
-            alert('data berhasil ditambahkan');
+            alert('Succesfully added data.');
             document.location.href = 'admin.php';
         </script>";
     } else {
         echo "
         <script>
-            alert('data gagal ditambahkan');
+            alert('Failed to load data.');
             document.location.href = 'admin.php';
         </script>";
     }
@@ -55,33 +55,40 @@ if (isset($_POST["submitdata"])) {
 </head>
 
 <body>
-<header id="header" class="fixed-top">
+  <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
       <!-- <h1 class="logo mr-auto"><a href="index.html">Restaurantly</a></h1> -->
       <!-- Uncomment below if you prefer to use an image logo -->
-      <a href="index.php" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>
+      <a href="index.php" class="logo mr-auto"><img src="assets/img/logo/logo-red.png" onmouseover="this.src='assets/img/logo/logo-white.png';" onmouseout="this.src='assets/img/logo/logo-red.png';" alt="" class="img-fluid"></a>
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-            <!-- <li class="active"><a href="index.html">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#menu">Menu</a></li>
-            <li><a href="#specials">Specials</a></li>
-            <li><a href="#events">Events</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#chefs">Chefs</a></li>-->
-            <li><a href="checkout.php"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li> 
-            <li class="book-a-table text-center">
-                <form action="" method="POST">
-                    <button class="button logout" type="submit" name="logout" style="background-color:black; border: 0px;"><a>Log out!</a></button>
-                </form>
-            </li>
+          <?php
+          if ($loggedin) {
+            echo '<li><a href="checkout.php"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li>';
+          }
+          ?>
+
+          <li class="book-a-table text-center">
+            <form action="" method="POST">
+                <?php
+                if ($loggedin) {
+                    echo "<button class='button logout btn btn-primary' type='submit' name='logout'>Log out!</button>";
+                } else {
+                    echo "<button class='button login btn btn-primary' type='submit' name='login'>Login</button> ";
+                }
+                ?>
+                <!-- <br>
+                <a href="shoppingcart.php">Go to Shopping Cart</a> -->
+            </form>
+          </li>
+          <!-- <li class="book-a-table text-center"><a href="login.php">Login</a></li> -->
         </ul>
       </nav><!-- .nav-menu -->
     </div>
   </header><!-- End Header -->
-  
+
   <main>
     <div class="container" style="text-align: center; padding-top: 100px; padding-bottom:20px;">
         <h1>Tambah Menu</h1>
@@ -116,77 +123,71 @@ if (isset($_POST["submitdata"])) {
             </div>
             <div class="d-flex justify-content-between">
                 <button type="submit" class="btn btn-primary" name="submitdata">Submit</button>
-                <a href="admin.php" class="btn btn-default" style="border: 1px solid gray;">Cancel</a>
+                <a href="admin.php" class="btn btn-primary" style="background-color: #0069D9; color: white; border: 1px solid white;" onmouseover="this.style.color='#0069d9';this.style.backgroundColor='white'; this.style.border='1px solid #0069d9'" onmouseout="this.style.color='white';this.style.backgroundColor='#0069D9'">Cancel</a>
             </div>
         </form>
     </div>
     </main>
 
     <!-- ======= Footer ======= -->
-  <footer id="footer" style="margin-top: 40px;">
-    <div class="footer-top">
-      <div class="container">
-        <div class="row">
+    <footer id="footer">
+      <div class="footer-top">
+        <div class="container">
+          <div class="row">
 
-          <div class="col-lg-3 col-md-6">
-            <div class="footer-info">
-              <h3>Restaurantly</h3>
-              <p>
-                A108 Adam Street <br>
-                NY 535022, USA<br><br>
-                <strong>Phone:</strong> +1 5589 55488 55<br>
-                <strong>Email:</strong> info@example.com<br>
-              </p>
-              <div class="social-links mt-3">
-                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+            <div class="col-lg-3 col-md-6">
+              <div class="footer-info">
+                <a href="index.php" class="logo mr-auto"><img src="assets/img/logo/logo-red.png" alt="" class="img-fluid" width="200"></a>
+
+                <p style="padding-top: 15px;">
+                  Jl. Scientia Boulevard, Gading,<br>
+                  Kec. Serpong, Tangerang, Banten 15227<br><br>
+                  <strong>Phone:</strong> +62 2239 7773 4893<br>
+                  <strong>Email:</strong> uts.pemweb@student.umn.ac.id<br>
+                </p>
               </div>
             </div>
+
+            <div class="col-lg-2 col-md-6 footer-links">
+              <h4>Useful Links</h4>
+              <ul>
+                <li><i class="bx bx-chevron-right"></i> <a href="#hero">Home</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#menu">Menu</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="checkout.php">Checkout</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="login.php">Login</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="register.php">Sign Up</a></li>
+              </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Our Hot Products</h4>
+              <ul>
+                <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Mix Karaage Set</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Shrimp Bomb</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Kakiage Original</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Karaage Spicy</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">California Roll</a></li>
+              </ul>
+            </div>
+
+            <div class="col-lg-4 col-md-6 footer-newsletter">
+              <h4>Subscribe to Our Newsletter</h4>
+              <p>Subscribe to get our latest products and hot promo of our products!</p>
+              <form action="" method="">
+                <input type="email" name="email"><input type="submit" value="Subscribe" onclick="location.href='mailto:uts.pemweb@student.umn.ac.id';">
+              </form>
+
+            </div>
+
           </div>
-
-          <div class="col-lg-2 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-4 col-md-6 footer-newsletter">
-            <h4>Our Newsletter</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
-            </form>
-
-          </div>
-
         </div>
       </div>
-    </div>
 
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><span>Restaurantly</span></strong>. All Rights Reserved
+      <div class="container">
+        <div class="copyright">
+          &copy; Copyright <strong><span>SushiPay</span></strong>. All Rights Reserved
+        </div>
       </div>
-    </div>
     </footer><!-- End Footer -->
 
     <div id="preloader"></div>

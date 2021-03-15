@@ -13,12 +13,12 @@ function register($data)
     $username_result = mysqli_query($db, "SELECT username FROM account WHERE username = '$username'");
     if (mysqli_fetch_assoc($email_result)) {
         echo "<script>
-                    alert('email already taken! Please use another one!')
+                    alert('Email already taken! Please use another one.')
                 </script>";
         return false;
     } else if (mysqli_fetch_assoc($username_result)) {
         echo "<script>
-                    alert('Username already taken! Please use another one!')
+                    alert('Username already taken! Please use another one.')
                 </script>";
         return false;
     }
@@ -76,7 +76,7 @@ function upload()
     // cek apakah tdk ada gambar yang diupload
     if ($error === 4) {
         echo "<script>
-        alert('pilih gambar terlebih dahulu');
+        alert('Please insert picture first.');
         </script>";
         return false;
     }
@@ -93,13 +93,13 @@ function upload()
     //cek apakah ekstensi yg diupload ada di $ekstensiGambarValid
     if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
         echo "<script>
-        alert('yang anda upload bukanlah gambar!');
+        alert('This file is not in .jpg/.jpeg/.png format.');
         </script>";
     }
     //cek jika ukurannya terlalu besar
     if ($ukuranFile > 900000) { //kisaran 900 KB
         echo "<script>
-        alert('ukuran gambar terlalu besar!');
+        alert('File size exceeds the limit.');
         </script>";
     }
     //lolos pengecekan, gambar siap diupload
@@ -129,7 +129,6 @@ function edit($data)
     } else {
         $picture = upload();
     }
-    echo "<script>alert('$idMenu $name $description $price $oldpicture $picture');</script>";
     $query = "UPDATE menu SET
                 namaMenu = '$name',
                 deskripsiMenu = '$description',
@@ -145,7 +144,6 @@ function delete($data)
     global $db;
     $idMenu = $data["delete"];
     mysqli_query($db, "DELETE FROM menu WHERE ID_Menu = $idMenu");
-    echo "<script>alert($idMenu);</script>";
     return mysqli_affected_rows($db);
 }
 
@@ -158,7 +156,6 @@ function addShoppingCart($data)
     $deskripsi = $data["desc"];
     $harga = $data["harga"];
     $nama = $data["nama"];
-    echo "<script>alert($gambar $deskripsi $harga $nama);</script>";
     date_default_timezone_set("Asia/Bangkok");
     $date = date('Y-m-d');
     $time = date('H:i:s');

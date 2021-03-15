@@ -28,19 +28,19 @@ if (isset($_POST['login'])) {
 if (isset($_POST['pesan'])) {
     if (!isset($_SESSION["user"])) {
         echo "<script>
-        alert('anda harus login terlebih dahulu sebelum memesan!');
+        alert('Please sign in first before ordering.');
         document.location.href = 'login.php';
         </script>";
         exit;
     } else {
         if (addShoppingCart($_POST) > 1) {
             echo "<script>
-        alert('successfuly added to shopping cart!');
+        alert('Successfuly added to shopping cart.');
         document.location.href = 'index.php#menu';
         </script>";
         } else {
             echo "<script>
-        alert('failed to add shopping cart !');
+        alert('Failed to add shopping cart.');
         document.location.href = 'index.php#menu';
         </script>";
         }
@@ -84,7 +84,7 @@ if (isset($_POST['pesan'])) {
 
       <!-- <h1 class="logo mr-auto"><a href="index.html">Restaurantly</a></h1> -->
       <!-- Uncomment below if you prefer to use an image logo -->
-      <a href="index.php" class="logo mr-auto"><img src="assets/img/logo.jpg" alt="" class="img-fluid"></a>
+      <a href="index.php" class="logo mr-auto"><img src="assets/img/logo/logo-red.png" onmouseover="this.src='assets/img/logo/logo-white.png';" onmouseout="this.src='assets/img/logo/logo-red.png';" alt="" class="img-fluid"></a>
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
@@ -221,10 +221,10 @@ if (isset($_POST['pesan'])) {
             <div class="col-lg-8 pt-4 pt-lg-0 content">
               <h3>Mix Karaage Set</h3>
               <div class="price">
-                <p><span>Rp. 22000</span></p>
+                <p><span>Rp. 22.000</span></p>
               </div>
               <p class="font-italic">
-                 Mix Karage Set is a Japanese \"rice-bowl dish\" consisting of mixed toppings and served over rice.
+                 Mix Karage Set is a Japanese "rice-bowl dish" consisting of mixed toppings and served over rice.
               </p>
               <ul>
                 <li><i class="icofont-check-circled"></i> 100% Halal</li>
@@ -244,7 +244,7 @@ if (isset($_POST['pesan'])) {
             <div class="col-lg-8 pt-4 pt-lg-0 content">
               <h3>Shrimp Bomb</h3>
               <div class="price">
-                <p><span>Rp. 24000</span></p>
+                <p><span>Rp. 24.000</span></p>
               </div>
               <p class="font-italic">
                  Shrimp Bomb is an anti-personnel explosive device containing shrimps to increase its effectiveness at harming victims.
@@ -267,7 +267,7 @@ if (isset($_POST['pesan'])) {
             <div class="col-lg-8 pt-4 pt-lg-0 content">
               <h3>Kakiage Original</h3>
               <div class="price">
-                <p><span>Rp. 39000</span></p>
+                <p><span>Rp. 39.000</span></p>
               </div>
               <p class="font-italic">
                  Kakiage is a type of tempura that consists of an assortment of seafood and thinly sliced vegetables.
@@ -483,7 +483,7 @@ if (isset($_POST['pesan'])) {
 
           <div class="col-lg-3 col-md-6">
             <div class="footer-info">
-              <a href="index.php" class="logo mr-auto"><img src="assets/img/logo.jpg" alt="" class="img-fluid" width="200"></a>
+              <a href="index.php" class="logo mr-auto"><img src="assets/img/logo/logo-red.png" alt="" class="img-fluid" width="200"></a>
 
               <p style="padding-top: 15px;">
                 Jl. Scientia Boulevard, Gading,<br>

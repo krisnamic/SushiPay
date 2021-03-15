@@ -21,12 +21,12 @@ $result = mysqli_query($db, $query);
 if (isset($_POST["change"])) {
     if (edit($_POST) > 0) {
         echo "<script>
-        alert('task edited successfuly!');
+        alert('Task edited successfuly.');
         document.location.href = 'admin.php';
     </script>";
     } else {
         echo "<script>
-        alert('failed to edit task!');
+        alert('Failed to edit task.');
         document.location.href = 'admin.php';
     </script>";
     }
@@ -35,12 +35,12 @@ if (isset($_POST["change"])) {
 if (isset($_POST['delete'])) {
     if (delete($_POST) > 0) {
         echo "<script>
-        alert('menu deleted successfuly!');
+        alert('Menu deleted successfuly.');
         document.location.href = 'admin.php';
     </script>";
     } else {
         echo "<script>
-        alert('failed to delete task!');
+        alert('Failed to delete task.');
         document.location.href = 'admin.php';
     </script>";
     }
@@ -80,33 +80,40 @@ if (isset($_POST['delete'])) {
 </head>
 
 <body>
-<header id="header" class="fixed-top">
+  <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
       <!-- <h1 class="logo mr-auto"><a href="index.html">Restaurantly</a></h1> -->
       <!-- Uncomment below if you prefer to use an image logo -->
-      <a href="index.php" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>
+      <a href="index.php" class="logo mr-auto"><img src="assets/img/logo/logo-red.png" onmouseover="this.src='assets/img/logo/logo-white.png';" onmouseout="this.src='assets/img/logo/logo-red.png';" alt="" class="img-fluid"></a>
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-            <!-- <li class="active"><a href="index.html">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#menu">Menu</a></li>
-            <li><a href="#specials">Specials</a></li>
-            <li><a href="#events">Events</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#chefs">Chefs</a></li>-->
-            <li><a href="checkout.php"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li> 
-            <li class="book-a-table text-center">
-                <form action="" method="POST">
-                    <button class="button logout" type="submit" name="logout" style="background-color:black; border: 0px;"><a>Log out!</a></button>
-                </form>
-            </li>
+          <?php
+          if ($loggedin) {
+            echo '<li><a href="checkout.php"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li>';
+          }
+          ?>
+
+          <li class="book-a-table text-center">
+            <form action="" method="POST">
+                <?php
+                if ($loggedin) {
+                    echo "<button class='button logout btn btn-primary' type='submit' name='logout'>Log out!</button>";
+                } else {
+                    echo "<button class='button login btn btn-primary' type='submit' name='login'>Login</button> ";
+                }
+                ?>
+                <!-- <br>
+                <a href="shoppingcart.php">Go to Shopping Cart</a> -->
+            </form>
+          </li>
+          <!-- <li class="book-a-table text-center"><a href="login.php">Login</a></li> -->
         </ul>
       </nav><!-- .nav-menu -->
     </div>
   </header><!-- End Header -->
-  
+
   <main>
     <h1 style="padding-top: 100px; padding-bottom:20px; text-align: center; font-size: 8vh;">ADMIN</h1>
     <div class="container">
@@ -115,11 +122,11 @@ if (isset($_POST['delete'])) {
         </div>
         <table id="example" class="table table-striped table-bordered" style="width:100%">
             <thead>
-                <th>Nomor</th>
-                <th>Nama</th>
-                <th>Harga</th>
-                <th>Deskripsi</th>
-                <th>Gambar</th>
+                <th>ID</th>
+                <th>Menu Name</th>
+                <th>Price&emsp;&emsp;&emsp;</th>
+                <th>Menu Description</th>
+                <th>Picture</th>
                 <th>Action</th>
             </thead>
             <tbody>
@@ -128,15 +135,15 @@ if (isset($_POST['delete'])) {
                     <tr>
                         <td><?= $i ?></td>
                         <td><?= $res["namaMenu"]; ?></td>
-                        <td><?= $res["hargaMenu"]; ?></td>
+                        <td>Rp. <?= number_format($res["hargaMenu"],0,',','.'); ?></td>
                         <td><?= $res["deskripsiMenu"]; ?></td>
                         <td><img src="./menu_img/<?= $res["gambarMenu"] ?>" width="150px"></td>
                         <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit<?php echo $res['ID_Menu']; ?>">
+                            <button type="button" class="btn btn-primary" style="margin-bottom: 5px;background-color: #0069D9; color: white; border: 1px solid white;" onmouseover="this.style.color='#0069d9';this.style.backgroundColor='white'; this.style.border='1px solid #0069d9'" onmouseout="this.style.color='white';this.style.backgroundColor='#0069D9'" data-toggle="modal" data-target="#edit<?php echo $res['ID_Menu']; ?>">
                                 Edit
                             </button>
                             <form action="" method="post">
-                                <button type="submit" name="delete" id="delete" value="<?= $res['ID_Menu'] ?>">delete</button>
+                                <button type="submit" class="btn btn-primary" name="delete" id="delete" value="<?= $res['ID_Menu'] ?>">Delete</button>
                             </form>
                         </td>
                         <!-- blm bner -->
@@ -145,15 +152,14 @@ if (isset($_POST['delete'])) {
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel2">Edit Menu</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel2" style="font-size: 25px;">Edit Menu</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
+                                            <span aria-hidden="true" style="font-size: 40px;">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
                                         <form action="" method="post" enctype="multipart/form-data">
-                                            <?php echo $res['ID_Menu']; ?>
-                                            <ul>
+                                            <ul style="list-style: none;">
                                                 <li>
                                                     <label for="namaMenu">Nama Menu :</label>
                                                     <input type="text" name="namaMenu" id="namaMenu" value="<?= $res['namaMenu'] ?>">
@@ -170,10 +176,11 @@ if (isset($_POST['delete'])) {
                                                     <label for="gambarMenu">Gambar Menu</label>
                                                     <input type="file" name="picture" id="picture">
                                                 </li>
-                                                <input type=" hidden" name="ID_Menu" id="ID_Menu" value="<?= $res['ID_Menu'] ?>">
+                                                <input type="hidden" name="ID_Menu" id="ID_Menu" value="<?= $res['ID_Menu'] ?>">
                                                 <input type="hidden" name="gambarlama" value="<?= $res["gambarMenu"]; ?>">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                                <button type="submit" class="btn btn-primary" name="change">Confirm Edit</button>
+                                                <div class="d-flex justify-content-end">
+                                                  <button type="submit" class="btn btn-primary" name="change" style="margin-top: 20px;">Confirm Edit</button>
+                                                </div>
                                             </ul>
                                         </form>
                                     </div>
@@ -184,62 +191,63 @@ if (isset($_POST['delete'])) {
                     <?php $i++; ?>
                 <?php endforeach; ?>
             </tbody>
+            <tfoot>
+              <th>ID</th>
+              <th>Menu Name</th>
+              <th>Price</th>
+              <th>Menu Description</th>
+              <th>Picture</th>
+              <th>Action</th>
+            </tfoot>
         </table>
     </main>
 
-        
   <!-- ======= Footer ======= -->
-  <footer id="footer" style="margin-top: 40px;">
+  <footer id="footer">
     <div class="footer-top">
       <div class="container">
         <div class="row">
 
           <div class="col-lg-3 col-md-6">
             <div class="footer-info">
-              <h3>Restaurantly</h3>
-              <p>
-                A108 Adam Street <br>
-                NY 535022, USA<br><br>
-                <strong>Phone:</strong> +1 5589 55488 55<br>
-                <strong>Email:</strong> info@example.com<br>
+              <a href="index.php" class="logo mr-auto"><img src="assets/img/logo/logo-red.png" alt="" class="img-fluid" width="200"></a>
+
+              <p style="padding-top: 15px;">
+                Jl. Scientia Boulevard, Gading,<br>
+                Kec. Serpong, Tangerang, Banten 15227<br><br>
+                <strong>Phone:</strong> +62 2239 7773 4893<br>
+                <strong>Email:</strong> uts.pemweb@student.umn.ac.id<br>
               </p>
-              <div class="social-links mt-3">
-                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-              </div>
             </div>
           </div>
 
           <div class="col-lg-2 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#hero">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#menu">Menu</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="checkout.php">Checkout</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="login.php">Login</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="register.php">Sign Up</a></li>
             </ul>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Services</h4>
+            <h4>Our Hot Products</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Mix Karaage Set</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Shrimp Bomb</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Kakiage Original</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Karaage Spicy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">California Roll</a></li>
             </ul>
           </div>
 
           <div class="col-lg-4 col-md-6 footer-newsletter">
-            <h4>Our Newsletter</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
+            <h4>Subscribe to Our Newsletter</h4>
+            <p>Subscribe to get our latest products and hot promo of our products!</p>
+            <form action="" method="">
+              <input type="email" name="email"><input type="submit" value="Subscribe" onclick="location.href='mailto:uts.pemweb@student.umn.ac.id';">
             </form>
 
           </div>
@@ -250,7 +258,7 @@ if (isset($_POST['delete'])) {
 
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong><span>Restaurantly</span></strong>. All Rights Reserved
+        &copy; Copyright <strong><span>SushiPay</span></strong>. All Rights Reserved
       </div>
     </div>
   </footer><!-- End Footer -->

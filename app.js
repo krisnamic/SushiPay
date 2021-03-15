@@ -37,5 +37,6 @@ function validateCaptcha() {
     document.getElementById("login-btn").disabled = false;
     document.getElementById("captcha-box").style.display = "none";
     document.getElementById("captcha-title").style.display = "none";
+    document.getElementById("valid").style.display = "block";
   }
 }
