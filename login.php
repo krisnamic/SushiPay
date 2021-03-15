@@ -1,22 +1,28 @@
-<style>
-  <?php include 'style.css';
-  ?>
-</style>
 <?php
 require 'functions.php';
 session_start();
 
+if (isset($_SESSION["user"])) {
+    $loggedin = true;
+} else {
+    $loggedin = false;
+}
+
 //for kicking uninvited guest
 if (isset($_SESSION["login"])) {
-    header("location: index.php");
+    header("Location: index.php");
     exit;
+}
+
+if (isset($_POST["register"])) {
+  header("Location: register.php");
 }
 
 if (isset($_GET["register"])) {
   if (empty($username) || empty($password)) {
-    header("location: register.php");
+    header("Location: register.php");
   } else {
-    header("location: register.php");
+    header("Location: register.php");
   }
     exit;
 }
@@ -27,14 +33,13 @@ if (isset($_POST["login"])) {
     //fetch username & password from user's input
     $username = mysqli_real_escape_string($db, $_POST["username"]);
     $password = mysqli_real_escape_string($db, $_POST["password"]);
+    //for checking password and username is empty or not
+    if (empty($username) || empty($password)) {
+        echo "<script>alert('Username/Password harus diisi');</script>";
+    }
 
     $query_id = "SELECT ID FROM account WHERE username = '$username'";
     $result_id = mysqli_query($db, $query_id);
-
-    //for checking password and username is empty or not
-    if (empty($username) || empty($password)) {
-        echo "Username/Password harus diisi";
-    }
 
     $result = mysqli_query($db, "SELECT *
                         FROM account
@@ -53,7 +58,7 @@ if (isset($_POST["login"])) {
             if ($row['role'] == "admin") {
                 // create admin session
                 $_SESSION['admin'] = true;
-                header("location:admin.php");
+                header("Location:admin.php");
                 exit;
             }
 
@@ -65,7 +70,7 @@ if (isset($_POST["login"])) {
                     // $tes = $_SESSION['user_id'];
                     // echo "<script>alert('$tes');</script>";
                 }
-                header("location:user.php");
+                header("Location:index.php");
                 exit;
             }
         }
@@ -110,22 +115,31 @@ if (isset($_POST["login"])) {
 
       <!-- <h1 class="logo mr-auto"><a href="index.html">Restaurantly</a></h1> -->
       <!-- Uncomment below if you prefer to use an image logo -->
-      <a href="index.php" class="logo mr-auto"><img src="assets/img/logo/logo-red.png" onmouseover="this.src='assets/img/logo/logo-white.png';" onmouseout="this.src='assets/img/logo/logo-red.png';" alt="" class="img-fluid"></a>
+      <a href="index.php" class="logo mr-auto"><img src="assets/img/logo.jpg" alt="" class="img-fluid"></a>
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <!-- <li class="active"><a href="index.html">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#menu">Menu</a></li>
-          <li><a href="#specials">Specials</a></li>
-          <li><a href="#events">Events</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          <li><a href="#chefs">Chefs</a></li>-->
-          <li><a href="checkout.php"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li>
-          <li class="book-a-table text-center"><a href="login.php">Login</a></li>
+          <?php
+          if ($loggedin) {
+            echo '<li><a href="checkout.php"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li>';
+          }
+          ?>
+          <li class="book-a-table text-center">
+            <form action="" method="POST">
+                <?php
+                if ($loggedin) {
+                    echo "<button class='button logout btn btn-primary' type='submit' name='logout'>Log out!</button>";
+                } else {
+                    echo "<button class='button login btn btn-primary' type='submit' name='register'>Sign Up</button> ";
+                }
+                ?>
+                <!-- <br>
+                <a href="shoppingcart.php">Go to Shopping Cart</a> -->
+            </form>
+          </li>
+          <!-- <li class="book-a-table text-center"><a href="login.php">Login</a></li> -->
         </ul>
       </nav><!-- .nav-menu -->
-
     </div>
   </header><!-- End Header -->
 
@@ -172,43 +186,43 @@ if (isset($_POST["login"])) {
                 /*if (isset($flag1)) {
                     echo "Username harus diisi";
                 }*/
-                if(isset($_POST['login'])) {
-                  if (empty($username)) {
-                    echo '<div class="alert alert-danger" role="alert">';
-                    echo "Username/Email harus diisi";
-                    echo '</div>';
-                  }
-                }
+                // if(isset($_POST['login'])) {
+                //   if (empty($username)) {
+                //     echo '<div class="alert alert-danger" role="alert">';
+                //     echo "Username/Email harus diisi";
+                //     echo '</div>';
+                //   }
+                // }
               ?>
             </div>
 
             <div class="form-group">
               <label for="password">Password : </label>
-              <input type="password" name="password" class="form-control" id="password" placeholder="********" required>
+              <input type="password" name="password" class="form-control" id="password" placeholder="Please input password here!" required>
               <div class="invalid-feedback">Password harus diisi</div>
               <?php
                   /*if (isset($flag2)) {
                       echo "Password harus diisi";
                   }*/
-                  if(isset($_POST['login'])) {
-                    if (empty($password)) {
-                      echo '<div class="alert alert-danger" role="alert">';
-                      echo "Password harus diisi";
-                      echo '</div>';
-                    }
-                  }
+                  // if(isset($_POST['login'])) {
+                  //   if (empty($password)) {
+                  //     echo '<div class="alert alert-danger" role="alert">';
+                  //     echo "Password harus diisi";
+                  //     echo '</div>';
+                  //   }
+                  // }
               ?>
             </div>
 
-            <div class="section-title-checkout" style="padding-top: 10px;">
-              <h2>キャプチャ</h2>
+            <div id="captcha-title"class="section-title-checkout" style="padding-top: 10px;">
+              <h2>CAPTCHA</h2>
             </div>
 
             <div class="form-group">
                <?php include 'captcha.php' ?>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="padding-top: 25px;">
               <button id="login-btn" class="btn btn-primary login" type="submit" name="login">Sign In</button>
             </div>
           </div>

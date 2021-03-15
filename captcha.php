@@ -3,11 +3,9 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Captcha Generator</title>        
+        <title>Captcha Generator</title>
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Kanit:300,300i,400,400i,600,600i,700,700i|Varela:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-        <!-- Vendor CSS Files -->
-        <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <style>
             .box {
             width: 50vh;
@@ -68,7 +66,7 @@
     </head>
     <body>
         <div class="">
-            <div class="box">
+            <div class="box" id="captcha-box">
                 <div class="noise" style="text-align: center; border-radius:5px; margin-bottom: 10px;">
                     <div id="captcha" class="captcha"><script>createCaptcha();</script></div>
                 </div>
@@ -79,13 +77,13 @@
                         type="text"
                         name="reCaptcha"
                         id="reCaptcha"
-                        placeholder="Type The Captcha" 
+                        placeholder="Type The Captcha"
                         style="font-size: 16px; line-height: 30px; text-align: center;"
                         />
-                    </div>    
+                    </div>
                     <div class="restart col-4" style="cursor: pointer; padding-left: 4px; text-align:end;">
                         <a onclick="createCaptcha()"><img src="assets/img/reload.png" height="36px" style=" border: 1px solid grey; border-radius: 2px;"/></a>
-                    </div>   
+                    </div>
                 </div>
 
                 <div>

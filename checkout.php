@@ -1,14 +1,26 @@
 <?php
 
   session_start();
+  if (isset($_POST["logout"])) {
+    $_SESSION = [];
+    session_unset();
+    session_destroy();
+    header("Location: index.php");
+    exit;
+  }
   if (!isset($_SESSION["user"])) {
-      header("Location: user.php");
+      header("Location: index.php");
       exit;
+  }
+  if (isset($_SESSION["user"])) {
+      $loggedin = true;
+  } else {
+      $loggedin = false;
   }
   require "functions.php";
   $userid = $_SESSION['user_id'];
 
-  $query = "SELECT detailPesanan.hargaMenu, detailPesanan.jumlah, menu.namaMenu, menu.gambarMenu, detailPesanan.hargaMenu * detailPesanan.jumlah 'Total Harga'
+  $query = "SELECT detailPesanan.hargaMenu, detailPesanan.jumlah, menu.namaMenu, menu.gambarMenu, detailPesanan.hargaMenu * detailPesanan.jumlah 'Total Harga', pesanan.waktuPemesanan, pesanan.tanggalPemesanan
   FROM detailPesanan
   JOIN menu
   ON detailPesanan.ID_menu = menu.ID_Menu
@@ -89,22 +101,27 @@
 
       <!-- <h1 class="logo mr-auto"><a href="index.html">Restaurantly</a></h1> -->
       <!-- Uncomment below if you prefer to use an image logo -->
-      <a href="index.php" class="logo mr-auto"><img src="assets/img/logo/logo-red.png" onmouseover="this.src='assets/img/logo/logo-white.png';" onmouseout="this.src='assets/img/logo/logo-red.png';" alt="" class="img-fluid"></a>
+      <a href="index.php" class="logo mr-auto"><img src="assets/img/logo.jpg" alt="" class="img-fluid"></a>
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <!-- <li class="active"><a href="index.html">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#menu">Menu</a></li>
-          <li><a href="#specials">Specials</a></li>
-          <li><a href="#events">Events</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          <li><a href="#chefs">Chefs</a></li>-->
-          <li><a href="checkout.html"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li>
-          <li class="book-a-table text-center"><a href="">Login</a></li>
+          <li><a href="checkout.php"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li>
+          <li class="book-a-table text-center">
+            <form action="" method="POST">
+                <?php
+                if ($loggedin) {
+                    echo "<button class='button logout btn btn-primary' type='submit' name='logout'>Log out!</button>";
+                } else {
+                    echo "<button class='button login btn btn-primary' type='submit' name='login'>Login</button> ";
+                }
+                ?>
+                <!-- <br>
+                <a href="shoppingcart.php">Go to Shopping Cart</a> -->
+            </form>
+          </li>
+          <!-- <li class="book-a-table text-center"><a href="login.php">Login</a></li> -->
         </ul>
       </nav><!-- .nav-menu -->
-
     </div>
   </header><!-- End Header -->
 
@@ -129,8 +146,10 @@
                   <a href="#"><?= $res["namaMenu"] ?></a><span>Total: Rp.<?= number_format($res["Total Harga"],0,',','.') ?>,-</span>
                 </div>
                 <div class="checkout-desc">
-                  Price: Rp.<?= number_format($res["hargaMenu"],0,',','.') ?>,-<br/>
-                  Quantity: <?= $res["jumlah"] ?>
+                  <?= "Price " . "&nbsp;&nbsp;&emsp;&emsp;" . " : Rp." . number_format($res["hargaMenu"],0,',','.') ?>,-<br/>
+                  <?= "Quantity " . "&nbsp;&emsp;: " . $res["jumlah"] ?><br/>
+                  <?= "Order Date : " . $res["tanggalPemesanan"] ?><br/>
+                  <?= "Order Time : " . $res["waktuPemesanan"] ?>
                 </div>
               </div>
             <?php endforeach; ?>

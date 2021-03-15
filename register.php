@@ -2,6 +2,12 @@
 
 require 'functions.php';
 
+if (isset($_SESSION["user"])) {
+    $loggedin = true;
+} else {
+    $loggedin = false;
+}
+
 if (isset($_POST["register"])) {
 
   $password = mysqli_real_escape_string($db, $_POST["password"]);
@@ -57,22 +63,31 @@ if (isset($_GET["backToLogin"])) {
 
       <!-- <h1 class="logo mr-auto"><a href="index.html">Restaurantly</a></h1> -->
       <!-- Uncomment below if you prefer to use an image logo -->
-      <a href="index.php" class="logo mr-auto"><img src="assets/img/logo/logo-red.png" onmouseover="this.src='assets/img/logo/logo-white.png';" onmouseout="this.src='assets/img/logo/logo-red.png';" alt="" class="img-fluid"></a>
+      <a href="index.php" class="logo mr-auto"><img src="assets/img/logo.jpg" alt="" class="img-fluid"></a>
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <!-- <li class="active"><a href="index.html">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#menu">Menu</a></li>
-          <li><a href="#specials">Specials</a></li>
-          <li><a href="#events">Events</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          <li><a href="#chefs">Chefs</a></li>-->
-          <li><a href="checkout.php"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li>
-          <li class="book-a-table text-center"><a href="login.php">Login</a></li>
+          <?php
+          if ($loggedin) {
+            echo '<li><a href="checkout.php"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li>';
+          }
+          ?>
+          <li class="book-a-table text-center">
+            <form action="" method="POST">
+                <?php
+                if ($loggedin) {
+                    echo "<button class='button logout btn btn-primary' type='submit' name='logout'>Log out!</button>";
+                } else {
+                    echo "<button class='button login btn btn-primary' type='submit' name='login'>Login</button> ";
+                }
+                ?>
+                <!-- <br>
+                <a href="shoppingcart.php">Go to Shopping Cart</a> -->
+            </form>
+          </li>
+          <!-- <li class="book-a-table text-center"><a href="login.php">Login</a></li> -->
         </ul>
       </nav><!-- .nav-menu -->
-
     </div>
   </header><!-- End Header -->
 

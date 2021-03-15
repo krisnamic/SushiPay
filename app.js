@@ -35,5 +35,7 @@ function validateCaptcha() {
     errCaptcha.style.color = "green";
     errCaptcha.innerHTML = "Done";
     document.getElementById("login-btn").disabled = false;
+    document.getElementById("captcha-box").style.display = "none";
+    document.getElementById("captcha-title").style.display = "none";
   }
 }

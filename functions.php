@@ -172,7 +172,6 @@ function addShoppingCart($data)
 
     $query_ID_Pesanan = "SELECT ID_Pesanan FROM pesanan WHERE ID_User = $iduser AND tanggalPemesanan = '$date'
     AND waktuPemesanan = '$time'";
-    echo "<script>alert($query_ID_Pesanan);</script>";
     // var_dump($query_ID_Pesanan);
     // echo "<script>alert($query_ID_Pesanan $harga $jumlah $idmenu);</script>";
     $coba = mysqli_query($db, $query_ID_Pesanan);
@@ -187,7 +186,6 @@ function addShoppingCart($data)
     // $tes = mysqli_errno($db);
     $tes = mysqli_error($db);
     $affected += mysqli_affected_rows($db);
-    echo "<script>alert($tes);</script>";
     return $affected;
     //tes
 }

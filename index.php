@@ -8,8 +8,6 @@ $querykategori = "SELECT * FROM kategori";
 $resultkategori = mysqli_query($db, $querykategori);
 session_start();
 
-
-
 if (isset($_SESSION["user"])) {
     $loggedin = true;
 } else {
@@ -38,12 +36,12 @@ if (isset($_POST['pesan'])) {
         if (addShoppingCart($_POST) > 1) {
             echo "<script>
         alert('successfuly added to shopping cart!');
-        document.location.href = 'user.php';
+        document.location.href = 'index.php#menu';
         </script>";
         } else {
             echo "<script>
         alert('failed to add shopping cart !');
-        document.location.href = 'user.php';
+        document.location.href = 'index.php#menu';
         </script>";
         }
     }
@@ -90,7 +88,12 @@ if (isset($_POST['pesan'])) {
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li><a href="checkout.php"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li>
+          <?php
+          if ($loggedin) {
+            echo '<li><a href="checkout.php"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li>';
+          }
+          ?>
+
           <li class="book-a-table text-center">
             <form action="" method="POST">
                 <?php
