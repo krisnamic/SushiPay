@@ -98,6 +98,8 @@ if (isset($_POST["login"])) {
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+
+  <script src="app.js"></script>
 </head>
 
 <body>
@@ -198,8 +200,16 @@ if (isset($_POST["login"])) {
               ?>
             </div>
 
+            <div class="section-title-checkout" style="padding-top: 10px;">
+              <h2>キャプチャ</h2>
+            </div>
+
             <div class="form-group">
-              <button class="btn btn-primary login" type="submit" name="login">Sign In</button>
+               <?php include 'captcha.php' ?>
+            </div>
+
+            <div class="form-group">
+              <button id="login-btn" class="btn btn-primary login" type="submit" name="login">Sign In</button>
             </div>
           </div>
         </form>
@@ -317,6 +327,7 @@ if (isset($_POST["login"])) {
     (function() {
       'use strict';
       window.addEventListener('load', function() {
+        document.getElementById("login-btn").disabled = true;
         // Fetch all the forms we want to apply custom Bootstrap validation styles to
         var forms = document.getElementsByClassName('needs-validation');
         // Loop over them and prevent submission
