@@ -1,4 +1,15 @@
 <?php
+
+session_start();
+
+if (isset($_POST["logout"])) {
+    $_SESSION = [];
+    session_unset();
+    session_destroy();
+    header("location: login.php");
+    exit;
+}
+
 require "functions.php";
 $query = "SELECT * FROM kategori";
 $result = mysqli_query($db, $query);
@@ -64,20 +75,10 @@ if (isset($_POST["submitdata"])) {
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <?php
-          if ($loggedin) {
-            echo '<li><a href="checkout.php"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li>';
-          }
-          ?>
-
           <li class="book-a-table text-center">
             <form action="" method="POST">
                 <?php
-                if ($loggedin) {
                     echo "<button class='button logout btn btn-primary' type='submit' name='logout'>Log out!</button>";
-                } else {
-                    echo "<button class='button login btn btn-primary' type='submit' name='login'>Login</button> ";
-                }
                 ?>
                 <!-- <br>
                 <a href="shoppingcart.php">Go to Shopping Cart</a> -->
@@ -90,10 +91,12 @@ if (isset($_POST["submitdata"])) {
   </header><!-- End Header -->
 
   <main>
+  <section id="register" class="login" style="padding-bottom: 30px;">
+    <div class="container" data-aos="fade-up" class="login"  style="background-color: white; opacity: 0.98; border-radius: 15px;">
     <div class="container" style="text-align: center; padding-top: 100px; padding-bottom:20px;">
         <h1>Tambah Menu</h1>
     </div>
-    <div class="container">
+    <div class="container" style="padding-bottom: 40px;">
         <form action="" method="POST" enctype="multipart/form-data" style="border: 1px solid black; padding: 20px; border-radius:10px;">
             <div class="form-group">
                 <label for="name">Nama Menu</label>
@@ -127,6 +130,8 @@ if (isset($_POST["submitdata"])) {
             </div>
         </form>
     </div>
+    </div>
+    </section>
     </main>
 
     <!-- ======= Footer ======= -->
@@ -160,15 +165,15 @@ if (isset($_POST["submitdata"])) {
             </div>
 
             <div class="col-lg-3 col-md-6 footer-links">
-              <h4>Our Hot Products</h4>
-              <ul>
-                <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Mix Karaage Set</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Shrimp Bomb</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Kakiage Original</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Karaage Spicy</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="#">California Roll</a></li>
-              </ul>
-            </div>
+            <h4>Our Hot Products</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Mix Karaage Set</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Shrimp Bomb</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Kakiage Original</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Karaage Spicy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">California Roll</a></li>
+            </ul>
+          </div>
 
             <div class="col-lg-4 col-md-6 footer-newsletter">
               <h4>Subscribe to Our Newsletter</h4>

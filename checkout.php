@@ -38,7 +38,7 @@
   endforeach;
 
   if (isset($_POST["backtohome"])) {
-      header("Location: user.php");
+      header("Location: index.php");
   }
 
 ?>
@@ -148,10 +148,10 @@
               <div class="col-lg-12 checkout-item filter-starters">
                 <img src="./menu_img/<?= $res["gambarMenu"] ?>" class="checkout-img" alt="">
                 <div class="checkout-content">
-                  <a href="#"><?= $res["namaMenu"] ?></a><span>Total: Rp.<?= number_format($res["Total Harga"],0,',','.') ?>,-</span>
+                  <a href="#"><?= $res["namaMenu"] ?></a><span>Total: Rp.<?= number_format($res["Total Harga"],0,',','.') ?></span>
                 </div>
-                <div class="checkout-desc">
-                  <?= "Price " . "&nbsp;&nbsp;&emsp;&emsp;" . " : Rp." . number_format($res["hargaMenu"],0,',','.') ?>,-<br/>
+                <div class="checkout-desc" style="font-size: 17px;">
+                  <?= "Price " . "&nbsp;&nbsp;&emsp;&emsp;" . " : Rp." . number_format($res["hargaMenu"],0,',','.') ?><br/>
                   <?= "Quantity " . "&nbsp;&emsp;: " . $res["jumlah"] ?><br/>
                   <?= "Order Date : " . $res["tanggalPemesanan"] ?><br/>
                   <?= "Order Time : " . $res["waktuPemesanan"] ?>
@@ -185,15 +185,17 @@
 
             <div class="col-lg-12 d-flex justify-content-between">
               <p>Total Cost:</p>
-              <p>Rp.<?= number_format($total,0,',','.') ?>,-</p>
+              <p>Rp.<?= number_format($total,0,',','.') ?></p>
             </div>
 
             <!-- <ul class="list-unstyled text-center">
               <li class="btn-checkout text-center"></li>
             </ul> -->
-            <button type="button" class="btn-checkout animated fadeInUp scrollto" data-toggle="modal" data-target="#myModal" style="background-color: #11110d; border: 0px;">
-              <a>Checkout</a>
-            </button>
+            <div class="col-lg-12 d-flex justify-content-end">
+              <button type="button" class="btn-checkout animated fadeInUp scrollto" data-toggle="modal" data-target="#myModal" style="background-color: #11110d; border: 0px; padding:0; padding-bottom: 15px;">
+                <a>Checkout</a>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -265,7 +267,7 @@
               <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Shrimp Bomb</a></li>
               <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Kakiage Original</a></li>
               <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Karaage Spicy</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">California Roll</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">California Roll</a></li>
             </ul>
           </div>
 

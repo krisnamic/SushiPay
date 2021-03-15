@@ -44,6 +44,10 @@ if (isset($_GET["backToLogin"])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register</title>
 
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Kanit:300,300i,400,400i,600,600i,700,700i|Varela:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
@@ -99,9 +103,9 @@ if (isset($_GET["backToLogin"])) {
 
   <main id="main">
 
-    <section id="login" class="login">
+    <section id="register" class="login" style="padding-bottom: 30px;">
 
-      <div class="container" data-aos="fade-up" class="login">
+      <div class="container" data-aos="fade-up" class="login"  style="background-color: white; opacity: 0.98; border-radius: 15px;">
 
         <div class="section-title-checkout">
           <h2>サインアップ</h2>
@@ -263,7 +267,7 @@ if (isset($_GET["backToLogin"])) {
               <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Shrimp Bomb</a></li>
               <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Kakiage Original</a></li>
               <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Karaage Spicy</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">California Roll</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">California Roll</a></li>
             </ul>
           </div>
 

@@ -89,6 +89,10 @@ if (isset($_POST["login"])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
 
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Kanit:300,300i,400,400i,600,600i,700,700i|Varela:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
@@ -147,7 +151,7 @@ if (isset($_POST["login"])) {
 
     <section id="login" class="login">
 
-      <div class="container" data-aos="fade-up" class="login">
+      <div class="container" data-aos="fade-up" class="login" style="background-color: white; opacity: 0.98; border-radius: 15px;">
 
         <div class="section-title-checkout">
           <h2 style="font-family: 'Meiryo';">ログイン</h2>
@@ -180,7 +184,7 @@ if (isset($_POST["login"])) {
 
             <div class="form-group">
               <label for="username">Username/Email :</label>
-              <input type="text" name="username" id="username" class="form-control" placeholder="Please input username here!" required>
+              <input type="text" name="username" id="username" class="form-control" placeholder="Input your username or email here" required>
               <div class="invalid-feedback">Username/Email harus diisi</div>
               <?php
                 /*if (isset($flag1)) {
@@ -198,7 +202,7 @@ if (isset($_POST["login"])) {
 
             <div class="form-group">
               <label for="password">Password : </label>
-              <input type="password" name="password" class="form-control" id="password" placeholder="Please input password here!" required>
+              <input type="password" name="password" class="form-control" id="password" placeholder="Input your password here" required>
               <div class="invalid-feedback">Password harus diisi</div>
               <?php
                   /*if (isset($flag2)) {
@@ -288,7 +292,7 @@ if (isset($_POST["login"])) {
               <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Shrimp Bomb</a></li>
               <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Kakiage Original</a></li>
               <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Karaage Spicy</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">California Roll</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">California Roll</a></li>
             </ul>
           </div>
 

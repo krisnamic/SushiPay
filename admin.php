@@ -2,11 +2,6 @@
 
 session_start();
 
-if (!isset($_SESSION["admin"])) {
-    header("Location: login.php");
-    exit;
-}
-
 if (isset($_POST["logout"])) {
     $_SESSION = [];
     session_unset();
@@ -14,6 +9,7 @@ if (isset($_POST["logout"])) {
     header("location: login.php");
     exit;
 }
+
 require "functions.php";
 $query = "SELECT * FROM menu";
 $result = mysqli_query($db, $query);
@@ -35,7 +31,7 @@ if (isset($_POST["change"])) {
 if (isset($_POST['delete'])) {
     if (delete($_POST) > 0) {
         echo "<script>
-        alert('Menu deleted successfuly.');
+        alert('Menu deleted successfully.');
         document.location.href = 'admin.php';
     </script>";
     } else {
@@ -98,11 +94,7 @@ if (isset($_POST['delete'])) {
           <li class="book-a-table text-center">
             <form action="" method="POST">
                 <?php
-                if ($loggedin) {
                     echo "<button class='button logout btn btn-primary' type='submit' name='logout'>Log out!</button>";
-                } else {
-                    echo "<button class='button login btn btn-primary' type='submit' name='login'>Login</button> ";
-                }
                 ?>
                 <!-- <br>
                 <a href="shoppingcart.php">Go to Shopping Cart</a> -->
@@ -115,6 +107,9 @@ if (isset($_POST['delete'])) {
   </header><!-- End Header -->
 
   <main>
+  <section id="admin" class="login">
+    <div class="container" data-aos="fade-up" class="login" style="background-color: white; opacity: 0.98; border-radius: 15px;">
+
     <h1 style="padding-top: 100px; padding-bottom:20px; text-align: center; font-size: 8vh;">ADMIN</h1>
     <div class="container">
         <div class="text-right">
@@ -200,7 +195,9 @@ if (isset($_POST['delete'])) {
               <th>Action</th>
             </tfoot>
         </table>
-    </main>
+    </div>
+    </section>
+  </main>
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
@@ -239,7 +236,7 @@ if (isset($_POST['delete'])) {
               <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Shrimp Bomb</a></li>
               <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Kakiage Original</a></li>
               <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Karaage Spicy</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">California Roll</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">California Roll</a></li>
             </ul>
           </div>
 

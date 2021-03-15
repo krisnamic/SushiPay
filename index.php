@@ -117,7 +117,7 @@ if (isset($_POST['pesan'])) {
   <section id="hero" class="d-flex align-items-center">
     <div class="container position-relative text-center text-lg-left" data-aos="zoom-in" data-aos-delay="100">
       <div class="row">
-        <div class="col-lg-5 d-flex align-items-center justify-content-center container-fluid" data-aos="zoom-in" data-aos-delay="200" style="background-color: black; height: 255px; border-radius: 10px;">
+        <div class="col-lg-5 d-flex align-items-center justify-content-center container-fluid" data-aos="zoom-in" data-aos-delay="200" style="border: 6px solid #fa3d16;height: 255px; border-radius: 10px; background-image: url('assets/img/thumb.png');">
           <a href="https://www.youtube.com/watch?v=r7_Vgu2urJI" class="venobox play-btn" data-vbtype="video" data-autoplay="true"></a>
         </div>
         <div class="col-lg-1"></div>
@@ -289,7 +289,7 @@ if (isset($_POST['pesan'])) {
     </section><!-- End Events Section -->
 
     <!-- ======= Chefs Section ======= -->
-    <section id="chefs" class="chefs">
+    <section id="chefs" class="chefs" style="padding-bottom: 0px;">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
@@ -301,7 +301,7 @@ if (isset($_POST['pesan'])) {
 
           <div class="col-lg-3 col-md-6">
             <div class="member" data-aos="zoom-in" data-aos-delay="100">
-              <img src="assets/img/chefs/chefs-1.jpg" class="img-fluid" alt="">
+              <img src="assets/img/owners/steven.jpg" class="img-fluid" alt="" style="border-left: 6px solid #fa3d16; background-color: lightgrey;">
               <div class="member-info">
                 <div class="member-info-content">
                   <h4>Steven Lie</h4>
@@ -319,7 +319,7 @@ if (isset($_POST['pesan'])) {
 
           <div class="col-lg-3 col-md-6">
             <div class="member" data-aos="zoom-in" data-aos-delay="100">
-              <img src="assets/img/chefs/chefs-1.jpg" class="img-fluid" alt="">
+              <img src="assets/img/owners/jerry.jpg" class="img-fluid" alt="" style="border-left: 6px solid #fa3d16; border-left: 6px solid #fa3d16; background-color: lightgrey;">
               <div class="member-info">
                 <div class="member-info-content">
                   <h4>Jerry Arianto</h4>
@@ -337,7 +337,7 @@ if (isset($_POST['pesan'])) {
 
           <div class="col-lg-3 col-md-6">
             <div class="member" data-aos="zoom-in" data-aos-delay="200">
-              <img src="assets/img/chefs/chefs-2.jpg" class="img-fluid" alt="">
+              <img src="assets/img/owners/michael.jpg" class="img-fluid" alt="" style="border-left: 6px solid #fa3d16; background-color: lightgrey;">
               <div class="member-info">
                 <div class="member-info-content">
                   <h4>Michael Krisna Cahyadi</h4>
@@ -355,7 +355,7 @@ if (isset($_POST['pesan'])) {
 
           <div class="col-lg-3 col-md-6">
             <div class="member" data-aos="zoom-in" data-aos-delay="300">
-              <img src="assets/img/chefs/chefs-3.jpg" class="img-fluid" alt="">
+              <img src="assets/img/owners/joy.jpg" class="img-fluid" alt="" style="border-left: 6px solid #fa3d16; background-color: lightgrey;">
               <div class="member-info">
                 <div class="member-info-content">
                   <h4>Jonathan Franzeli</h4>
@@ -378,7 +378,7 @@ if (isset($_POST['pesan'])) {
 
 
     <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact">
+    <section id="contact" class="contact" style="padding-bottom: 0px;">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
@@ -512,7 +512,7 @@ if (isset($_POST['pesan'])) {
               <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Shrimp Bomb</a></li>
               <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Kakiage Original</a></li>
               <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Karaage Spicy</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">California Roll</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">California Roll</a></li>
             </ul>
           </div>
 
