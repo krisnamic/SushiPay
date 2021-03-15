@@ -22,17 +22,16 @@ function register($data)
                 </script>";
         return false;
     }
-    // echo "tes1";
+    //echo "tes1";
     //checking password
     $pass_len = strlen($password);
     if ($pass_len < 8) {
-        // echo "tes2";
+        //echo "tes2";
         return false;
     }
     if ($password !== $password2) { ?>
-        <!-- <p id="err">Password doesnt match confirmation!</p> -->
-<?php
-// echo "tes2";
+        <p id="err">Password doesnt match confirmation!</p>
+<?php //echo "tes2";
         return false;
     }
     //encrypt password
@@ -160,27 +159,34 @@ function addShoppingCart($data)
     $harga = $data["harga"];
     $nama = $data["nama"];
     echo "<script>alert($gambar $deskripsi $harga $nama);</script>";
+    date_default_timezone_set("Asia/Bangkok");
     $date = date('Y-m-d');
     $time = date('H:i:s');
-    $iduser = $_SESSION["id_user"];
+    $iduser = $_SESSION["user_id"];
 
-    $query = "INSERT INTO pesanan(ID_Pesanan, ID_User, tanggalPemesanan, waktuPemesanan) VALUES('',$iduser,$date,$time);";
+    $query = "INSERT INTO pesanan(ID_Pesanan, ID_User, tanggalPemesanan, waktuPemesanan) VALUES('',$iduser,'$date','$time');";
 
     mysqli_query($db, $query);
-    $tes = mysqli_affected_rows($db);
-    echo mysqli_error($db);
+    $affected = mysqli_affected_rows($db);
+    // -------------------------------------------------------------------------------------
+
+    $query_ID_Pesanan = "SELECT ID_Pesanan FROM pesanan WHERE ID_User = $iduser AND tanggalPemesanan = '$date'
+    AND waktuPemesanan = '$time'";
+    echo "<script>alert($query_ID_Pesanan);</script>";
+    // var_dump($query_ID_Pesanan);
+    // echo "<script>alert($query_ID_Pesanan $harga $jumlah $idmenu);</script>";
+    $coba = mysqli_query($db, $query_ID_Pesanan);
+    $gatau = mysqli_fetch_assoc($coba);
+    $x = $gatau["ID_Pesanan"];
+    // var_dump($gatau);
+    $querydetail = "INSERT INTO detailpesanan(ID_Pesanan, hargaMenu, jumlah, ID_Menu)
+    VALUES
+    ($x, $harga, $jumlah, $idmenu);";
+    // var_dump($querydetail);
+    mysqli_query($db, $querydetail);
+    // $tes = mysqli_errno($db);
+    $tes = mysqli_error($db);
+    $affected += mysqli_affected_rows($db);
     echo "<script>alert($tes);</script>";
-    return mysqli_affected_rows($db);
-    // $affected = mysqli_affected_rows($db);
-
-    // $query_ID_Pesanan = "SELECT ID_Pesanan FROM pesanan WHERE ID_User = $iduser AND tanggalPemesanan = $date 
-    // AND waktuPemesanan = $time";
-
-    // $querydetail = "INSERT INTO detailpesanan(ID_Pesanan, hargaMenu, jumlah, ID_Menu,)
-    // VALUES
-    // ($query_ID_Pesanan, $harga, $jumlah, $idmenu)";
-
-    // mysqli_query($db, $querydetail);
-    // $affected += mysqli_affected_rows($db);
-    // return $affected;
+    return $affected;
 }

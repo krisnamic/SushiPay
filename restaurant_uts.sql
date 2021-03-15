@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 13 Mar 2021 pada 11.54
+-- Waktu pembuatan: 13 Mar 2021 pada 18.53
 -- Versi server: 10.4.16-MariaDB
 -- Versi PHP: 7.4.12
 
@@ -45,7 +45,9 @@ CREATE TABLE `account` (
 
 INSERT INTO `account` (`ID`, `username`, `email`, `password`, `firstName`, `lastName`, `birthDate`, `gender`, `role`) VALUES
 (1, 'admin', 'adminsushipay@gmail.com', '$2y$10$k.6LxhTDgky1YtqiINXTwOHZk/a9hBuqfEfgy7yRsI.490QgzsMf6', '-', '-', '0000-00-00', '-', 'admin'),
-(2, 'tes', 'tes@gmail.com', '$2y$10$ccFEgaGsgJjC6b6xHOKvpO6yvfE/lM7PRAbD1uTahQYqtU31IvUti', 'tes', 'tes', '2021-03-09', 'm', 'user');
+(2, 'tes', 'tes@gmail.com', '$2y$10$ccFEgaGsgJjC6b6xHOKvpO6yvfE/lM7PRAbD1uTahQYqtU31IvUti', 'tes', 'tes', '2021-03-09', 'm', 'user'),
+(3, 'jer', 'jer@gmail.com', '$2y$10$.ttRhl5x7rpMAbh5XQTbQusaDnmBfJhrBsFnzpYzNSxS0xZq029rm', 'jer', 'jer', '2021-03-16', 'm', 'user'),
+(4, 'mekel', 'mekel@gmail.com', '$2y$10$n2zg/uZ7DGtZj9n1FIxJf.tl8ZfVbyFgrgeWjsHH6YeWxVOaNsATS', 'mekel', 'mekel', '2021-03-09', 'm', 'user');
 
 -- --------------------------------------------------------
 
@@ -59,6 +61,18 @@ CREATE TABLE `detailpesanan` (
   `jumlah` int(30) DEFAULT NULL,
   `ID_Menu` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `detailpesanan`
+--
+
+INSERT INTO `detailpesanan` (`ID_Pesanan`, `hargaMenu`, `jumlah`, `ID_Menu`) VALUES
+(9, 12000, 3, 4),
+(25, 25000, 12, 2),
+(26, 24000, 1000, 7),
+(27, 25000, 999, 2),
+(28, 24000, 5, 7),
+(29, 28000, 2000, 12);
 
 -- --------------------------------------------------------
 
@@ -168,13 +182,12 @@ CREATE TABLE `pesanan` (
 --
 
 INSERT INTO `pesanan` (`ID_Pesanan`, `ID_User`, `tanggalPemesanan`, `waktuPemesanan`) VALUES
-(1, 2, '2021-03-13', '00:00:00'),
-(2, 2, '2021-03-13', '22:22:22'),
-(4, 2, '2021-03-13', '10:10:12'),
-(6, 2, '2021-03-13', '11:45:06'),
-(7, 2, '2021-03-13', '11:45:30'),
-(8, 2, '2021-03-13', '11:52:36'),
-(9, 2, '2021-03-13', '17:53:06');
+(9, 2, '2021-03-13', '17:53:06'),
+(25, 2, '2021-03-13', '18:45:12'),
+(26, 2, '2021-03-13', '19:17:15'),
+(27, 3, '2021-03-13', '20:04:40'),
+(28, 3, '2021-03-13', '20:20:59'),
+(29, 4, '2021-03-13', '20:39:35');
 
 --
 -- Indexes for dumped tables
@@ -221,7 +234,7 @@ ALTER TABLE `pesanan`
 -- AUTO_INCREMENT untuk tabel `account`
 --
 ALTER TABLE `account`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategori`
@@ -239,7 +252,7 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT untuk tabel `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `ID_Pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID_Pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
