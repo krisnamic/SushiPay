@@ -197,7 +197,7 @@ if (isset($_POST["backtohome"])) {
 
           <!-- Modal footer -->
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color:  #fa3d16;">Close</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
