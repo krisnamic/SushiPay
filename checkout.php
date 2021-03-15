@@ -1,33 +1,33 @@
 <?php
 
-session_start();
-if (!isset($_SESSION["user"])) {
-    header("Location: user.php");
-    exit;
-}
-require "functions.php";
-$userid = $_SESSION['user_id'];
+  session_start();
+  if (!isset($_SESSION["user"])) {
+      header("Location: user.php");
+      exit;
+  }
+  require "functions.php";
+  $userid = $_SESSION['user_id'];
 
-$query = "SELECT detailPesanan.hargaMenu, detailPesanan.jumlah, menu.namaMenu, menu.gambarMenu, detailPesanan.hargaMenu * detailPesanan.jumlah 'Total Harga'
-FROM detailPesanan
-JOIN menu
-ON detailPesanan.ID_menu = menu.ID_Menu
-JOIN pesanan
-ON detailPesanan.ID_Pesanan = pesanan.ID_Pesanan
-JOIN account
-ON pesanan.ID_User = account.ID
-WHERE account.ID = $userid;";
-$result = mysqli_query($db, $query);
-$tes = mysqli_affected_rows($db);
+  $query = "SELECT detailPesanan.hargaMenu, detailPesanan.jumlah, menu.namaMenu, menu.gambarMenu, detailPesanan.hargaMenu * detailPesanan.jumlah 'Total Harga'
+  FROM detailPesanan
+  JOIN menu
+  ON detailPesanan.ID_menu = menu.ID_Menu
+  JOIN pesanan
+  ON detailPesanan.ID_Pesanan = pesanan.ID_Pesanan
+  JOIN account
+  ON pesanan.ID_User = account.ID
+  WHERE account.ID = $userid;";
+  $result = mysqli_query($db, $query);
+  $tes = mysqli_affected_rows($db);
 
-$total = 0;
-foreach ($result as $res) :
-  $total += $res["Total Harga"];
-endforeach;
+  $total = 0;
+  foreach ($result as $res) :
+    $total += $res["Total Harga"];
+  endforeach;
 
-if (isset($_POST["backtohome"])) {
-    header("Location: user.php");
-}
+  if (isset($_POST["backtohome"])) {
+      header("Location: user.php");
+  }
 
 ?>
 <!DOCTYPE html>

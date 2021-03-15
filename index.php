@@ -90,7 +90,7 @@ if (isset($_POST['pesan'])) {
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li><a href="checkout.php"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li> 
+          <li><a href="checkout.php"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li>
           <li class="book-a-table text-center">
             <form action="" method="POST">
                 <?php
@@ -158,7 +158,7 @@ if (isset($_POST['pesan'])) {
         </div>
 
         <div class="row menu-container" data-aos="fade-up" data-aos-delay="200">
-          
+
         <?php foreach ($result as $res) : ?>
         <!-- <div class="col-lg-4">
             <div class="card filter <= $res["ID_Kategori"] ?>" style="width: 18rem;">
@@ -178,13 +178,13 @@ if (isset($_POST['pesan'])) {
                 </div>
             </div>
         </div> -->
-          
+
         <div class="col-lg-3 menu-item <?= $res["ID_Kategori"] ?>">
             <a class="btn" data-toggle="modal" data-target="#myModal<?php echo $res['ID_Menu']; ?>" style="padding: 0;">
                 <img class="card-img-top" src="./menu_img/<?= $res["gambarMenu"] ?>" width="150px">
             </a>
             <div class="menu-content" style="width: 100%;">
-              <a class="btn" data-toggle="modal" data-target="#myModal<?php echo $res['ID_Menu']; ?>" style="padding: 0; text-align:left;"><?= $res["namaMenu"] ?></a><span style="padding-right: 0px;">Rp. <?= $res["hargaMenu"] ?></span>
+              <a class="btn" data-toggle="modal" data-target="#myModal<?php echo $res['ID_Menu']; ?>" style="padding: 0; text-align:left;"><?= $res["namaMenu"] ?></a><span style="padding-right: 0px;">Rp. <?= number_format($res["hargaMenu"],0,',','.') ?></span>
             </div>
             <div class="menu-ingredients" style="padding-right: 0px;text-align: justify;text-justify: inter-word;">
             <?= $res["deskripsiMenu"] ?>
@@ -205,7 +205,7 @@ if (isset($_POST['pesan'])) {
                                   <div class="col-container"><img name="gambarMenu" src="./menu_img/<?= $res["gambarMenu"] ?>" alt="<?= $res["gambarMenu"] ?>" width="50%;"></div>
                                   <div class="col-container">
                                       <p id="deskripsiMenu" name="deskripsiMenu" style=" text-align: justify; text-justify: inter-word;"><?= $res['deskripsiMenu']; ?></p>
-                                      <p id="hargaMenu" name="hargaMenu" class="d-flex flex-row-reverse" style="color: #fa3d16;">Rp. <?= $res['hargaMenu']; ?></p>
+                                      <p id="hargaMenu" name="hargaMenu" class="d-flex flex-row-reverse" style="color: #fa3d16;">Rp. <?= number_format($res['hargaMenu'],0,',','.'); ?></p>
                                   </div>
                                   <input type="number" min="1" name="jumlah" id="jumlah">
                                   <input type="text" hidden name="gambar" value="<?= $res["gambarMenu"] ?>">
@@ -221,8 +221,8 @@ if (isset($_POST['pesan'])) {
               </div>
            </div>
         <?php endforeach; ?>
-          
-        
+
+
       </div>
 
       </div>
@@ -509,7 +509,7 @@ if (isset($_POST['pesan'])) {
           <div class="col-lg-3 col-md-6">
             <div class="footer-info">
               <a href="index.php" class="logo mr-auto"><img src="assets/img/logo.jpg" alt="" class="img-fluid" width="200"></a>
-              
+
               <p style="padding-top: 15px;">
                 Jl. Scientia Boulevard, Gading,<br>
                 Kec. Serpong, Tangerang, Banten 15227<br><br>
