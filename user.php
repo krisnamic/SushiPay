@@ -81,7 +81,7 @@ if (isset($_POST['pesan'])) {
         <?php date_default_timezone_set("Asia/Bangkok"); ?>
         <?= date("Y-m-d H:i:s"); ?>
         <br>
-        <a href="shoppingcart.php">Go to Shopping Cart</a>
+        <a href="checkout.php">Go to Shopping Cart</a>
     </form>
     <div class="row">
         <div class="col-lg-12">
