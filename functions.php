@@ -22,16 +22,16 @@ function register($data)
                 </script>";
         return false;
     }
-    //echo "tes1";
+    echo "tes1";
     //checking password
     $pass_len = strlen($password);
     if ($pass_len < 8) {
-        //echo "tes2";
+        echo "tes2";
         return false;
     }
     if ($password !== $password2) { ?>
         <p id="err">Password doesnt match confirmation!</p>
-<?php //echo "tes2";
+<?php echo "tes2";
         return false;
     }
     //encrypt password
@@ -172,21 +172,14 @@ function addShoppingCart($data)
 
     $query_ID_Pesanan = "SELECT ID_Pesanan FROM pesanan WHERE ID_User = $iduser AND tanggalPemesanan = '$date'
     AND waktuPemesanan = '$time'";
-    echo "<script>alert($query_ID_Pesanan);</script>";
-    // var_dump($query_ID_Pesanan);
-    // echo "<script>alert($query_ID_Pesanan $harga $jumlah $idmenu);</script>";
-    $coba = mysqli_query($db, $query_ID_Pesanan);
-    $gatau = mysqli_fetch_assoc($coba);
-    $x = $gatau["ID_Pesanan"];
-    // var_dump($gatau);
+
+    echo "<script>alert($query_ID_Pesanan $harga $jumlah $idmenu);</script>";
+
     $querydetail = "INSERT INTO detailpesanan(ID_Pesanan, hargaMenu, jumlah, ID_Menu)
     VALUES
-    ($x, $harga, $jumlah, $idmenu);";
-    // var_dump($querydetail);
+    ($query_ID_Pesanan, $harga, $jumlah, $idmenu);";
     mysqli_query($db, $querydetail);
-    // $tes = mysqli_errno($db);
-    $tes = mysqli_error($db);
     $affected += mysqli_affected_rows($db);
-    echo "<script>alert($tes);</script>";
+    echo "<script>alert($affected);</script>";
     return $affected;
 }
