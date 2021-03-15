@@ -1,3 +1,55 @@
+<?php
+
+require "functions.php";
+$query = "SELECT * FROM menu";
+$result = mysqli_query($db, $query);
+
+$querykategori = "SELECT * FROM kategori";
+$resultkategori = mysqli_query($db, $querykategori);
+session_start();
+
+
+
+if (isset($_SESSION["user"])) {
+    $loggedin = true;
+} else {
+    $loggedin = false;
+}
+
+if (isset($_POST["logout"])) {
+    $_SESSION = [];
+    session_unset();
+    session_destroy();
+    header("Location: login.php");
+    exit;
+}
+if (isset($_POST['login'])) {
+    header("Location: login.php");
+    exit;
+}
+if (isset($_POST['pesan'])) {
+    if (!isset($_SESSION["user"])) {
+        echo "<script>
+        alert('anda harus login terlebih dahulu sebelum memesan!');
+        document.location.href = 'login.php';
+        </script>";
+        exit;
+    } else {
+        if (addShoppingCart($_POST) > 1) {
+            echo "<script>
+        alert('successfuly added to shopping cart!');
+        document.location.href = 'user.php';
+        </script>";
+        } else {
+            echo "<script>
+        alert('failed to add shopping cart !');
+        document.location.href = 'user.php';
+        </script>";
+        }
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,45 +77,36 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 </head>
 
 <body>
-  <!-- <div id="topbar" class="d-flex align-items-center fixed-top">
-    <div class="container d-flex">
-      <div class="contact-info mr-auto">
-        <i class="icofont-phone"></i> +1 5589 55488 55
-        <span class="d-none d-lg-inline-block"><i class="icofont-clock-time icofont-rotate-180"></i> Mon-Sat: 11:00 AM - 23:00 PM</span>
-      </div>
-      <div class="languages">
-        <ul>
-          <li>En</li>
-          <li><a href="#">De</a></li>
-        </ul>
-      </div>
-    </div>
-  </div> -->
-
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
       <!-- <h1 class="logo mr-auto"><a href="index.html">Restaurantly</a></h1> -->
       <!-- Uncomment below if you prefer to use an image logo -->
-      <a href="index.php" class="logo mr-auto"><img src="assets/img/logo/logo-red.png" alt="" class="img-fluid"></a>
+      <a href="index.php" class="logo mr-auto"><img src="assets/img/logo.jpg" alt="" class="img-fluid"></a>
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <!-- <li class="active"><a href="index.html">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#menu">Menu</a></li>
-          <li><a href="#specials">Specials</a></li>
-          <li><a href="#events">Events</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          <li><a href="#chefs">Chefs</a></li>-->
-          <li><a href="checkout.php"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li>
-          <li class="book-a-table text-center"><a href="login.php">Login</a></li>
+          <li><a href="checkout.php"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li> 
+          <li class="book-a-table text-center">
+            <form action="" method="POST">
+                <?php
+                if ($loggedin) {
+                    echo "<button class='button logout btn btn-primary' type='submit' name='logout'>Log out!</button>";
+                } else {
+                    echo "<button class='button login btn btn-primary' type='submit' name='login'>Login</button> ";
+                }
+                ?>
+                <!-- <br>
+                <a href="shoppingcart.php">Go to Shopping Cart</a> -->
+            </form>
+          </li>
+          <!-- <li class="book-a-table text-center"><a href="login.php">Login</a></li> -->
         </ul>
       </nav><!-- .nav-menu -->
-
     </div>
   </header><!-- End Header -->
 
@@ -72,16 +115,18 @@
     <div class="container position-relative text-center text-lg-left" data-aos="zoom-in" data-aos-delay="100">
       <div class="row">
         <div class="col-lg-5 d-flex align-items-center justify-content-center container-fluid" data-aos="zoom-in" data-aos-delay="200" style="background-color: black; height: 255px; border-radius: 10px;">
-          <a href="https://www.youtube.com/watch?v=GlrxcuEDyF8" class="venobox play-btn" data-vbtype="video" data-autoplay="true"></a>
+          <a href="https://www.youtube.com/watch?v=r7_Vgu2urJI" class="venobox play-btn" data-vbtype="video" data-autoplay="true"></a>
         </div>
         <div class="col-lg-1"></div>
         <div class="col-lg-6" style="padding-top: 5px;">
-          <h1>Welcome to <span>Restaurantly</span></h1><br/>
-          <h2>Delivering great food for more than 18 years!</h2>
+          <h1>Welcome to <br/><span style="font-size: 1.5em;">SushiPay!</span></h1><br/>
+          <h2>Delivering great food for more than 19 years!</h2>
+          <a href="#menu">
           <div class="btns" style="padding-top: 5px;">
             <button type="button" class="btn-menu animated fadeInUp scrollto">
               Check Our Menu
             </button>
+            </a>
           </div>
         </div>
 
@@ -100,109 +145,85 @@
         </div>
 
         <div class="row" data-aos="fade-up" data-aos-delay="100">
-          <div class="col-lg-12 d-flex justify-content-center">
+        <div class="col-lg-12 d-flex justify-content-center">
             <ul id="menu-flters">
-              <li data-filter="*" class="filter-active">All</li>
-              <li data-filter=".filter-starters">Starters</li>
-              <li data-filter=".filter-salads">Salads</li>
-              <li data-filter=".filter-specialty">Specialty</li>
+                <li data-filter="*" class="filter-active">All</li>
+                <?php foreach ($resultkategori as $resk) :  ?>
+                    <!-- <button> -->
+                        <li class="filter-button" data-filter=".<?= $resk["ID_Kategori"]; ?>"><?= $resk["namaKategori"]; ?></li>
+                    <!-- </button> -->
+                <?php endforeach; ?>
             </ul>
-          </div>
+        </div>
         </div>
 
         <div class="row menu-container" data-aos="fade-up" data-aos-delay="200">
-
-          <div class="col-lg-6 menu-item filter-starters">
-            <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Lobster Bisque</a><span>$5.95</span>
+          
+        <?php foreach ($result as $res) : ?>
+        <!-- <div class="col-lg-4">
+            <div class="card filter <= $res["ID_Kategori"] ?>" style="width: 18rem;">
+                <a class="btn" data-toggle="modal" data-target="#myModal<php echo $res['ID_Menu']; ?>"><img class="card-img-top" src="./menu_img/<= $res["gambarMenu"] ?>" width="150px"></a>
+                <div class="card-body">
+                    <a class="btn" data-toggle="modal" data-target="#myModal<php echo $res['ID_Menu']; ?>">
+                        <h5 class="card-title"><= $res["namaMenu"] ?></h5>
+                    </a>
+                    <p class="card-text"><= $res["deskripsiMenu"] ?></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Price : Rp.<= $res["hargaMenu"] ?></li>
+                    <li class="list-group-item" hidden><= $res["ID_Kategori"] ?></li>
+                </ul>
+                <div class="card-body">
+                    <a href="#" class="card-link">Card link</a>
+                </div>
             </div>
-            <div class="menu-ingredients">
-              Lorem, deren, trataro, filede, nerada
+        </div> -->
+          
+        <div class="col-lg-3 menu-item <?= $res["ID_Kategori"] ?>">
+            <a class="btn" data-toggle="modal" data-target="#myModal<?php echo $res['ID_Menu']; ?>" style="padding: 0;">
+                <img class="card-img-top" src="./menu_img/<?= $res["gambarMenu"] ?>" width="150px">
+            </a>
+            <div class="menu-content" style="width: 100%;">
+              <a class="btn" data-toggle="modal" data-target="#myModal<?php echo $res['ID_Menu']; ?>" style="padding: 0; text-align:left;"><?= $res["namaMenu"] ?></a><span style="padding-right: 0px;">Rp. <?= $res["hargaMenu"] ?></span>
             </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-specialty">
-            <img src="assets/img/menu/bread-barrel.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Bread Barrel</a><span>$6.95</span>
+            <div class="menu-ingredients" style="padding-right: 0px;text-align: justify;text-justify: inter-word;">
+            <?= $res["deskripsiMenu"] ?>
             </div>
-            <div class="menu-ingredients">
-              Lorem, deren, trataro, filede, nerada
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-starters">
-            <img src="assets/img/menu/cake.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Crab Cake</a><span>$7.95</span>
-            </div>
-            <div class="menu-ingredients">
-              A delicate crab cake served on a toasted roll with lettuce and tartar sauce
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-salads">
-            <img src="assets/img/menu/caesar.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Caesar Selections</a><span>$8.95</span>
-            </div>
-            <div class="menu-ingredients">
-              Lorem, deren, trataro, filede, nerada
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-specialty">
-            <img src="assets/img/menu/tuscan-grilled.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Tuscan Grilled</a><span>$9.95</span>
-            </div>
-            <div class="menu-ingredients">
-              Grilled chicken with provolone, artichoke hearts, and roasted red pesto
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-starters">
-            <img src="assets/img/menu/mozzarella.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Mozzarella Stick</a><span>$4.95</span>
-            </div>
-            <div class="menu-ingredients">
-              Lorem, deren, trataro, filede, nerada
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-salads">
-            <img src="assets/img/menu/greek-salad.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Greek Salad</a><span>$9.95</span>
-            </div>
-            <div class="menu-ingredients">
-              Fresh spinach, crisp romaine, tomatoes, and Greek olives
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-salads">
-            <img src="assets/img/menu/spinach-salad.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Spinach Salad</a><span>$9.95</span>
-            </div>
-            <div class="menu-ingredients">
-              Fresh spinach with mushrooms, hard boiled egg, and warm bacon vinaigrette
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-specialty">
-            <img src="assets/img/menu/lobster-roll.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Lobster Roll</a><span>$12.95</span>
-            </div>
-            <div class="menu-ingredients">
-              Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-            </div>
-          </div>
-
         </div>
+
+           <div class="modal fade" id="myModal<?php echo $res['ID_Menu']; ?>" role="dialog">
+              <div class="modal-dialog">
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h4 class="modal-title"><?= $res['namaMenu']; ?></h4>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+                      <div class="modal-body">
+                          <form action="" method="POST">
+                              <div class="row-container">
+                                  <div class="col-container"><img name="gambarMenu" src="./menu_img/<?= $res["gambarMenu"] ?>" alt="<?= $res["gambarMenu"] ?>" width="50%;"></div>
+                                  <div class="col-container">
+                                      <p id="deskripsiMenu" name="deskripsiMenu" style=" text-align: justify; text-justify: inter-word;"><?= $res['deskripsiMenu']; ?></p>
+                                      <p id="hargaMenu" name="hargaMenu" class="d-flex flex-row-reverse" style="color: #fa3d16;">Rp. <?= $res['hargaMenu']; ?></p>
+                                  </div>
+                                  <input type="number" min="1" name="jumlah" id="jumlah">
+                                  <input type="text" hidden name="gambar" value="<?= $res["gambarMenu"] ?>">
+                                  <input type="text" hidden name="nama" value="<?= $res["namaMenu"] ?>">
+                                  <input type="text" hidden name="desc" value="<?= $res["deskripsiMenu"] ?>">
+                                  <input type="text" hidden name="harga" value="<?= $res["hargaMenu"] ?>">
+                                  <input type="text" hidden value="<?= $res['ID_Menu']; ?>" name="idmenu">
+                                  <button type="submit" name="pesan" id="pesan">Pesan</button>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+           </div>
+        <?php endforeach; ?>
+          
+        
+      </div>
 
       </div>
     </section><!-- End Menu Section -->
@@ -213,82 +234,76 @@
 
         <div class="section-title">
           <h2>オーナーズチョイス</h2>
-          <p>Our Bestseller Menu</p>
+          <p>Owner's Choice</p>
         </div>
 
         <div class="owl-carousel events-carousel" data-aos="fade-up" data-aos-delay="100">
 
           <div class="row event-item">
-            <div class="col-lg-6">
-              <img src="assets/img/event-birthday.jpg" class="img-fluid" alt="">
+            <div class="col-lg-4">
+              <img src="menu_img/Mix Karage Set.jpg" class="img-fluid" alt="">
             </div>
-            <div class="col-lg-6 pt-4 pt-lg-0 content">
-              <h3>Birthday Parties</h3>
+            <div class="col-lg-8 pt-4 pt-lg-0 content">
+              <h3>Mix Karaage Set</h3>
               <div class="price">
-                <p><span>$189</span></p>
+                <p><span>Rp. 22000</span></p>
               </div>
               <p class="font-italic">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua.
+                 Mix Karage Set is a Japanese \"rice-bowl dish\" consisting of mixed toppings and served over rice.
               </p>
               <ul>
-                <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                <li><i class="icofont-check-circled"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-                <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                <li><i class="icofont-check-circled"></i> 100% Halal</li>
+                <li><i class="icofont-check-circled"></i> 100% No MSG</li>
+                <li><i class="icofont-check-circled"></i> 100% Satisfied</li>
               </ul>
               <p>
-                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur
+                Easy to enjoy, fulfill your hunger, and bring you happiness!
               </p>
             </div>
           </div>
 
           <div class="row event-item">
-            <div class="col-lg-6">
-              <img src="assets/img/event-private.jpg" class="img-fluid" alt="">
+            <div class="col-lg-4">
+              <img src="menu_img/Shrimp Bomb.jpg" class="img-fluid" alt="">
             </div>
-            <div class="col-lg-6 pt-4 pt-lg-0 content">
-              <h3>Private Parties</h3>
+            <div class="col-lg-8 pt-4 pt-lg-0 content">
+              <h3>Shrimp Bomb</h3>
               <div class="price">
-                <p><span>$290</span></p>
+                <p><span>Rp. 24000</span></p>
               </div>
               <p class="font-italic">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua.
+                 Shrimp Bomb is an anti-personnel explosive device containing shrimps to increase its effectiveness at harming victims.
               </p>
               <ul>
-                <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                <li><i class="icofont-check-circled"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-                <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                <li><i class="icofont-check-circled"></i> 100% Halal</li>
+                <li><i class="icofont-check-circled"></i> 100% No MSG</li>
+                <li><i class="icofont-check-circled"></i> 100% Satisfied</li>
               </ul>
               <p>
-                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur
+                Easy to enjoy, fulfill your hunger, and bring you happiness!
               </p>
             </div>
           </div>
 
           <div class="row event-item">
-            <div class="col-lg-6">
-              <img src="assets/img/event-custom.jpg" class="img-fluid" alt="">
+            <div class="col-lg-4">
+              <img src="menu_img/Kakiage Original.jpg" class="img-fluid" alt="">
             </div>
-            <div class="col-lg-6 pt-4 pt-lg-0 content">
-              <h3>Custom Parties</h3>
+            <div class="col-lg-8 pt-4 pt-lg-0 content">
+              <h3>Kakiage Original</h3>
               <div class="price">
-                <p><span>$99</span></p>
+                <p><span>Rp. 39000</span></p>
               </div>
               <p class="font-italic">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua.
+                 Kakiage is a type of tempura that consists of an assortment of seafood and thinly sliced vegetables.
               </p>
               <ul>
-                <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                <li><i class="icofont-check-circled"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-                <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                <li><i class="icofont-check-circled"></i> 100% Halal</li>
+                <li><i class="icofont-check-circled"></i> 100% No MSG</li>
+                <li><i class="icofont-check-circled"></i> 100% Satisfied</li>
               </ul>
               <p>
-                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur
+                Easy to enjoy, fulfill your hunger, and bring you happiness!
               </p>
             </div>
           </div>
@@ -298,169 +313,13 @@
       </div>
     </section><!-- End Events Section -->
 
-    <!-- ======= Testimonials Section ======= -->
-    <!-- <section id="testimonials" class="testimonials section-bg">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Testimonials</h2>
-          <p>What they're saying about us</p>
-        </div>
-
-        <div class="owl-carousel testimonials-carousel" data-aos="zoom-in" data-aos-delay="100">
-
-          <div class="testimonial-item">
-            <p>
-              <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-              Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
-              <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-            </p>
-            <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-            <h3>Saul Goodman</h3>
-            <h4>Ceo &amp; Founder</h4>
-          </div>
-
-          <div class="testimonial-item">
-            <p>
-              <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-              Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-              <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-            </p>
-            <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-            <h3>Sara Wilsson</h3>
-            <h4>Designer</h4>
-          </div>
-
-          <div class="testimonial-item">
-            <p>
-              <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-              Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-              <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-            </p>
-            <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-            <h3>Jena Karlis</h3>
-            <h4>Store Owner</h4>
-          </div>
-
-          <div class="testimonial-item">
-            <p>
-              <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-              Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-              <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-            </p>
-            <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-            <h3>Matt Brandon</h3>
-            <h4>Freelancer</h4>
-          </div>
-
-          <div class="testimonial-item">
-            <p>
-              <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-              Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
-              <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-            </p>
-            <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-            <h3>John Larson</h3>
-            <h4>Entrepreneur</h4>
-          </div>
-
-        </div>
-
-      </div>
-    </section> -->
-    <!-- End Testimonials Section -->
-
-    <!-- ======= Gallery Section ======= -->
-    <!-- <section id="gallery" class="gallery">
-
-      <div class="container" data-aos="fade-up">
-        <div class="section-title">
-          <h2>Gallery</h2>
-          <p>Some photos from Our Restaurant</p>
-        </div>
-      </div>
-
-      <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row no-gutters">
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-1.jpg" class="venobox" data-gall="gallery-item">
-                <img src="assets/img/gallery/gallery-1.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-2.jpg" class="venobox" data-gall="gallery-item">
-                <img src="assets/img/gallery/gallery-2.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-3.jpg" class="venobox" data-gall="gallery-item">
-                <img src="assets/img/gallery/gallery-3.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-4.jpg" class="venobox" data-gall="gallery-item">
-                <img src="assets/img/gallery/gallery-4.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-5.jpg" class="venobox" data-gall="gallery-item">
-                <img src="assets/img/gallery/gallery-5.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-6.jpg" class="venobox" data-gall="gallery-item">
-                <img src="assets/img/gallery/gallery-6.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-7.jpg" class="venobox" data-gall="gallery-item">
-                <img src="assets/img/gallery/gallery-7.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-8.jpg" class="venobox" data-gall="gallery-item">
-                <img src="assets/img/gallery/gallery-8.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section> -->
-    <!-- End Gallery Section -->
-
     <!-- ======= Chefs Section ======= -->
     <section id="chefs" class="chefs">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
           <h2>オーナーズ</h2>
-          <p>The Creators of Restaurantly</p>
+          <p>The Creators of SushiPay</p>
         </div>
 
         <div class="row">
@@ -474,10 +333,10 @@
                   <span>The Creative Owner</span>
                 </div>
                 <div class="social">
-                  <a href=""><i class="icofont-twitter"></i></a>
-                  <a href=""><i class="icofont-facebook"></i></a>
-                  <a href=""><i class="icofont-instagram"></i></a>
-                  <a href=""><i class="icofont-linkedin"></i></a>
+                  <a href="https://www.instagram.com/steven_lie9/"><i class="icofont-twitter"></i></a>
+                  <a href="https://www.instagram.com/steven_lie9/"><i class="icofont-facebook"></i></a>
+                  <a href="https://www.instagram.com/steven_lie9/"><i class="icofont-instagram"></i></a>
+                  <a href="https://www.instagram.com/steven_lie9/"><i class="icofont-linkedin"></i></a>
                 </div>
               </div>
             </div>
@@ -492,10 +351,10 @@
                   <span>The Quality Owner</span>
                 </div>
                 <div class="social">
-                  <a href=""><i class="icofont-twitter"></i></a>
-                  <a href=""><i class="icofont-facebook"></i></a>
-                  <a href=""><i class="icofont-instagram"></i></a>
-                  <a href=""><i class="icofont-linkedin"></i></a>
+                  <a href="https://www.instagram.com/jryarianto_/"><i class="icofont-twitter"></i></a>
+                  <a href="https://www.instagram.com/jryarianto_/"><i class="icofont-facebook"></i></a>
+                  <a href="https://www.instagram.com/jryarianto_/"><i class="icofont-instagram"></i></a>
+                  <a href="https://www.instagram.com/jryarianto_/"><i class="icofont-linkedin"></i></a>
                 </div>
               </div>
             </div>
@@ -510,10 +369,10 @@
                   <span>The Taste Owner</span>
                 </div>
                 <div class="social">
-                  <a href=""><i class="icofont-twitter"></i></a>
-                  <a href=""><i class="icofont-facebook"></i></a>
-                  <a href=""><i class="icofont-instagram"></i></a>
-                  <a href=""><i class="icofont-linkedin"></i></a>
+                  <a href="https://www.instagram.com/krisnamic/"><i class="icofont-twitter"></i></a>
+                  <a href="https://www.instagram.com/krisnamic/"><i class="icofont-facebook"></i></a>
+                  <a href="https://www.instagram.com/krisnamic/"><i class="icofont-instagram"></i></a>
+                  <a href="https://www.instagram.com/krisnamic/"><i class="icofont-linkedin"></i></a>
                 </div>
               </div>
             </div>
@@ -528,10 +387,10 @@
                   <span>The Idea Owner</span>
                 </div>
                 <div class="social">
-                  <a href=""><i class="icofont-twitter"></i></a>
-                  <a href=""><i class="icofont-facebook"></i></a>
-                  <a href=""><i class="icofont-instagram"></i></a>
-                  <a href=""><i class="icofont-linkedin"></i></a>
+                  <a href="https://www.instagram.com/myqpalzm147/"><i class="icofont-twitter"></i></a>
+                  <a href="https://www.instagram.com/myqpalzm147/"><i class="icofont-facebook"></i></a>
+                  <a href="https://www.instagram.com/myqpalzm147/"><i class="icofont-instagram"></i></a>
+                  <a href="https://www.instagram.com/myqpalzm147/"><i class="icofont-linkedin"></i></a>
                 </div>
               </div>
             </div>
@@ -559,7 +418,7 @@
         <div class="row">
           <div class="col-lg-8">
             <div data-aos="fade-up" style="text-align: center;">
-              <iframe style="border:0; width: 100%; height: 365px; border-radius: 10px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" allowfullscreen></iframe>
+              <div style="width: 100%"><iframe style="border:0; width: 100%; height: 390px; border-radius: 10px;" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Jl.%20Scientia%20Boulevard,%20Gading,%20Kec.%20Serpong,%20Tangerang,%20Banten%2015227+(SushiPay)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe></div>
             </div>
           </div>
 
@@ -568,28 +427,28 @@
               <div class="address">
                 <i class="icofont-google-map" style="color: white;"></i>
                 <h4>Location:</h4>
-                <p style="color: #7c7c7c;">A108 Adam Street, New York, NY 535022</p>
+                <p style="color: #7c7c7c;">Jl. Scientia Boulevard, Gading, Kec. Serpong, Tangerang, Banten 15227</p>
               </div>
 
               <div class="open-hours">
                 <i class="icofont-clock-time icofont-rotate-90" style="color: white;"></i>
                 <h4>Open Hours:</h4>
                 <p style="color: #7c7c7c;">
-                  Monday-Saturday:<br>
-                  11:00 AM - 2300 PM
+                  Monday-Sunday:<br>
+                  10:00 AM - 22:00 PM
                 </p>
               </div>
 
               <div class="email">
                 <i class="icofont-envelope" style="color: white;"></i>
                 <h4>Email:</h4>
-                <p style="color: #7c7c7c;">info@example.com</p>
+                <p style="color: #7c7c7c;">uts.pemweb@student.umn.ac.id</p>
               </div>
 
               <div class="phone">
                 <i class="icofont-phone" style="color: white;"></i>
                 <h4>Call:</h4>
-                <p style="color: #7c7c7c;">+1 5589 55488 55s</p>
+                <p style="color: #7c7c7c;">+62 2239 7773 4893</p>
               </div>
             </div>
           </div>
@@ -598,33 +457,33 @@
     </section><!-- End Contact Section -->
 
     <!-- ======= Contact Section ======= -->
-    <!-- <section id="contact" class="contact">
+    <section id="contact" class="contact">
       <div class="container" data-aos="fade-up">
         <div class="section-title">
-          <h2>Contact</h2>
+          <h2>メッセージ</h2>
           <p>Contact Us</p>
         </div>
       </div>
 
       <div class="container" data-aos="fade-up">
         <div class="row container">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+            <form action="" method="post" role="form" class="php-email-form">
               <div class="form-row">
                 <div class="col-md-6 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" style="background-color: white; color: black;"/>
                   <div class="validate"></div>
                 </div>
                 <div class="col-md-6 form-group">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" style="background-color: white; color: black;"/>
                   <div class="validate"></div>
                 </div>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" style="background-color: white; color: black;"/>
                 <div class="validate"></div>
               </div>
               <div class="form-group">
-                <textarea class="form-control" name="message" rows="8" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                <textarea class="form-control" name="message" rows="8" data-rule="required" data-msg="Please write something for us" placeholder="Message" style="background-color: white; color: black;"></textarea>
                 <div class="validate"></div>
               </div>
               <div class="mb-3">
@@ -632,11 +491,11 @@
                 <div class="error-message"></div>
                 <div class="sent-message">Your message has been sent. Thank you!</div>
               </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
+              <div class="text-center d-flex flex-row-reverse"><a href="mailto:uts.pemweb@student.umn.ac.id"><button type="button" class="btn btn-primary">Send Message</button></a></div>
             </form>
         </div>
       </div>
-    </section> -->
+    </section>
     <!-- End Contact Section -->
 
   </main><!-- End #main -->
@@ -649,50 +508,44 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="footer-info">
-              <h3>Restaurantly</h3>
-              <p>
-                A108 Adam Street <br>
-                NY 535022, USA<br><br>
-                <strong>Phone:</strong> +1 5589 55488 55<br>
-                <strong>Email:</strong> info@example.com<br>
+              <a href="index.php" class="logo mr-auto"><img src="assets/img/logo.jpg" alt="" class="img-fluid" width="200"></a>
+              
+              <p style="padding-top: 15px;">
+                Jl. Scientia Boulevard, Gading,<br>
+                Kec. Serpong, Tangerang, Banten 15227<br><br>
+                <strong>Phone:</strong> +62 2239 7773 4893<br>
+                <strong>Email:</strong> uts.pemweb@student.umn.ac.id<br>
               </p>
-              <div class="social-links mt-3">
-                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-              </div>
             </div>
           </div>
 
           <div class="col-lg-2 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#hero">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#menu">Menu</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="checkout.php">Checkout</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="login.php">Login</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="register.php">Sign Up</a></li>
             </ul>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Services</h4>
+            <h4>Our Hot Products</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Mix Karaage Set</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Shrimp Bomb</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Kakiage Original</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a style="cursor: pointer;">Karaage Spicy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">California Roll</a></li>
             </ul>
           </div>
 
           <div class="col-lg-4 col-md-6 footer-newsletter">
-            <h4>Our Newsletter</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
+            <h4>Subscribe to Our Newsletter</h4>
+            <p>Subscribe to get our latest products and hot promo of our products!</p>
+            <form action="" method="">
+              <input type="email" name="email"><input type="submit" value="Subscribe" onclick="location.href='mailto:uts.pemweb@student.umn.ac.id';">
             </form>
 
           </div>
@@ -703,7 +556,7 @@
 
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong><span>Restaurantly</span></strong>. All Rights Reserved
+        &copy; Copyright <strong><span>SushiPay</span></strong>. All Rights Reserved
       </div>
     </div>
   </footer><!-- End Footer -->

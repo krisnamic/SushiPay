@@ -8,7 +8,7 @@ session_start();
 
 //for kicking uninvited guest
 if (isset($_SESSION["login"])) {
-    header("Location: index.php");
+    header("location: index.php");
     exit;
 }
 
@@ -58,7 +58,7 @@ if (isset($_POST["login"])) {
             if ($row['role'] == "user") {
                 // create user session
                 $_SESSION['user'] = true;
-                header("location:user.php");
+                header("location:index.php");
                 exit;
             }
         }

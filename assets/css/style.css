@@ -1006,7 +1006,7 @@ section {
 }
 
 .menu .menu-content {
-  margin-left: 85px;
+  /* margin-left: 85px; */
   overflow: hidden;
   display: flex;
   justify-content: space-between;
@@ -1018,7 +1018,7 @@ section {
  "...................................................................."
  "....................................................................";
   position: absolute;
-  left: 20px;
+  left: 0;
   right: 0;
   top: -4px;
   z-index: 1;
@@ -1050,7 +1050,6 @@ section {
 }
 
 .menu .menu-ingredients {
-  margin-left: 85px;
   font-style: italic;
   font-size: 14px;
   font-family: "Arial";
@@ -1668,6 +1667,8 @@ section {
   color: #fff;
   background-color: #fa3d16;
   border-color: #fa3d16;
+  transition: 0.4s;
+  border-radius: 20px;
 }
 
 .btn-primary:hover {
