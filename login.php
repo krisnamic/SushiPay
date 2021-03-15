@@ -95,41 +95,25 @@ if (isset($_POST["login"])) {
 
 <body>
 
-  <!-- ======= Top Bar ======= -->
-  <div id="topbar" class="d-flex align-items-center fixed-top">
-    <div class="container d-flex">
-      <div class="contact-info mr-auto">
-        <i class="icofont-phone"></i> +1 5589 55488 55
-        <span class="d-none d-lg-inline-block"><i class="icofont-clock-time icofont-rotate-180"></i> Mon-Sat: 11:00 AM - 23:00 PM</span>
-      </div>
-      <div class="languages">
-        <ul>
-          <li>En</li>
-          <li><a href="#">De</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo mr-auto"><a href="index.html">Restaurantly</a></h1>
+      <!-- <h1 class="logo mr-auto"><a href="index.html">Restaurantly</a></h1> -->
       <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      <a href="index.php" class="logo mr-auto"><img src="assets/img/logo/logo-red.png" onmouseover="this.src='assets/img/logo/logo-white.png';" onmouseout="this.src='assets/img/logo/logo-red.png';" alt="" class="img-fluid"></a>
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class="active"><a href="index.html">Home</a></li>
+          <!-- <li class="active"><a href="index.html">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#menu">Menu</a></li>
           <li><a href="#specials">Specials</a></li>
           <li><a href="#events">Events</a></li>
           <li><a href="#gallery">Gallery</a></li>
-          <li><a href="#chefs">Chefs</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li class="book-a-table text-center"><a href="#book-a-table">Book a table</a></li>
+          <li><a href="#chefs">Chefs</a></li>-->
+          <li><a href="checkout.php"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li>
+          <li class="book-a-table text-center"><a href="login.php">Login</a></li>
         </ul>
       </nav><!-- .nav-menu -->
 
@@ -143,7 +127,7 @@ if (isset($_POST["login"])) {
       <div class="container" data-aos="fade-up" class="login">
 
         <div class="section-title-checkout">
-          <h2>Login</h2>
+          <h2 style="font-family: 'Meiryo';">ログイン</h2>
           <p>Sign In to SushiPay</p>
         </div>
 
@@ -208,14 +192,21 @@ if (isset($_POST["login"])) {
             </div>
 
             <div class="form-group">
-              <button class="button login" type="submit" name="login">Sign in!</button>
+              <button class="btn btn-primary login" type="submit" name="login">Sign In</button>
             </div>
           </div>
         </form>
 
         <form action="" method="GET" class="php-email-form">
-          <div class="form-group">
-            <button class="button register" type="submit" name="register">Sign up!</button>
+          <div class="d-inline-flex flex-row align-items-center" style="vertical-align: center;">
+            <div class="form-group text-center">
+              <span style="color:grey;">Need an account?</span>
+            </div>
+            <div class="form-group text-center">
+              <button class="btn btn-link register" type="submit" name="register" center>
+                Sign up!
+              </button>
+            </div>
           </div>
         </form>
       </div>

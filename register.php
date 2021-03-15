@@ -3,7 +3,7 @@
 require 'functions.php';
 
 if (isset($_POST["register"])) {
-   
+
   $password = mysqli_real_escape_string($db, $_POST["password"]);
   $password2 = mysqli_real_escape_string($db, $_POST["password2"]);
     if (register($_POST) > 0) {
@@ -51,41 +51,25 @@ if (isset($_GET["backToLogin"])) {
 
 <body>
 
-  <!-- ======= Top Bar ======= -->
-  <div id="topbar" class="d-flex align-items-center fixed-top">
-    <div class="container d-flex">
-      <div class="contact-info mr-auto">
-        <i class="icofont-phone"></i> +1 5589 55488 55
-        <span class="d-none d-lg-inline-block"><i class="icofont-clock-time icofont-rotate-180"></i> Mon-Sat: 11:00 AM - 23:00 PM</span>
-      </div>
-      <div class="languages">
-        <ul>
-          <li>En</li>
-          <li><a href="#">De</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo mr-auto"><a href="index.html">Restaurantly</a></h1>
+      <!-- <h1 class="logo mr-auto"><a href="index.html">Restaurantly</a></h1> -->
       <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      <a href="index.php" class="logo mr-auto"><img src="assets/img/logo/logo-red.png" onmouseover="this.src='assets/img/logo/logo-white.png';" onmouseout="this.src='assets/img/logo/logo-red.png';" alt="" class="img-fluid"></a>
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class="active"><a href="index.html">Home</a></li>
+          <!-- <li class="active"><a href="index.html">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#menu">Menu</a></li>
           <li><a href="#specials">Specials</a></li>
           <li><a href="#events">Events</a></li>
           <li><a href="#gallery">Gallery</a></li>
-          <li><a href="#chefs">Chefs</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li class="book-a-table text-center"><a href="#book-a-table">Book a table</a></li>
+          <li><a href="#chefs">Chefs</a></li>-->
+          <li><a href="checkout.php"><i class="icofont-cart-alt" style="font-size: 35px; color:white;"></i></a></li>
+          <li class="book-a-table text-center"><a href="login.php">Login</a></li>
         </ul>
       </nav><!-- .nav-menu -->
 
@@ -99,62 +83,82 @@ if (isset($_GET["backToLogin"])) {
       <div class="container" data-aos="fade-up" class="login">
 
         <div class="section-title-checkout">
-          <h2>Register</h2>
+          <h2>サインアップ</h2>
           <p>Sign Up to SushiPay</p>
         </div>
 
         <form action="" method="post" autocomplete="off" class="needs-validation php-email-form" novalidate>
-          <div class="container-items">
+          <div class="container-items d-flex flex-column">
 
-            <div class="form-group">
+            <div class="col-lg-12 form-group">
               <label for="email">Email :</label>
               <input type="email" name="email" class="form-control" id="email" placeholder="Please input email here!" required>
               <div class="invalid-feedback">Email harus diisi</div>
             </div>
 
-            <div class="form-group">
+            <div class="col-lg-12 form-group">
               <label for="username">Username :</label>
               <input type="text" name="username" class="form-control" id="username" placeholder="Please input username here!" required>
               <div class="invalid-feedback">Username harus diisi</div>
             </div>
 
-            <div class="form-group">
-              <label for="firstname">First Name :</label>
-              <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Please input firstname here!" required>
-              <div class="invalid-feedback">Nama depan harus diisi</div>
+            <div class="d-flex">
+              <div class="col-lg-6 form-group">
+                <label for="firstname">First Name :</label>
+                <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Please input firstname here!" required>
+                <div class="invalid-feedback">Nama depan harus diisi</div>
+              </div>
+
+              <div class="col-lg-6 form-group">
+                <label for="lastname">Last Name :</label>
+                <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Please input lastname here!" required>
+                <div class="invalid-feedback">Nama belakang harus diisi</div>
+              </div>
             </div>
 
-            <div class="form-group">
-              <label for="lastname">Last Name :</label>
-              <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Please input lastname here!" required>
-              <div class="invalid-feedback">Nama belakang harus diisi</div>
-            </div>
 
-            <div class="form-group">
+            <div class="col-lg-12 form-group">
               <label for="birthdate">Birth Date :</label>
               <input type="date" name="birthdate" class="form-control" id="birthdate" required>
               <div class="invalid-feedback">Tanggal lahir harus diisi</div>
             </div>
 
-            <div class="form-group">
-              <label for="gender">Gender</label><br/>
+            <!-- <div class="col-lg-12 form-group">
+              <label for="gender">Gender :</label><br/>
               <input type="radio" name="gender" id="female" value="f" required>
-              <label for="gender">Female</label><br/>
+              <label for="gender">Female</label>
               <input type="radio" name="gender" id="male" value="m" required>
               <label for="gender">Male</label>
               <div class="invalid-feedback">Jenis kelamin harus diisi</div>
+            </div> -->
+
+            <div class="col-lg-12 form-group">
+              <label for="gender">Gender :</label><br/>
+
+              <select class="custom-select" id="gender" name="gender">
+                <option value="f">Female</option>
+                <option value="m">Male</option>
+              </select>
+
+              <!-- <input type="radio" name="gender" id="female" value="f" required>
+              <label for="gender">Female</label>
+              <input type="radio" name="gender" id="male" value="m" required>
+              <label for="gender">Male</label>
+              <div class="invalid-feedback">Jenis kelamin harus diisi</div> -->
             </div>
 
-            <div class="form-group">
-              <label for="password">Password :</label>
-              <input type="password" name="password" class="form-control" id="password" placeholder="**" required>
-              <div class="invalid-feedback">Password harus diisi</div>
-            </div>
+            <div class="d-flex">
+              <div class="col-lg-6 form-group">
+                <label for="password">Password :</label>
+                <input type="password" name="password" class="form-control" id="password" placeholder="Please input password here!" required>
+                <div class="invalid-feedback">Password harus diisi</div>
+              </div>
 
-            <div class="form-group">
-              <label for="password2">Confirmation password:</label>
-              <input type="password" name="password2" class="form-control" id="password2" placeholder="**" required>
-              <div class="invalid-feedback">Konfirmasi password harus diisi</div>
+              <div class="col-lg-6 form-group">
+                <label for="password2">Confirmation password:</label>
+                <input type="password" name="password2" class="form-control" id="password2" placeholder="Please input password confirmation here!" required>
+                <div class="invalid-feedback">Konfirmasi password harus diisi</div>
+              </div>
             </div>
 
             <?php
@@ -167,23 +171,29 @@ if (isset($_GET["backToLogin"])) {
               }
             ?>
 
-            <div class="section-title-checkout" style="padding-top: 10px;">
-              <h2>Captcha</h2>
-            </div>
-
-            <div class="form-group">
-               <?php include 'captcha.php' ?>
-            </div>
-
-            <div class="form-group" style="padding-top: 15px;">
-              <button class="button signup-register" type="submit" name="register">Sign up!</button>
+            <div class="col-lg-12 form-group">
+              <button class="btn btn-primary signup-register" type="submit" name="register">Sign Up</button>
             </div>
 
           </div>
         </form>
 
-        <form action="" method="GET" class="php-email-form pull-right">
-          <button class="button back-register" type="submit" name="backToLogin">Back to login</button>
+        <form action="" method="GET" class="php-email-form">
+          <!-- <div class="d-flex">
+            <button class="btn btn-link back-register" type="submit" name="backToLogin">Back to login</button>
+          </div> -->
+
+          <div class="container-items d-flex flex-column">
+            <div class="col-lg-12 d-inline-flex flex-row align-items-center" style="vertical-align: center;">
+              <div class="form-group text-center">
+                <span style="color:grey;">Already has an account?</span>
+              </div>
+              <div class="form-group text-center">
+                <button class="btn btn-link back-register" type="submit" name="backToLogin">Sign in!</button>
+              </div>
+            </div>
+          </div>
+
         </form>
 
       </div>

@@ -1,3 +1,35 @@
+<?php
+
+session_start();
+if (!isset($_SESSION["user"])) {
+    header("Location: user.php");
+    exit;
+}
+require "functions.php";
+$userid = $_SESSION['user_id'];
+
+$query = "SELECT detailPesanan.hargaMenu, detailPesanan.jumlah, menu.namaMenu, menu.gambarMenu, detailPesanan.hargaMenu * detailPesanan.jumlah 'Total Harga'
+FROM detailPesanan
+JOIN menu
+ON detailPesanan.ID_menu = menu.ID_Menu
+JOIN pesanan
+ON detailPesanan.ID_Pesanan = pesanan.ID_Pesanan
+JOIN account
+ON pesanan.ID_User = account.ID
+WHERE account.ID = $userid;";
+$result = mysqli_query($db, $query);
+$tes = mysqli_affected_rows($db);
+
+$total = 0;
+foreach ($result as $res) :
+  $total += $res["Total Harga"];
+endforeach;
+
+if (isset($_POST["backtohome"])) {
+    header("Location: user.php");
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,7 +89,7 @@
 
       <!-- <h1 class="logo mr-auto"><a href="index.html">Restaurantly</a></h1> -->
       <!-- Uncomment below if you prefer to use an image logo -->
-      <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>
+      <a href="index.php" class="logo mr-auto"><img src="assets/img/logo/logo-red.png" onmouseover="this.src='assets/img/logo/logo-white.png';" onmouseout="this.src='assets/img/logo/logo-red.png';" alt="" class="img-fluid"></a>
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
@@ -83,42 +115,27 @@
       <div class="container" data-aos="fade-up">
 
         <div class="section-title-checkout">
-          <h2>Checkout</h2>
+          <h2>チェックアウト</h2>
           <p>Shopping Cart</p>
         </div>
 
         <div class="d-inline-flex align-items-start bd-highlight mb-3">
           <div class="col-lg-8 row checkout-container d-flex align-items-center" data-aos="fade-up" data-aos-delay="200">
 
-            <div class="col-lg-12 checkout-item filter-starters">
-              <img src="assets/img/menu/lobster-bisque.jpg" class="checkout-img" alt="">
-              <div class="checkout-content">
-                <a href="#">Lobster Bisque</a><span>Total: $5.95</span>
+            <?php foreach ($result as $res) : ?>
+              <div class="col-lg-12 checkout-item filter-starters">
+                <img src="./menu_img/<?= $res["gambarMenu"] ?>" class="checkout-img" alt="">
+                <div class="checkout-content">
+                  <a href="#"><?= $res["namaMenu"] ?></a><span>Total: Rp.<?= number_format($res["Total Harga"],0,',','.') ?>,-</span>
+                </div>
+                <div class="checkout-desc">
+                  Price: Rp.<?= number_format($res["hargaMenu"],0,',','.') ?>,-<br/>
+                  Quantity: <?= $res["jumlah"] ?>
+                </div>
               </div>
-              <div class="checkout-desc">
-                Lorem, deren, trataro, filede, nerada
-              </div>
-            </div>
+            <?php endforeach; ?>
 
-            <div class="col-lg-12 checkout-item filter-specialty">
-              <img src="assets/img/menu/bread-barrel.jpg" class="checkout-img" alt="">
-              <div class="checkout-content">
-                <a href="#">Bread Barrel</a><span>Total: $6.95</span>
-              </div>
-              <div class="checkout-desc">
-                Lorem, deren, trataro, filede, nerada
-              </div>
-            </div>
 
-            <div class="col-lg-12 checkout-item filter-starters">
-              <img src="assets/img/menu/cake.jpg" class="checkout-img" alt="">
-              <div class="checkout-content">
-                <a href="#">Crab Cake</a><span>Total: $6.95</span>
-              </div>
-              <div class="checkout-desc">
-                <p>Quantity: test</p>
-              </div>
-            </div>
 
           </div>
 
@@ -129,15 +146,12 @@
               <hr/>
             </div>
 
-            <div class="col-lg-12 d-flex justify-content-between">
-              <p>Total Cost:</p>
-              <p>$9.99</p>
-            </div>
-
-            <div class="col-lg-12 d-flex justify-content-between">
-              <p>Total Cost:</p>
-              <p>$9.99</p>
-            </div>
+            <?php foreach ($result as $res) : ?>
+              <div class="col-lg-12 d-flex justify-content-between">
+                <p><?= $res["namaMenu"] ?></p>
+                <p><?= number_format($res["Total Harga"],0,',','.') ?></p>
+              </div>
+            <?php endforeach; ?>
 
             <!-- tambahin php looping -->
 
@@ -147,7 +161,7 @@
 
             <div class="col-lg-12 d-flex justify-content-between">
               <p>Total Cost:</p>
-              <p>$9.99</p>
+              <p>Rp.<?= number_format($total,0,',','.') ?>,-</p>
             </div>
 
             <!-- <ul class="list-unstyled text-center">
@@ -183,7 +197,7 @@
 
           <!-- Modal footer -->
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color:  #fa3d16;">Close</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>

@@ -318,7 +318,7 @@ if (isset($_POST['pesan'])) {
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-          <h2>オーナー</h2>
+          <h2>オーナーズ</h2>
           <p>The Creators of SushiPay</p>
         </div>
 
@@ -401,7 +401,7 @@ if (isset($_POST['pesan'])) {
       </div>
     </section><!-- End Chefs Section -->
 
-    
+
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
       <div class="container" data-aos="fade-up">
@@ -412,7 +412,7 @@ if (isset($_POST['pesan'])) {
         </div>
       </div>
 
-      
+
 
       <div class="container" data-aos="fade-up">
         <div class="row">
